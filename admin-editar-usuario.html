@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario | Panel Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul class="admin-menu">
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="admin-productos.html">Gestión Productos</a></li>
+                <li><a href="admin-usuarios.html" class="activo">Gestión Usuarios</a></li>
+                <li><a href="#">Órdenes / Pedidos</a></li>
+                <li><a href="index.html" style="margin-top: 2rem; background: #e74c3c;">Cerrar Sesión</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Editar Usuario</h2>
+                <a href="admin-usuarios.html" class="btn btn-small" style="background-color: #666; color: white;">Volver al Listado</a>
+            </div>
+
+            <section class="contenedor-formulario" style="margin: 0; max-width: 600px;">
+                <form id="form-admin-usuario-editar">
+                    
+                    <div class="form-group">
+                        <label for="rut-user-ed">RUT:</label>
+                        <input type="text" id="rut-user-ed" value="19011022K" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre-user-ed">Nombre Completo:</label>
+                        <input type="text" id="nombre-user-ed" value="Juan Pérez" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-user-ed">Correo Electrónico:</label>
+                        <input type="email" id="email-user-ed" value="juan@duoc.cl" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol-user-ed">Rol en el Sistema:</label>
+                        <select id="rol-user-ed" required>
+                            <option value="administrador" selected>Administrador</option>
+                            <option value="vendedor">Vendedor</option>
+                            <option value="cliente">Cliente</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-block">Actualizar Usuario</button>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

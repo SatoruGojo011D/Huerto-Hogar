@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Producto | Panel Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul class="admin-menu">
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="admin-productos.html" class="activo">Gestión Productos</a></li>
+                <li><a href="#">Gestión Usuarios</a></li>
+                <li><a href="#">Órdenes / Pedidos</a></li>
+                <li><a href="index.html" style="margin-top: 2rem; background: #e74c3c;">Cerrar Sesión</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Añadir Nuevo Producto</h2>
+                <a href="admin-productos.html" class="btn btn-small" style="background-color: #666; color: white;">Volver al Listado</a>
+            </div>
+
+            <section class="contenedor-formulario" style="margin: 0; max-width: 600px;">
+                <form id="form-producto">
+                    
+                    <div class="form-group">
+                        <label for="codigo-prod">Código del Producto:</label>
+                        <input type="text" id="codigo-prod" placeholder="Ej: PROD-001" required>
+                        <small id="error-codigo">El código debe tener al menos 3 caracteres.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre-prod">Nombre:</label>
+                        <input type="text" id="nombre-prod" placeholder="Ej: Manzanas Orgánicas" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria-prod">Categoría:</label>
+                        <select id="categoria-prod" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="frutas">Frutas</option>
+                            <option value="verduras">Verduras</option>
+                            <option value="lacteos">Lácteos y Huevos</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="precio-prod">Precio ($):</label>
+                            <input type="number" id="precio-prod" placeholder="0" required>
+                            <small id="error-precio">El precio no puede ser negativo.</small>
+                        </div>
+
+                        <div class="form-group" style="flex: 1;">
+                            <label for="stock-prod">Stock (Unidades/Kg):</label>
+                            <input type="number" id="stock-prod" placeholder="0" required>
+                            <small id="error-stock">El stock no puede ser negativo.</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-block">Guardar Producto</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

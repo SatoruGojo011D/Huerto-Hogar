@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos | Huerto Hogar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul class="admin-menu">
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="admin-productos.html" class="activo">Gestión Productos</a></li>
+                <li><a href="#">Gestión Usuarios</a></li>
+                <li><a href="#">Órdenes / Pedidos</a></li>
+                <li><a href="index.html" style="margin-top: 2rem; background: #e74c3c;">Cerrar Sesión</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Inventario de Productos</h2>
+                <a href="admin-nuevo-producto.html" class="btn">➕ Nuevo Producto</a>
+            </div>
+
+            <table class="tabla-admin">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PROD-001</td>
+                        <td>Manzanas Orgánicas</td>
+                        <td>Frutas</td>
+                        <td>$2.500</td>
+                        <td>45</td>
+                        <td>
+                            <a href="#" class="btn btn-small">Editar</a>
+                            <button class="btn btn-small btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>PROD-002</td>
+                        <td>Lechuga Hidropónica</td>
+                        <td>Verduras</td>
+                        <td>$1.200</td>
+                        <td style="color: red; font-weight: bold;">2 (Crítico)</td>
+                        <td>
+                            <a href="#" class="btn btn-small">Editar</a>
+                            <button class="btn btn-small btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

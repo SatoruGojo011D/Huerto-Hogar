@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin | Huerto Hogar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- BARRA LATERAL -->
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul class="admin-menu">
+                <li><a href="admin-dashboard.html" class="activo">Dashboard</a></li>
+                <li><a href="admin-productos.html">Gestión Productos</a></li>
+                <li><a href="#">Gestión Usuarios</a></li>
+                <li><a href="#">Órdenes / Pedidos</a></li>
+                <li><a href="index.html" style="margin-top: 2rem; background: #e74c3c;">Cerrar Sesión</a></li>
+            </ul>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Bienvenido, Administrador</h2>
+                <span>Fecha: <script>document.write(new Date().toLocaleDateString());</script></span>
+            </div>
+
+            <div class="grid-productos">
+                <!-- Tarjetas de resumen estadístico -->
+                <article class="card-producto" style="text-align: left;">
+                    <h3 style="color: #666; font-size: 1rem;">Ventas del Mes</h3>
+                    <p style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">$1.250.000</p>
+                </article>
+                
+                <article class="card-producto" style="text-align: left;">
+                    <h3 style="color: #666; font-size: 1rem;">Productos Activos</h3>
+                    <p style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">45</p>
+                </article>
+
+                <article class="card-producto" style="text-align: left;">
+                    <h3 style="color: #666; font-size: 1rem;">Nuevos Usuarios</h3>
+                    <p style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">12</p>
+                </article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

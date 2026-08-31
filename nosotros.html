@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huerto Hogar | Nosotros</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .botones-ciudades {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .btn-ciudad {
+            padding: 8px 16px;
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn-ciudad:hover {
+            background-color: #1e5c3a;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><h1>Huerto Hogar</h1></div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Buscar productos...">
+            <button>🔍</button>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html" style="color: var(--primary-color);">Nosotros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <a href="carrito.html" style="text-decoration: none; color: inherit;">
+                🛒 <span id="cart-counter">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="seccion-nosotros">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2>Nuestra Historia</h2>
+            <p style="max-width: 800px; margin: 1rem auto; line-height: 1.6; color: #555;">
+                Con más de 6 años de experiencia, Huerto Hogar es una tienda online dedicada a llevar la frescura y calidad de los productos del campo directamente a la puerta de nuestros clientes. Nuestra misión es conectar a las familias chilenas con el campo, promoviendo un estilo de vida saludable y sostenible.
+            </p>
+        </div>
+
+        <div style="text-align: center;">
+            <h2>Nuestras Ubicaciones</h2>
+            <p style="color: #555; margin-top: 0.5rem; max-width: 800px; margin: 0 auto 1.5rem auto;">
+                Operamos en más de 9 puntos a lo largo del país. Haz clic en tu ciudad para ver la ubicación exacta de nuestra tienda en el mapa:
+            </p>
+
+            <!-- Botones interactivos con direcciones específicas para forzar el marcador -->
+            <div class="botones-ciudades">
+                <button class="btn-ciudad" onclick="cambiarMapa('Av. Recoleta 1234, Santiago, Chile')">Santiago</button>
+                <button class="btn-ciudad" onclick="cambiarMapa('Urmeneta 123, Puerto Montt, Chile')">Puerto Montt</button>
+                <button class="btn-ciudad" onclick="cambiarMapa('Camilo Henríquez 456, Villarrica, Chile')">Villarica</button>
+                <button class="btn-ciudad" onclick="cambiarMapa('Freire 789, Nacimiento, Chile')">Nacimiento</button>
+                <button class="btn-ciudad" onclick="cambiarMapa('Av. Libertad 123, Viña del Mar, Chile')">Viña del Mar</button>
+                <button class="btn-ciudad" onclick="cambiarMapa('Condell 456, Valparaíso, Chile')">Valparaíso</button>
+                <button class="btn-ciudad" onclick="cambiarMapa('Barros Arana 789, Concepción, Chile')">Concepción</button>
+            </div>
+            
+            <div class="mapa-container">
+                <iframe 
+                    id="mapa-tiendas"
+                    src="https://maps.google.com/maps?q=Chile&t=&z=5&ie=UTF8&iwloc=&output=embed" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+    </footer>
+
+    <script>
+        function cambiarMapa(direccion) {
+            const iframe = document.getElementById('mapa-tiendas');
+            const busqueda = encodeURIComponent(direccion);
+            // Al buscar una dirección con calle y número, Google Maps coloca el marcador rojo (pin)
+            iframe.src = `https://maps.google.com/maps?q=${busqueda}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+        }
+    </script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huerto Hogar | Catálogo de Productos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header>
+        <div class="logo">
+            <h1>Huerto Hogar</h1>
+        </div>
+        
+        <!-- Barra de Búsqueda -->
+        <div class="search-container">
+            <input type="text" placeholder="Buscar productos...">
+            <button>🔍</button>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html" style="color: var(--primary-color);">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="seguimiento.html">Mis Envíos</a></li>
+                <li><a href="login.html">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <a href="carrito.html" style="text-decoration: none; color: inherit;">
+                🛒 <span id="cart-counter">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="contenedor-catalogo">
+        
+        <!-- BARRA LATERAL: FILTROS -->
+        <aside class="sidebar-filtros">
+            <h3>Categorías</h3>
+            <div class="grupo-filtro">
+                <label><input type="checkbox" value="frutas"> Frutas Frescas</label>
+                <label><input type="checkbox" value="verduras"> Verduras Orgánicas</label>
+                <label><input type="checkbox" value="organicos"> Productos Orgánicos</label>
+                <label><input type="checkbox" value="lacteos"> Productos Lácteos</label>
+            </div>
+
+            <h3>Rango de Precio</h3>
+            <div class="grupo-filtro">
+                <label><input type="checkbox" value="bajo"> Menos de $1.000</label>
+                <label><input type="checkbox" value="medio"> $1.000 - $2.000</label>
+                <label><input type="checkbox" value="alto"> Más de $2.000</label>
+            </div>
+            
+            <button class="btn btn-block">Aplicar Filtros</button>
+        </aside>
+
+        <!-- GRILLA DE PRODUCTOS OFICIALES -->
+        <section class="main-catalogo">
+            <div class="grid-productos">
+                <!-- Producto 1 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji">
+                        <h3>Manzanas Fuji</h3>
+                    </a>
+                    <p class="precio">$1.200 / kg</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 2 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=500&q=80" alt="Naranjas Valencia">
+                        <h3>Naranjas Valencia</h3>
+                    </a>
+                    <p class="precio">$1.000 / kg</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 3 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=500&q=80" alt="Plátanos Cavendish">
+                        <h3>Plátanos Cavendish</h3>
+                    </a>
+                    <p class="precio">$800 / kg</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 4 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500&q=80" alt="Zanahorias Orgánicas">
+                        <h3>Zanahorias Orgánicas</h3>
+                    </a>
+                    <p class="precio">$900 / kg</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+                
+                <!-- Producto 5 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&q=80" alt="Espinacas Frescas">
+                        <h3>Espinacas Frescas</h3>
+                    </a>
+                    <p class="precio">$700 / bolsa (500g)</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 6 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=500&q=80" alt="Pimientos Tricolores">
+                        <h3>Pimientos Tricolores</h3>
+                    </a>
+                    <p class="precio">$1.500 / kg</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 7 -->
+                <article class="card-producto">
+                    <a href="detalle-producto.html" style="text-decoration: none; color: inherit;">
+                        <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=500&q=80" alt="Miel Orgánica">
+                        <h3>Miel Orgánica</h3>
+                    </a>
+                    <p class="precio">$5.000 / frasco (500g)</p>
+                    <button class="btn">Añadir al Carrito</button>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

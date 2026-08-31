@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huerto Hogar | Crear Cuenta</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .contenedor-auth {
+            max-width: 450px;
+            margin: 4rem auto;
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .contenedor-auth h2 {
+            text-align: center;
+            color: #2E8B57; /* Verde Esmeralda */
+            margin-bottom: 0.5rem;
+        }
+        .contenedor-auth p.subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        .grupo-form {
+            margin-bottom: 1.2rem;
+        }
+        .grupo-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .grupo-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .grupo-form input:focus {
+            outline: none;
+            border-color: #2E8B57;
+        }
+        .btn-auth {
+            width: 100%;
+            padding: 1rem;
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        .btn-auth:hover {
+            background-color: #1e5c3a;
+        }
+        .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .auth-links a {
+            color: #2E8B57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><h1>Huerto Hogar</h1></div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Buscar productos...">
+            <button>🔍</button>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="seguimiento.html">Mis Envíos</a></li>
+                <li><a href="login.html" style="color: var(--primary-color);">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <a href="carrito.html" style="text-decoration: none; color: inherit;">
+                🛒 <span id="cart-counter">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="contenedor-auth">
+            <h2>Crear una Cuenta</h2>
+            <p class="subtitulo">Únete a Huerto Hogar y recibe productos frescos en tu puerta.</p>
+            
+            <form action="login.html" method="GET" onsubmit="alert('¡Cuenta creada con éxito! Por favor inicia sesión.');">
+                <div class="grupo-form">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" required placeholder="Ej: Juan Pérez">
+                </div>
+                
+                <div class="grupo-form">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" required placeholder="tu@correo.com">
+                </div>
+                
+                <div class="grupo-form">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" required placeholder="Mínimo 8 caracteres">
+                </div>
+
+                <div class="grupo-form">
+                    <label for="confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirm-password" required placeholder="Repite tu contraseña">
+                </div>
+                
+                <div class="grupo-form" style="display: flex; align-items: center; gap: 10px; margin-top: 1rem;">
+                    <input type="checkbox" id="terminos" required style="width: auto;">
+                    <label for="terminos" style="margin: 0; font-weight: normal; font-size: 0.85rem;">Acepto los términos y condiciones.</label>
+                </div>
+
+                <button type="submit" class="btn-auth">Registrarme</button>
+                
+                <div class="auth-links">
+                    ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

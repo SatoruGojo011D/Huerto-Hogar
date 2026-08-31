@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios | Panel Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        
+        <aside class="admin-sidebar">
+            <h2>Panel Admin</h2>
+            <ul class="admin-menu">
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="admin-productos.html">Gestión Productos</a></li>
+                <li><a href="admin-usuarios.html" class="activo">Gestión Usuarios</a></li>
+                <li><a href="#">Órdenes / Pedidos</a></li>
+                <li><a href="index.html" style="margin-top: 2rem; background: #e74c3c;">Cerrar Sesión</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Usuarios del Sistema</h2>
+                <a href="admin-nuevo-usuario.html" class="btn">➕ Nuevo Usuario</a>
+            </div>
+
+            <table class="tabla-admin">
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>19011022K</td>
+                        <td>Juan Pérez</td>
+                        <td>juan@duoc.cl</td>
+                        <td><strong>Administrador</strong></td>
+                        <td>
+                            <a href="admin-editar-usuario.html" class="btn btn-small">Editar</a>
+                            <button class="btn btn-small btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>185554443</td>
+                        <td>María Gómez</td>
+                        <td>maria@gmail.com</td>
+                        <td>Cliente</td>
+                        <td>
+                            <a href="admin-editar-usuario.html" class="btn btn-small">Editar</a>
+                            <button class="btn btn-small btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

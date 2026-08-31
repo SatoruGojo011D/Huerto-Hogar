@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huerto Hogar | Seguimiento de Envíos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .contenedor-seguimiento {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .grupo-formulario {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .grupo-formulario input[type="date"], .grupo-formulario input[type="text"] {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 0.5rem;
+            font-family: inherit;
+        }
+        /* Línea de tiempo para rastreo */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #eee;
+            z-index: 1;
+        }
+        .paso {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        .paso .circulo {
+            width: 35px;
+            height: 35px;
+            background: #eee;
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            line-height: 35px;
+            font-weight: bold;
+            color: #aaa;
+        }
+        .paso.activo .circulo {
+            background: #2E8B57; /* Verde Esmeralda */
+            color: white;
+        }
+        .paso.activo p {
+            color: #2E8B57;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><h1>Huerto Hogar</h1></div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Buscar productos...">
+            <button>🔍</button>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="seguimiento.html" style="color: var(--primary-color);">Mis Envíos</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <a href="carrito.html" style="text-decoration: none; color: inherit;">
+                🛒 <span id="cart-counter">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="contenedor-seguimiento">
+        
+        <!-- Selección de Fecha de Entrega -->
+        <div class="grupo-formulario">
+            <h2 style="color: #8B4513;">Programar Entrega</h2>
+            <p>Selecciona tu fecha de entrega preferida para tus próximos pedidos.</p>
+            <input type="date" id="fecha-entrega">
+            <button class="btn" style="margin-left: 10px;" onclick="alert('Fecha guardada con éxito')">Guardar Fecha</button>
+        </div>
+
+        <!-- Rastreo de Pedido en Tiempo Real -->
+        <div class="grupo-formulario" style="border-bottom: none;">
+            <h2 style="color: #8B4513;">Rastreo de Pedido en Tiempo Real</h2>
+            <p>Ingresa tu número de pedido para conocer su estado actual.</p>
+            <input type="text" placeholder="Ej: HH-98765">
+            <button class="btn" style="margin-left: 10px;" onclick="simularRastreo()">Rastrear</button>
+
+            <!-- Línea de tiempo (Se activa con JS) -->
+            <div class="timeline" id="linea-tiempo" style="opacity: 0.3; pointer-events: none;">
+                <div class="paso" id="paso-1">
+                    <div class="circulo">1</div>
+                    <p>Confirmado</p>
+                </div>
+                <div class="paso" id="paso-2">
+                    <div class="circulo">2</div>
+                    <p>En Preparación</p>
+                </div>
+                <div class="paso" id="paso-3">
+                    <div class="circulo">3</div>
+                    <p>En Camino</p>
+                </div>
+                <div class="paso" id="paso-4">
+                    <div class="circulo">4</div>
+                    <p>Entregado</p>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+    </footer>
+
+    <script>
+        // Función simple para simular el rastreo en tiempo real
+        function simularRastreo() {
+            const timeline = document.getElementById('linea-tiempo');
+            timeline.style.opacity = '1';
+            
+            // Simular estado "En Camino" (paso 1, 2 y 3 activos)
+            document.getElementById('paso-1').classList.add('activo');
+            document.getElementById('paso-2').classList.add('activo');
+            document.getElementById('paso-3').classList.add('activo');
+            document.getElementById('paso-4').classList.remove('activo');
+        }
+    </script>
+    <script src="js/app.js"></script>
+</body>
+</html>

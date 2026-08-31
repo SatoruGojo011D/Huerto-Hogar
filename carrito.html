@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huerto Hogar | Mi Carrito</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Huerto Hogar</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="login.html">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            🛒 <span id="cart-counter">0</span>
+        </div>
+    </header>
+
+    <main class="contenedor-carrito">
+        <h2 style="margin-bottom: 2rem;">Mi Carrito de Compras</h2>
+        
+        <table class="tabla-carrito">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="lista-carrito">
+                <!-- JS inyectará los productos aquí desde el localStorage -->
+                <tr>
+                    <td colspan="5" style="padding: 2rem;">Tu carrito está vacío. <a href="productos.html">Ir a comprar</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="resumen-carrito">
+            <h3>Total a Pagar: <span id="total-carrito">$0</span></h3>
+            <button class="btn">Proceder al Pago</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
