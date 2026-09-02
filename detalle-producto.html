@@ -3,66 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huerto Hogar | Detalle del Producto</title>
+    <title>HuertoHogar | FR001 - Manzanas Fuji</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
+    <!-- CABECERA -->
     <header>
-        <div class="logo">
-            <h1>Huerto Hogar</h1>
-        </div>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
+
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html" style="color: var(--primary-color);">Productos</a></li>
+                <li><a href="productos.html" class="active">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li><a href="login.html">Ingresar</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Mi cuenta</a></li>
             </ul>
         </nav>
-        <div class="cart-icon">
-            <a href="carrito.html" style="text-decoration: none; color: inherit;">
-                🛒 <span id="cart-counter">0</span>
-            </a>
-        </div>
+
+        <a href="carrito.html" class="cart-icon-wrapper">
+            🛒 <span class="cart-badge" id="cart-counter">0</span>
+        </a>
     </header>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <main>
         <section class="contenedor-detalle">
             <div class="imagen-producto">
-                [ Imagen del Producto ]
+                <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=600&q=80" alt="Manzanas Fuji">
             </div>
             
             <div class="info-producto">
-                <h2>Manzanas Orgánicas</h2>
-                <p class="precio-detalle">$2.500 / kg</p>
+                <span class="codigo-producto">CÓDIGO: FR001</span>
+                <h2>Manzanas Fuji</h2>
+                <p class="precio-detalle">$1.200 CLP / kg</p>
+                <p class="stock-detalle">Stock disponible: 150 kilos</p>
                 
-                <p style="margin-bottom: 1rem;">Nuestras manzanas son cultivadas sin pesticidas ni químicos artificiales. Cosechadas a mano para asegurar la mejor calidad y frescura directa a tu mesa.</p>
+                <p>Manzanas Fuji crujientes y dulces, cultivadas en el Valle del Maule. Perfectas para meriendas saludables o como ingrediente en postres. Estas manzanas son conocidas por su textura firme y su sabor equilibrado entre dulce y ácido.</p>
                 
+                <div class="origen-detalle">
+                    <strong>Origen:</strong> Valle del Maule, Chile<br>
+                    <strong>Prácticas Sostenibles:</strong> Cultivo local de huerto orgánico.
+                </div>
+
                 <div class="huella-carbono">
                     <strong>🌿 Impacto Ambiental:</strong>
-                    <p>Huella de Carbono: Muy Baja (0.1 kg CO2 eq/kg). Cultivo local que reduce emisiones por transporte y fomenta la biodiversidad del suelo.</p>
+                    <p>Huella de Carbono: Muy Baja (0.1 kg CO2 eq/kg). Cultivo local que reduce emisiones por transporte y apoya a agricultores de la zona.</p>
                 </div>
 
-                <div class="form-group" style="width: 100px;">
-                    <label for="cantidad">Cantidad (kg):</label>
-                    <input type="number" id="cantidad" value="1" min="1">
+                <div class="form-compra">
+                    <div class="form-group" style="width: 100px;">
+                        <label for="cantidad">Cantidad (kg):</label>
+                        <input type="number" id="cantidad" value="1" min="1" max="150">
+                    </div>
+                    <button class="btn-comprar">Añadir al Carrito</button>
                 </div>
-
-                <button class="btn" style="margin-top: 1rem; width: fit-content;">Añadir al Carrito</button>
                 
-                <hr style="margin: 2rem 0; border-top: 1px solid #eee;">
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #eee;">
                 
                 <h3>Reseñas (4.8/5 ⭐)</h3>
-                <p style="font-size: 0.9rem; color: #666;">"Excelentes manzanas, muy jugosas." - María G.</p>
+                <p class="resena-texto">"Excelentes manzanas Fuji, muy crujientes y dulces." - María G.</p>
             </div>
         </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+                    <h1 class="serif">HuertoHogar</h1>
+                </a>
+                <p>Conectando a las familias chilenas con el campo a través de productos frescos y sostenibles.</p>
+            </div>
+            <div class="footer-col">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="login.html">Mi cuenta</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="serif">Sucursales</h4>
+                <p>Santiago · Viña del Mar · Valparaíso<br>Concepción · Villarrica · Nacimiento · Puerto Montt</p>
+            </div>
+        </div>
     </footer>
 
     <script src="js/app.js"></script>

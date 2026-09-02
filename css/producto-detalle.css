@@ -1,24 +1,53 @@
+/* Importación de tipografías desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600;700&display=swap');
+
+/* Variables globales según la guía técnica del PDF */
+:root {
+    --bg-main: #F7F7F7;        /* Blanco Suave */
+    --primary-color: #2E8B57; /* Verde Esmeralda */
+    --accent-yellow: #FFD700; /* Amarillo Mostaza */
+    --title-color: #8B4513;   /* Marrón Claro */
+    --text-primary: #333333;  /* Gris Oscuro */
+    --text-secondary: #666666;/* Gris Medio */
+    --font-main: 'Montserrat', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+}
+
 /* --- VISTA: DETALLE DEL PRODUCTO --- */
 .contenedor-detalle {
     display: flex;
     gap: 3rem;
-    padding: 3rem 5%;
+    padding: 2.5rem;
     max-width: 1200px;
-    margin: 2rem auto 0 auto;
-    background: white;
+    margin: 2rem auto;
+    background: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .imagen-producto {
     flex: 1;
-    background-color: #eaeaea;
+    background-color: #f0f0f0;
     min-height: 400px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #888;
+    color: var(--text-secondary);
+    overflow: hidden;
+}
+
+.imagen-producto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .info-producto {
@@ -28,28 +57,140 @@
     justify-content: center;
 }
 
+.info-producto .codigo-producto {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+}
+
 .info-producto h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--title-color);
+    margin-bottom: 0.8rem;
 }
 
 .info-producto .precio-detalle {
     font-size: 1.8rem;
     color: var(--primary-color);
     font-weight: bold;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.3rem;
 }
 
+.info-producto .stock-detalle {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+.info-producto p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+/* Sección opcional: Detalles de Origen */
+.origen-detalle {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+}
+
+/* Sección de Impacto Ambiental */
 .huella-carbono {
-    background-color: #e8f5e9;
+    background-color: var(--bg-main);
     border-left: 4px solid var(--primary-color);
     padding: 1rem;
     margin-bottom: 1.5rem;
+    border-radius: 0 6px 6px 0;
+}
+
+.huella-carbono strong {
+    color: var(--primary-color);
     font-size: 0.9rem;
 }
 
+.huella-carbono p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+}
+
+/* Botón y campo de cantidad */
+.form-compra {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.form-group input {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-main);
+}
+
+.btn-comprar {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-family: var(--font-main);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-comprar:hover {
+    background-color: #246e44;
+}
+
+/* Reseñas */
+.info-producto h3 {
+    font-family: var(--font-heading);
+    color: var(--title-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.resena-texto {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Adaptabilidad móvil */
 @media (max-width: 768px) {
     .contenedor-detalle {
         flex-direction: column;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .imagen-producto {
+        min-height: 250px;
+    }
+
+    .form-compra {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-comprar {
+        width: 100%;
     }
 }

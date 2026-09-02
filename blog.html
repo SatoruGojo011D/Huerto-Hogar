@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HuertoHogar | Blog y Noticias</title>
+    <title>HuertoHogar | Blog Informativo</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -32,41 +32,72 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
-        <h2 class="serif" style="font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Noticias y Novedades</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-bottom: 2.5rem;">
-            Historias, técnicas de cultivo sustentables y novedades sobre nuestros productores locales.
-        </p>
+    <main class="container" style="max-width: 850px; margin-top: 3rem; margin-bottom: 4rem;">
+        
+        <!-- ENCABEZADO BLOG -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary-color, #2D6A4F);">Blog & Guías Sustentables</span>
+            <h2 class="serif" style="font-size: 2.2rem; margin-top: 0.4rem; margin-bottom: 0.6rem;">El Arte de Cultivar en Casa</h2>
+            <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                Aprende técnicas orgánicas, consejos de conservación de alimentos y secretos del huerto directamente de nuestros agricultores locales.
+            </p>
+        </div>
 
-        <div class="cart-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <!-- ARTÍCULO PRINCIPAL DESTACADO -->
+        <article class="summary-box" style="padding: 0; overflow: hidden; margin-bottom: 3.5rem;">
+            <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=1000&q=80" alt="Tomates Cherry" style="width: 100%; height: 320px; object-fit: cover; display: block;">
             
-            <!-- Noticia 1 -->
-            <article class="cart-card" style="display: flex; flex-direction: column; overflow: hidden; padding: 0;">
-                <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600&q=80" alt="Tomates de Invierno" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
-                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem;">15 Agosto 2026</span>
-                    <h3 class="serif" style="font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3;">Caso Curioso #1: Tomates de Invierno</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1;">
-                        Descubre cómo nuestros agricultores en Villarrica lograron adaptar una variedad de tomates cherry resistente a las bajas temperaturas.
+            <div style="padding: 2.5rem 2rem;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-color, #2D6A4F); font-weight: 700;">Guía Práctica · 5 min de lectura</span>
+                <h3 class="serif" style="font-size: 1.8rem; margin-top: 0.5rem; margin-bottom: 1rem; line-height: 1.2;">Cómo Mantener tus Verduras Frescas por Más Tiempo</h3>
+                
+                <p style="font-size: 0.95rem; color: #4A5568; line-height: 1.7; margin-bottom: 1.2rem;">
+                    Uno de los mayores desafíos al recibir frutas y verduras frescas cosechadas el mismo día es saber cómo almacenarlas adecuadamente. Al no contener preservantes químicos, los alimentos de huerto requieren cuidados sencillos pero clave para mantener sus nutrientes y textura crujiente durante toda la semana.
+                </p>
+
+                <h4 class="serif" style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">1. Separa las frutas que emiten etileno</h4>
+                <p style="font-size: 0.9rem; color: #4A5568; line-height: 1.6; margin-bottom: 1rem;">
+                    Las manzanas, plátanos y tomates liberan un gas natural llamado etileno que acelera la maduración de las verduras de hoja verde. Guárdalos en recipientes separados para evitar que la lechuga o las espinacas se marchiten antes de tiempo.
+                </p>
+
+                <h4 class="serif" style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">2. Hidratación adecuada para hojas verdes</h4>
+                <p style="font-size: 0.9rem; color: #4A5568; line-height: 1.6; margin-bottom: 1.5rem;">
+                    Lava tus hojas con agua fría apenas las recibas, sécalas muy bien con papel absorbente o centrífuga de verduras y guárdalas dentro de un contenedor hermético en el refrigerador con un trozo de papel toalla en la base para absorber la humedad extra.
+                </p>
+
+                <div style="background-color: #F4EFEA; padding: 1.2rem 1.5rem; border-left: 4px solid var(--primary-color, #2D6A4F); border-radius: 4px; margin-top: 1.5rem;">
+                    <p style="font-size: 0.88rem; font-style: italic; color: #333; margin: 0;">
+                        "Cuidar el origen de los alimentos es tan importante como saber conservarlos en casa. El respeto por la cosecha nos ayuda a evitar el desperdicio."
                     </p>
-                    <a href="#" class="btn-checkout" style="display: block; text-align: center; text-decoration: none; padding: 0.6rem;">Leer artículo</a>
                 </div>
+            </div>
+        </article>
+
+        <!-- SECCIÓN DE ARTÍCULOS SECUNDARIOS -->
+        <h3 class="serif" style="font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">Otras lecturas recomendadas</h3>
+
+        <div class="cart-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+            
+            <article class="summary-box" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--primary-color, #2D6A4F); font-weight: 700; margin-bottom: 0.4rem;">Sustentabilidad</span>
+                <h4 class="serif" style="font-size: 1.15rem; margin-bottom: 0.6rem;">Compostaje Urbano Paso a Paso</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; flex-grow: 1;">
+                    Aprende a transformar los restos orgánicos de tu cocina en abono de alta calidad para tus plantas de balcón o jardín.
+                </p>
+                <a href="#" style="color: var(--primary-color, #2D6A4F); font-weight: 600; font-size: 0.85rem; text-decoration: none;">Leer consejo →</a>
             </article>
 
-            <!-- Noticia 2 -->
-            <article class="cart-card" style="display: flex; flex-direction: column; overflow: hidden; padding: 0;">
-                <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&q=80" alt="Agricultura Regenerativa" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
-                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem;">02 Agosto 2026</span>
-                    <h3 class="serif" style="font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3;">Beneficios de la Agricultura Regenerativa</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1;">
-                        Conoce el impacto positivo de nuestras prácticas agrícolas en la recuperación de los suelos y la preservación del agua en el sur de Chile.
-                    </p>
-                    <a href="#" class="btn-checkout" style="display: block; text-align: center; text-decoration: none; padding: 0.6rem;">Leer artículo</a>
-                </div>
+            <article class="summary-box" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--primary-color, #2D6A4F); font-weight: 700; margin-bottom: 0.4rem;">Temporada</span>
+                <h4 class="serif" style="font-size: 1.15rem; margin-bottom: 0.6rem;">¿Por qué consumir productos de estación?</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; flex-grow: 1;">
+                    Descubre los beneficios nutricionales y el menor impacto ambiental que genera elegir frutas cosechadas en su ciclo natural.
+                </p>
+                <a href="#" style="color: var(--primary-color, #2D6A4F); font-weight: 600; font-size: 0.85rem; text-decoration: none;">Leer consejo →</a>
             </article>
 
         </div>
+
     </main>
 
     <!-- FOOTER -->
