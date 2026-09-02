@@ -1,0 +1,47 @@
+/* --- VISTA: BLOG --- */
+.seccion-blog {
+    padding: 3rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-blog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card-blog {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.card-blog:hover {
+    transform: translateY(-5px);
+}
+
+.img-blog {
+    width: 100%;
+    height: 200px;
+    background-color: #eaeaea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+}
+
+.contenido-blog {
+    padding: 1.5rem;
+}
+
+.fecha-blog {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}

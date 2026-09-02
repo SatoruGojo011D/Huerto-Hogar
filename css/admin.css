@@ -1,0 +1,78 @@
+/* --- VISTA: PANEL ADMINISTRADOR --- */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 250px;
+    background-color: var(--title-color);
+    color: white;
+    padding: 2rem 1rem;
+}
+
+.admin-sidebar h2 {
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.admin-menu {
+    list-style: none;
+}
+
+.admin-menu li {
+    margin-bottom: 0.5rem;
+}
+
+.admin-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 0.8rem;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.admin-menu a:hover, 
+.admin-menu a.activo {
+    background-color: var(--primary-color);
+}
+
+.admin-content {
+    flex: 1;
+    padding: 2rem 3%;
+    background-color: var(--bg-color);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabla-admin th, 
+.tabla-admin td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.tabla-admin th {
+    background-color: var(--primary-color);
+    color: white;
+}

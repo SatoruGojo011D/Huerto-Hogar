@@ -3,59 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huerto Hogar | Mi Carrito</title>
+    <title>Mi carrito - HuertoHogar</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <h1>Huerto Hogar</h1>
-        </div>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
+
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li><a href="login.html">Ingresar</a></li>
+                <li><a href="login.html">Mi cuenta</a></li>
             </ul>
         </nav>
-        <div class="cart-icon">
-            🛒 <span id="cart-counter">0</span>
-        </div>
+
+        <a href="carrito.html" class="cart-icon-wrapper">
+            🛒 <span class="cart-badge" id="cart-counter">6</span>
+        </a>
     </header>
 
-    <main class="contenedor-carrito">
-        <h2 style="margin-bottom: 2rem;">Mi Carrito de Compras</h2>
-        
-        <table class="tabla-carrito">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody id="lista-carrito">
-                <!-- JS inyectará los productos aquí desde el localStorage -->
-                <tr>
-                    <td colspan="5" style="padding: 2rem;">Tu carrito está vacío. <a href="productos.html">Ir a comprar</a></td>
-                </tr>
-            </tbody>
-        </table>
+    <main class="container">
+        <h2 class="cart-title serif">Mi carrito</h2>
+        <p class="cart-subtitle">Cosechamos tu pedido el día anterior a la entrega.</p>
 
-        <div class="resumen-carrito">
-            <h3>Total a Pagar: <span id="total-carrito">$0</span></h3>
-            <button class="btn">Proceder al Pago</button>
+        <div class="cart-grid">
+            <section class="cart-items">
+                <!-- Item 1 -->
+                <article class="cart-card" data-unit-price="1200">
+                    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=300&q=80" alt="Manzanas Fuji">
+                    <div class="cart-card-info">
+                        <h3 class="serif">Manzanas Fuji</h3>
+                        <p class="unit-price">$1.200 CLP/kg</p>
+                        <div class="qty-control">
+                            <button class="qty-btn btn-minus">−</button>
+                            <span class="qty-val">2</span>
+                            <button class="qty-btn btn-plus">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" title="Eliminar">🗑</button>
+                    <div class="item-total-price">$2.400 CLP</div>
+                </article>
+
+                <!-- Item 2 -->
+                <article class="cart-card" data-unit-price="5000">
+                    <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=300&q=80" alt="Miel Orgánica">
+                    <div class="cart-card-info">
+                        <h3 class="serif">Miel Orgánica</h3>
+                        <p class="unit-price">$5.000 CLP/frasco 500 g</p>
+                        <div class="qty-control">
+                            <button class="qty-btn btn-minus">−</button>
+                            <span class="qty-val">1</span>
+                            <button class="qty-btn btn-plus">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" title="Eliminar">🗑</button>
+                    <div class="item-total-price">$5.000 CLP</div>
+                </article>
+
+                <!-- Item 3 -->
+                <article class="cart-card" data-unit-price="1800">
+                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&q=80" alt="Leche Fresca Entera">
+                    <div class="cart-card-info">
+                        <h3 class="serif">Leche Fresca Entera</h3>
+                        <p class="unit-price">$1.800 CLP/botella 1 L</p>
+                        <div class="qty-control">
+                            <button class="qty-btn btn-minus">−</button>
+                            <span class="qty-val">3</span>
+                            <button class="qty-btn btn-plus">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" title="Eliminar">🗑</button>
+                    <div class="item-total-price">$5.400 CLP</div>
+                </article>
+            </section>
+
+            <aside class="summary-box">
+                <h3 class="serif">Resumen del pedido</h3>
+
+                <div class="summary-item">
+                    <span>Subtotal (<span id="total-count">6</span> ítems)</span>
+                    <strong id="subtotal-text">$12.800 CLP</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Despacho</span>
+                    <strong id="shipping-text">$2.990 CLP</strong>
+                </div>
+
+                <div class="summary-item total-row">
+                    <span>Total</span>
+                    <span class="total-price-text" id="total-text">$15.790 CLP</span>
+                </div>
+
+                <div class="date-picker-box">
+                    <label>📅 Fecha de entrega</label>
+                    <select class="date-select">
+                        <option>Miércoles, 2 De Septiembre · 09:00 - 13:00</option>
+                        <option>Jueves, 3 De Septiembre · 09:00 - 13:00</option>
+                        <option>Viernes, 4 De Septiembre · 14:00 - 18:00</option>
+                    </select>
+                </div>
+
+                <div class="green-impact-card">
+                    <div class="impact-header">
+                        🍃 Huella de carbono reducida
+                    </div>
+                    <div class="impact-value" id="co2-value">2.5 kg CO₂e</div>
+                    <p class="impact-sub">Este pedido evita 72 km de transporte intermediario y usa envases retornables.</p>
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <button class="btn-checkout" onclick="alert('Pedido confirmado con éxito.');">Confirmar Pedido</button>
+                <p class="free-shipping-indicator" id="free-shipping-lbl">Suma $12.200 CLP más para despacho gratis.</p>
+            </aside>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                </a>
+                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+            </div>
+            <div class="footer-col">
+                <ul style="margin-top: 0.5rem;">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="login.html">Mi cuenta</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="serif">Reparto</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
+                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                </p>
+            </div>
+        </div>
     </footer>
 
     <script src="js/app.js"></script>

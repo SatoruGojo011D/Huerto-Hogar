@@ -1,0 +1,10 @@
+/* --- IMPORTACIÓN DE TIPOGRAFÍAS Y VARIABLES --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap');
+
+:root {
+    --bg-color: #F7F7F7;        /* Blanco Suave */
+    --primary-color: #2E8B57;   /* Verde Esmeralda */
+    --accent-color: #FFD700;    /* Amarillo Mostaza */
+    --title-color: #8B4513;     /* Marrón Claro */
+    --text-color: #333333;      /* Texto Oscuro */
+}

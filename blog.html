@@ -3,55 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huerto Hogar | Blog y Noticias</title>
+    <title>HuertoHogar | Blog y Noticias</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
+    <!-- CABECERA -->
     <header>
-        <div class="logo"><h1>Huerto Hogar</h1></div>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
+
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="blog.html" style="color: var(--primary-color);">Blog</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="login.html">Ingresar</a></li>
+                <li><a href="login.html">Mi cuenta</a></li>
             </ul>
         </nav>
-        <div class="cart-icon">🛒 <span id="cart-counter">0</span></div>
+
+        <a href="carrito.html" class="cart-icon-wrapper">
+            🛒 <span class="cart-badge" id="cart-counter">0</span>
+        </a>
     </header>
 
-    <main class="seccion-blog">
-        <h2 style="text-align: center;">Noticias y Novedades</h2>
-        <div class="grid-blog">
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
+        <h2 class="serif" style="font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">Noticias y Novedades</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-bottom: 2.5rem;">
+            Historias, técnicas de cultivo sustentables y novedades sobre nuestros productores locales.
+        </p>
+
+        <div class="cart-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
             
-            <article class="card-blog">
-                <div class="img-blog">[ Imagen Noticia 1 ]</div>
-                <div class="contenido-blog">
-                    <span class="fecha-blog">15 Agosto 2026</span>
-                    <h3>Caso Curioso #1: Tomates de Invierno</h3>
-                    <p>Descubre cómo nuestros agricultores en Villarrica lograron adaptar una variedad de tomates cherry resistente a las bajas temperaturas.</p>
-                    <a href="#" class="btn" style="margin-top: 1rem;">Leer más</a>
+            <!-- Noticia 1 -->
+            <article class="cart-card" style="display: flex; flex-direction: column; overflow: hidden; padding: 0;">
+                <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600&q=80" alt="Tomates de Invierno" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem;">15 Agosto 2026</span>
+                    <h3 class="serif" style="font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3;">Caso Curioso #1: Tomates de Invierno</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1;">
+                        Descubre cómo nuestros agricultores en Villarrica lograron adaptar una variedad de tomates cherry resistente a las bajas temperaturas.
+                    </p>
+                    <a href="#" class="btn-checkout" style="display: block; text-align: center; text-decoration: none; padding: 0.6rem;">Leer artículo</a>
                 </div>
             </article>
 
-            <article class="card-blog">
-                <div class="img-blog">[ Imagen Noticia 2 ]</div>
-                <div class="contenido-blog">
-                    <span class="fecha-blog">02 Agosto 2026</span>
-                    <h3>Beneficios de la Agricultura Regenerativa</h3>
-                    <p>Conoce el impacto positivo de nuestras prácticas agrícolas en la recuperación de los suelos del sur de Chile.</p>
-                    <a href="#" class="btn" style="margin-top: 1rem;">Leer más</a>
+            <!-- Noticia 2 -->
+            <article class="cart-card" style="display: flex; flex-direction: column; overflow: hidden; padding: 0;">
+                <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&q=80" alt="Agricultura Regenerativa" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem;">02 Agosto 2026</span>
+                    <h3 class="serif" style="font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3;">Beneficios de la Agricultura Regenerativa</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1;">
+                        Conoce el impacto positivo de nuestras prácticas agrícolas en la recuperación de los suelos y la preservación del agua en el sur de Chile.
+                    </p>
+                    <a href="#" class="btn-checkout" style="display: block; text-align: center; text-decoration: none; padding: 0.6rem;">Leer artículo</a>
                 </div>
             </article>
 
         </div>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                </a>
+                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+            </div>
+            <div class="footer-col">
+                <ul style="margin-top: 0.5rem;">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="login.html">Mi cuenta</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="serif">Reparto</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
+                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                </p>
+            </div>
+        </div>
     </footer>
 
     <script src="js/app.js"></script>
