@@ -23,6 +23,7 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="noticias.html">Noticias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="seguimiento.html">Seguimiento</a></li>
                 <li><a href="login.html">Mi cuenta</a></li>
             </ul>
         </nav>
@@ -37,60 +38,121 @@
         <h2 class="cart-title serif">Catálogo de Productos</h2>
         <p class="cart-subtitle">Selecciona los mejores productos frescos directamente traídos de la granja.</p>
 
-        <div class="cart-grid" style="grid-template-columns: 240px 1fr;">
-            
+        <div class="catalogo-layout">
+
             <!-- BARRA LATERAL: FILTROS -->
-            <aside class="summary-box" style="padding: 1.2rem;">
-                <h3 class="serif" style="font-size: 1.1rem; margin-bottom: 1rem;">Categorías</h3>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.88rem; margin-bottom: 1.5rem;">
-                    <label><input type="checkbox"> Frutas Frescas</label>
-                    <label><input type="checkbox"> Verduras Orgánicas</label>
-                    <label><input type="checkbox"> Productos Lácteos</label>
-                    <label><input type="checkbox"> Despensa y Miel</label>
-                </div>
+            <!-- Es un <form> real (no solo una lista de checkboxes) para que
+                 el botón "Filtrar" pueda usar el evento "submit" en JS, y
+                 además cada checkbox filtra en vivo con el evento "change"
+                 (ver js/app.js, sección 5). -->
+            <aside class="summary-box filtros-sidebar">
+                <form id="form-filtros">
+                    <h3 class="serif">Categorías</h3>
+                    <div class="lista-filtros">
+                        <label><input type="checkbox" name="categoria" value="frutas"> Frutas Frescas</label>
+                        <label><input type="checkbox" name="categoria" value="verduras"> Verduras Orgánicas</label>
+                        <label><input type="checkbox" name="categoria" value="organicos"> Productos Orgánicos</label>
+                        <label><input type="checkbox" name="categoria" value="lacteos"> Productos Lácteos</label>
+                    </div>
 
-                <h3 class="serif" style="font-size: 1.1rem; margin-bottom: 1rem;">Precio</h3>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.88rem; margin-bottom: 1.5rem;">
-                    <label><input type="checkbox"> Menos de $1.000 CLP</label>
-                    <label><input type="checkbox"> $1.000 - $3.000 CLP</label>
-                    <label><input type="checkbox"> Más de $3.000 CLP</label>
-                </div>
+                    <h3 class="serif">Precio</h3>
+                    <div class="lista-filtros">
+                        <label><input type="checkbox" name="precio" value="bajo"> Menos de $1.000 CLP</label>
+                        <label><input type="checkbox" name="precio" value="medio"> $1.000 - $3.000 CLP</label>
+                        <label><input type="checkbox" name="precio" value="alto"> Más de $3.000 CLP</label>
+                    </div>
 
-                <button class="btn-checkout" style="padding: 0.6rem; font-size: 0.9rem;">Filtrar</button>
+                    <button type="submit" class="btn-checkout" style="padding: 0.6rem; font-size: 0.9rem;">Filtrar</button>
+                </form>
             </aside>
 
             <!-- GRILLA DE PRODUCTOS -->
-            <section style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem;">
-                
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji" style="width: 100%; height: 140px;">
-                    <h3 class="serif" style="margin-top: 0.8rem; font-size: 1rem;">Manzanas Fuji</h3>
-                    <p class="unit-price">$1.200 CLP / kg</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir</button>
-                </article>
+            <div>
+                <!-- Mensaje que se muestra solo si el filtro no encuentra productos -->
+                <p id="sin-resultados" class="sin-resultados" style="display:none;">
+                    No encontramos productos con esos filtros. Prueba desmarcando alguna opción.
+                </p>
 
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=500&q=80" alt="Naranjas Valencia" style="width: 100%; height: 140px;">
-                    <h3 class="serif" style="margin-top: 0.8rem; font-size: 1rem;">Naranjas Valencia</h3>
-                    <p class="unit-price">$1.000 CLP / kg</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir</button>
-                </article>
+                <section class="producto-grid" id="grid-productos" aria-label="Resultados del catálogo">
 
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=500&q=80" alt="Plátanos Cavendish" style="width: 100%; height: 140px;">
-                    <h3 class="serif" style="margin-top: 0.8rem; font-size: 1rem;">Plátanos Cavendish</h3>
-                    <p class="unit-price">$800 CLP / kg</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir</button>
-                </article>
+                    <!-- FRUTAS FRESCAS -->
+                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="1200" data-nombre="Manzanas Fuji">
+                        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji frescas">
+                        <h3 class="serif">Manzanas Fuji</h3>
+                        <p class="unit-price">$1.200 CLP / kg</p>
+                        <p class="stock-info">Stock: 150 kg &middot; Valle del Maule</p>
+                        <button class="btn-checkout btn-agregar" data-id="FR001">Añadir</button>
+                    </article>
 
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=500&q=80" alt="Miel Orgánica" style="width: 100%; height: 140px;">
-                    <h3 class="serif" style="margin-top: 0.8rem; font-size: 1rem;">Miel Orgánica</h3>
-                    <p class="unit-price">$5.000 CLP / frasco</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir</button>
-                </article>
+                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="1000" data-nombre="Naranjas Valencia">
+                        <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=500&q=80" alt="Naranjas Valencia">
+                        <h3 class="serif">Naranjas Valencia</h3>
+                        <p class="unit-price">$1.000 CLP / kg</p>
+                        <p class="stock-info">Stock: 200 kg</p>
+                        <button class="btn-checkout btn-agregar" data-id="FR002">Añadir</button>
+                    </article>
 
-            </section>
+                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="800" data-nombre="Plátanos Cavendish">
+                        <img src="https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=500&q=80" alt="Plátanos Cavendish">
+                        <h3 class="serif">Plátanos Cavendish</h3>
+                        <p class="unit-price">$800 CLP / kg</p>
+                        <p class="stock-info">Stock: 250 kg</p>
+                        <button class="btn-checkout btn-agregar" data-id="FR003">Añadir</button>
+                    </article>
+
+                    <!-- VERDURAS ORGÁNICAS -->
+                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="900" data-nombre="Zanahorias Orgánicas">
+                        <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500&q=80" alt="Zanahorias orgánicas">
+                        <h3 class="serif">Zanahorias Orgánicas</h3>
+                        <p class="unit-price">$900 CLP / kg</p>
+                        <p class="stock-info">Stock: 100 kg &middot; Región de O'Higgins</p>
+                        <button class="btn-checkout btn-agregar" data-id="VR001">Añadir</button>
+                    </article>
+
+                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="700" data-nombre="Espinacas Frescas">
+                        <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&q=80" alt="Espinacas frescas">
+                        <h3 class="serif">Espinacas Frescas</h3>
+                        <p class="unit-price">$700 CLP / bolsa 500g</p>
+                        <p class="stock-info">Stock: 80 bolsas</p>
+                        <button class="btn-checkout btn-agregar" data-id="VR002">Añadir</button>
+                    </article>
+
+                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="1500" data-nombre="Pimientos Tricolores">
+                        <img src="https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=500&q=80" alt="Pimientos tricolores">
+                        <h3 class="serif">Pimientos Tricolores</h3>
+                        <p class="unit-price">$1.500 CLP / kg</p>
+                        <p class="stock-info">Stock: 120 kg</p>
+                        <button class="btn-checkout btn-agregar" data-id="VR003">Añadir</button>
+                    </article>
+
+                    <!-- PRODUCTOS ORGÁNICOS -->
+                    <article class="cart-card producto-card" data-categoria="organicos" data-precio="5000" data-nombre="Miel Orgánica">
+                        <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=500&q=80" alt="Miel orgánica">
+                        <h3 class="serif">Miel Orgánica</h3>
+                        <p class="unit-price">$5.000 CLP / frasco 500g</p>
+                        <p class="stock-info">Stock: 50 frascos &middot; Apicultores locales</p>
+                        <button class="btn-checkout btn-agregar" data-id="PO001">Añadir</button>
+                    </article>
+
+                    <article class="cart-card producto-card" data-categoria="organicos" data-precio="3200" data-nombre="Quinua Orgánica">
+                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80" alt="Quinua orgánica">
+                        <h3 class="serif">Quinua Orgánica</h3>
+                        <p class="unit-price">$3.200 CLP / kg</p>
+                        <p class="stock-info">Stock: 60 kg</p>
+                        <button class="btn-checkout btn-agregar" data-id="PO003">Añadir</button>
+                    </article>
+
+                    <!-- PRODUCTOS LÁCTEOS -->
+                    <article class="cart-card producto-card" data-categoria="lacteos" data-precio="1800" data-nombre="Leche Entera">
+                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&q=80" alt="Leche entera">
+                        <h3 class="serif">Leche Entera</h3>
+                        <p class="unit-price">$1.800 CLP / botella 1L</p>
+                        <p class="stock-info">Stock: 90 botellas &middot; Granjas locales</p>
+                        <button class="btn-checkout btn-agregar" data-id="PL001">Añadir</button>
+                    </article>
+
+                </section>
+            </div>
         </div>
     </main>
 
@@ -124,6 +186,8 @@
         </div>
     </footer>
 
+    <!-- Los filtros de categoría/precio y el botón "Añadir" están
+         conectados en js/app.js, sección 5. -->
     <script src="js/app.js"></script>
 </body>
 </html>
