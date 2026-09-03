@@ -21,6 +21,7 @@
                 <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html" class="active">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="seguimiento.html">Seguimiento</a></li>
                 <li><a href="login.html">Mi cuenta</a></li>
@@ -46,7 +47,7 @@
             </p>
         </section>
 
-        <!-- MISIÓN / VISIÓN (contenido tomado directamente del enunciado del caso) -->
+        <!-- MISIÓN / VISIÓN -->
         <section aria-label="Misión y Visión">
             <div class="mision-vision-grid">
                 <div class="mision-vision-card">
@@ -73,22 +74,15 @@
                     </p>
                 </div>
             </div>
-        
+        </section>
 
-        <!-- MAPA DE UBICACIONES: las 7 ciudades pedidas en el enunciado -->
-        <section class="summary-box" style="text-align: center;">
+        <!-- MAPA DE UBICACIONES -->
+        <section class="summary-box" style="text-align: center; margin-top: 2rem;">
             <h3 class="serif">Nuestras Ubicaciones</h3>
             <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
                 Haz clic en la ciudad deseada para localizar nuestro centro de acopio más cercano:
             </p>
 
-            <!-- Cada botón guarda la DIRECCIÓN EXACTA del local en
-                 data-direccion (no solo el nombre de la ciudad), para que
-                 Google Maps ponga un pin en un punto concreto y no solo
-                 centre la vista general de la ciudad. El nombre visible
-                 del local va en data-nombre y se muestra bajo el mapa.
-                 (*) Direcciones de referencia: reemplázalas por las
-                 direcciones reales de los locales cuando las tengan. -->
             <div class="grupo-ciudades">
                 <button type="button" class="btn-checkout btn-ciudad activo"
                     data-direccion="Av. Providencia 1208, Providencia, Santiago, Chile"
@@ -114,8 +108,6 @@
             </div>
 
             <div class="mapa-wrapper">
-                <!-- z=16: zoom cercano, así se ve el pin del local y no solo
-                     el contorno general de la ciudad -->
                 <iframe
                     id="mapa-tiendas"
                     src="https://maps.google.com/maps?q=Av.+Providencia+1208,+Providencia,+Santiago,+Chile&t=&z=16&ie=UTF8&iwloc=&output=embed"
@@ -128,7 +120,6 @@
                 </iframe>
             </div>
 
-            <!-- Texto que confirma qué local está mostrando el mapa en este momento -->
             <p id="direccion-actual" class="texto-ayuda" style="margin-top: 0.8rem;">
                 Mostrando: HuertoHogar Santiago — Av. Providencia 1208, Providencia
             </p>
@@ -150,6 +141,9 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Catálogo</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="seguimiento.html">Seguimiento</a></li>
                     <li><a href="login.html">Mi cuenta</a></li>
                 </ul>
