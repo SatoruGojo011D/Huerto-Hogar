@@ -3,158 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huerto Hogar | Seguimiento de Envíos</title>
+    <title>HuertoHogar | Seguimiento de Envíos</title>
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        .contenedor-seguimiento {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .grupo-formulario {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #eee;
-        }
-        .grupo-formulario input[type="date"], .grupo-formulario input[type="text"] {
-            padding: 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
-            max-width: 300px;
-            margin-top: 0.5rem;
-            font-family: inherit;
-        }
-        /* Línea de tiempo para rastreo */
-        .timeline {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            position: relative;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #eee;
-            z-index: 1;
-        }
-        .paso {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            flex: 1;
-        }
-        .paso .circulo {
-            width: 35px;
-            height: 35px;
-            background: #eee;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            line-height: 35px;
-            font-weight: bold;
-            color: #aaa;
-        }
-        .paso.activo .circulo {
-            background: #2E8B57; /* Verde Esmeralda */
-            color: white;
-        }
-        .paso.activo p {
-            color: #2E8B57;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
 
+    <!-- CABECERA -->
     <header>
-        <div class="logo"><h1>Huerto Hogar</h1></div>
-        
-        <div class="search-container">
-            <input type="text" placeholder="Buscar productos...">
-            <button>🔍</button>
-        </div>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
 
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="seguimiento.html" style="color: var(--primary-color);">Mis Envíos</a></li>
+                <li><a href="seguimiento.html" class="active">Seguimiento</a></li>
+                <li><a href="login.html">Mi cuenta</a></li>
             </ul>
         </nav>
-        <div class="cart-icon">
-            <a href="carrito.html" style="text-decoration: none; color: inherit;">
-                🛒 <span id="cart-counter">0</span>
-            </a>
-        </div>
+
+        <a href="carrito.html" class="cart-icon-wrapper">
+            🛒 <span class="cart-badge" id="cart-counter">0</span>
+        </a>
     </header>
 
-    <main class="contenedor-seguimiento">
-        
-        <!-- Selección de Fecha de Entrega -->
-        <div class="grupo-formulario">
-            <h2 style="color: #8B4513;">Programar Entrega</h2>
-            <p>Selecciona tu fecha de entrega preferida para tus próximos pedidos.</p>
-            <input type="date" id="fecha-entrega">
-            <button class="btn" style="margin-left: 10px;" onclick="alert('Fecha guardada con éxito')">Guardar Fecha</button>
-        </div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" style="max-width: 750px;">
+        <h2 class="cart-title serif">Seguimiento de Pedidos</h2>
+        <p class="cart-subtitle">Programa tu entrega y revisa el estado de tu pedido en tiempo real.</p>
 
-        <!-- Rastreo de Pedido en Tiempo Real -->
-        <div class="grupo-formulario" style="border-bottom: none;">
-            <h2 style="color: #8B4513;">Rastreo de Pedido en Tiempo Real</h2>
-            <p>Ingresa tu número de pedido para conocer su estado actual.</p>
-            <input type="text" placeholder="Ej: HH-98765">
-            <button class="btn" style="margin-left: 10px;" onclick="simularRastreo()">Rastrear</button>
+        <div class="summary-box">
 
-            <!-- Línea de tiempo (Se activa con JS) -->
-            <div class="timeline" id="linea-tiempo" style="opacity: 0.3; pointer-events: none;">
-                <div class="paso" id="paso-1">
-                    <div class="circulo">1</div>
-                    <p>Confirmado</p>
+            <!-- BLOQUE 1: Selección de fecha de entrega -->
+            <section class="bloque-seguimiento" aria-labelledby="titulo-fecha">
+                <h3 id="titulo-fecha" style="color: var(--title-brown); margin-bottom: 0.4rem;">Programar Entrega</h3>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Selecciona tu fecha de entrega preferida para tus próximos pedidos.
+                </p>
+
+                <form id="form-fecha-entrega" novalidate>
+                    <div class="fila-inline">
+                        <div class="form-group">
+                            <label for="fecha-entrega">Fecha de entrega</label>
+                            <!-- El atributo "min" se fija por JS al día de hoy,
+                                 para que no se puedan elegir fechas pasadas -->
+                            <input type="date" id="fecha-entrega" name="fecha-entrega" autocomplete="off">
+                            <small class="mensaje-error"></small>
+                        </div>
+                        <button type="submit" class="btn-checkout" style="width: auto; padding: 0.8rem 1.5rem; align-self: flex-start; margin-top: 1.55rem;">
+                            Guardar Fecha
+                        </button>
+                    </div>
+                    <p class="texto-ayuda aviso-exito" id="aviso-fecha" style="text-align:left; margin-top: 0.8rem;"></p>
+                </form>
+            </section>
+
+            <!-- BLOQUE 2: Rastreo de pedido en tiempo real -->
+            <section class="bloque-seguimiento" aria-labelledby="titulo-rastreo">
+                <h3 id="titulo-rastreo" style="color: var(--title-brown); margin-bottom: 0.4rem;">Rastreo de Pedido en Tiempo Real</h3>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Ingresa tu número de pedido para conocer su estado actual.
+                </p>
+
+                <form id="form-rastreo" novalidate>
+                    <div class="fila-inline">
+                        <div class="form-group">
+                            <label for="codigo-pedido">Número de pedido</label>
+                            <!-- autocomplete="off": es un dato de un solo uso,
+                                 no tiene sentido que el navegador lo recuerde -->
+                            <input type="text" id="codigo-pedido" name="codigo-pedido" autocomplete="off" placeholder="Ej: HH-98765">
+                            <small class="mensaje-error"></small>
+                            <small class="texto-ayuda">Prueba con HH-10234, HH-55321, HH-98765 o HH-40001.</small>
+                        </div>
+                        <button type="submit" class="btn-checkout" style="width: auto; padding: 0.8rem 1.5rem; align-self: flex-start; margin-top: 1.55rem;">
+                            Rastrear
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Línea de tiempo: inicia semi-transparente y se activa
+                     con JS cuando se rastrea un pedido válido -->
+                <div class="timeline" id="linea-tiempo" style="opacity: 0.35; pointer-events: none;">
+                    <div class="paso" id="paso-1">
+                        <div class="circulo">1</div>
+                        <p>Confirmado</p>
+                    </div>
+                    <div class="paso" id="paso-2">
+                        <div class="circulo">2</div>
+                        <p>En Preparación</p>
+                    </div>
+                    <div class="paso" id="paso-3">
+                        <div class="circulo">3</div>
+                        <p>En Camino</p>
+                    </div>
+                    <div class="paso" id="paso-4">
+                        <div class="circulo">4</div>
+                        <p>Entregado</p>
+                    </div>
                 </div>
-                <div class="paso" id="paso-2">
-                    <div class="circulo">2</div>
-                    <p>En Preparación</p>
-                </div>
-                <div class="paso" id="paso-3">
-                    <div class="circulo">3</div>
-                    <p>En Camino</p>
-                </div>
-                <div class="paso" id="paso-4">
-                    <div class="circulo">4</div>
-                    <p>Entregado</p>
-                </div>
-            </div>
+            </section>
+
         </div>
-        
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Huerto Hogar - Proyecto Desarrollo Fullstack II</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                </a>
+                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+            </div>
+            <div class="footer-col">
+                <ul style="margin-top: 0.5rem;">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="seguimiento.html">Seguimiento</a></li>
+                    <li><a href="login.html">Mi cuenta</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="serif">Reparto</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
+                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                </p>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        // Función simple para simular el rastreo en tiempo real
-        function simularRastreo() {
-            const timeline = document.getElementById('linea-tiempo');
-            timeline.style.opacity = '1';
-            
-            // Simular estado "En Camino" (paso 1, 2 y 3 activos)
-            document.getElementById('paso-1').classList.add('activo');
-            document.getElementById('paso-2').classList.add('activo');
-            document.getElementById('paso-3').classList.add('activo');
-            document.getElementById('paso-4').classList.remove('activo');
-        }
-    </script>
+    <!-- Toda la lógica de este formulario (fecha mínima, validación del
+         código de pedido, animación de la línea de tiempo) vive en
+         js/app.js, sección 4, para mantener un único archivo JS externo. -->
     <script src="js/app.js"></script>
 </body>
 </html>

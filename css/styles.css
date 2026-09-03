@@ -395,3 +395,370 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* =====================================================
+   FORMULARIOS CON VALIDACIÓN JS
+   (registro, seguimiento, contacto, login)
+   ===================================================== */
+
+/* Estructura de cada campo: label + input + mensaje de error */
+.form-group {
+    margin-bottom: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background: #FAF8F5;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
+}
+
+/* Estado inválido: se agrega con JS cuando un campo no pasa la validación */
+.form-group input.campo-invalido,
+.form-group select.campo-invalido,
+.form-group textarea.campo-invalido {
+    border-color: #E74C3C;
+    background: #FDEDEC;
+}
+
+/* Estado válido: feedback positivo cuando el campo ya se corrigió */
+.form-group input.campo-valido,
+.form-group select.campo-valido,
+.form-group textarea.campo-valido {
+    border-color: var(--primary-green);
+}
+
+/* Mensaje de error personalizado, oculto por defecto y mostrado por JS */
+.form-group .mensaje-error {
+    display: none;
+    color: #E74C3C;
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
+}
+
+.form-group .mensaje-error.visible {
+    display: block;
+}
+
+/* Texto de ayuda/sugerencia (siempre visible, no es error) */
+.form-group .texto-ayuda {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+}
+
+/* Fila de checkbox (términos y condiciones, filtros) */
+.fila-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.fila-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 0.2rem;
+    accent-color: var(--primary-green);
+}
+
+.fila-checkbox label {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-dark);
+}
+
+/* Aviso general de éxito al enviar un formulario */
+.aviso-exito {
+    display: none;
+    background: var(--badge-bg);
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.aviso-exito.visible {
+    display: block;
+}
+
+/* =====================================================
+   SEGUIMIENTO DE PEDIDOS
+   ===================================================== */
+
+.bloque-seguimiento {
+    margin-bottom: 2.2rem;
+    padding-bottom: 2.2rem;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.bloque-seguimiento:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.fila-inline {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.fila-inline .form-group {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 0;
+}
+
+/* Línea de tiempo del pedido */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--border-light);
+    z-index: 1;
+}
+
+.paso {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.paso .circulo {
+    width: 34px;
+    height: 34px;
+    background: #EFECE6;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    line-height: 34px;
+    font-weight: bold;
+    color: var(--text-muted);
+    transition: background 0.3s, color 0.3s;
+}
+
+.paso p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.paso.activo .circulo {
+    background: var(--primary-green);
+    color: #fff;
+}
+
+.paso.activo p {
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+/* =====================================================
+   CATÁLOGO DE PRODUCTOS (productos.html)
+   ===================================================== */
+
+.catalogo-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.filtros-sidebar {
+    padding: 1.3rem;
+}
+
+.filtros-sidebar h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+}
+
+.lista-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.4rem;
+}
+
+.lista-filtros label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.lista-filtros input[type="checkbox"] {
+    accent-color: var(--primary-green);
+}
+
+.producto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+}
+
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1rem;
+}
+
+.producto-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.producto-card h3 {
+    margin-top: 0.8rem;
+    font-size: 1rem;
+}
+
+.producto-card .stock-info {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.producto-card .btn-checkout {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    margin-top: auto;
+}
+
+/* Mensaje cuando el filtro no arroja resultados */
+.sin-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem;
+}
+
+/* =====================================================
+   PÁGINA NOSOTROS
+   ===================================================== */
+
+.mision-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0 3rem 0;
+}
+
+.mision-vision-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.mision-vision-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+}
+
+.mision-vision-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.grupo-ciudades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-ciudad {
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.btn-ciudad.activo {
+    background: var(--primary-hover);
+}
+
+.mapa-wrapper {
+    width: 100%;
+    height: 350px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Video embebido, responsive 16:9 */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 2rem 0 3rem 0;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@media (max-width: 850px) {
+    .catalogo-layout {
+        grid-template-columns: 1fr;
+    }
+    .mision-vision-grid {
+        grid-template-columns: 1fr;
+    }
+}
