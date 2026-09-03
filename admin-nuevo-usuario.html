@@ -3,61 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Usuario | Panel Admin</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Nuevo Usuario - Huerto Hogar</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="admin-container">
-        
-        <aside class="admin-sidebar">
-            <h2>Panel Admin</h2>
-            <ul class="admin-menu">
-                <li><a href="admin-dashboard.html">Dashboard</a></li>
-                <li><a href="admin-productos.html">Gestión Productos</a></li>
-                <li><a href="admin-usuarios.html" class="activo">Gestión Usuarios</a></li>
-                <li><a href="#">Órdenes / Pedidos</a></li>
-                <li><a href="index.html" style="margin-top: 2rem; background: #e74c3c;">Cerrar Sesión</a></li>
-            </ul>
+        <aside class="sidebar">
+            <div class="sidebar-header"><h2><i class="fas fa-leaf"></i> Huerto Hogar</h2></div>
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+                <a href="admin-productos.html" class="nav-item"><i class="fas fa-box"></i><span>Productos</span></a>
+                <a href="admin-usuarios.html" class="nav-item active"><i class="fas fa-users"></i><span>Usuarios</span></a>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Volver al Sitio</span></a>
+            </nav>
         </aside>
 
-        <main class="admin-content">
-            <div class="admin-header">
-                <h2>Añadir Nuevo Usuario</h2>
-                <a href="admin-usuarios.html" class="btn btn-small" style="background-color: #666; color: white;">Volver al Listado</a>
+        <main class="main-content">
+            <header class="header">
+                <h1>Registrar Nuevo Usuario</h1>
+                <div class="user-info"><span>Admin</span><i class="fas fa-user-circle"></i></div>
+            </header>
+
+            <div class="content">
+                <div class="card">
+                    <div class="card-header"><h2><i class="fas fa-user-plus"></i> Información del Usuario</h2></div>
+                    <div class="card-body">
+                        <form id="formNuevoUsuario" class="form">
+                            <div class="form-group">
+                                <label for="nombreUser">Nombre Completo *</label>
+                                <input type="text" id="nombreUser" required placeholder="Ej: Pedro Pérez">
+                                <span class="error-message" id="error-nombreUser"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="emailUser">Correo Electrónico *</label>
+                                <input type="email" id="emailUser" required placeholder="usuario@ejemplo.com">
+                                <span class="error-message" id="error-emailUser"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passUser">Contraseña *</label>
+                                <input type="password" id="passUser" required placeholder="Mínimo 8 caracteres">
+                                <span class="error-message" id="error-passUser"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rolUser">Rol de Usuario *</label>
+                                <select id="rolUser" required>
+                                    <option value="">Seleccione un rol</option>
+                                    <option value="cliente">Cliente</option>
+                                    <option value="editor">Editor de Contenido</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                                <span class="error-message" id="error-rolUser"></span>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Crear Usuario</button>
+                                <a href="admin-usuarios.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <section class="contenedor-formulario" style="margin: 0; max-width: 600px;">
-                <form id="form-admin-usuario">
-                    
-                    <div class="form-group">
-                        <label for="rut-user">RUT (Sin puntos ni guion):</label>
-                        <input type="text" id="rut-user" placeholder="Ej: 19011022K" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nombre-user">Nombre Completo:</label>
-                        <input type="text" id="nombre-user" placeholder="Ej: Juan Pérez" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email-user">Correo Electrónico:</label>
-                        <input type="email" id="email-user" placeholder="ejemplo@duoc.cl" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rol-user">Rol en el Sistema:</label>
-                        <select id="rol-user" required>
-                            <option value="">Selecciona un rol</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="vendedor">Vendedor</option>
-                            <option value="cliente">Cliente</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-block">Guardar Usuario</button>
-                </form>
-            </section>
         </main>
     </div>
+    <script src="js/admin.js"></script>
 </body>
 </html>
