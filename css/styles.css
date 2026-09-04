@@ -398,10 +398,8 @@ footer {
 
 /* =====================================================
    FORMULARIOS CON VALIDACIÓN JS
-   (registro, seguimiento, contacto, login)
    ===================================================== */
 
-/* Estructura de cada campo: label + input + mensaje de error */
 .form-group {
     margin-bottom: 1.3rem;
     display: flex;
@@ -439,7 +437,6 @@ footer {
     box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
 }
 
-/* Estado inválido: se agrega con JS cuando un campo no pasa la validación */
 .form-group input.campo-invalido,
 .form-group select.campo-invalido,
 .form-group textarea.campo-invalido {
@@ -447,14 +444,12 @@ footer {
     background: #FDEDEC;
 }
 
-/* Estado válido: feedback positivo cuando el campo ya se corrigió */
 .form-group input.campo-valido,
 .form-group select.campo-valido,
 .form-group textarea.campo-valido {
     border-color: var(--primary-green);
 }
 
-/* Mensaje de error personalizado, oculto por defecto y mostrado por JS */
 .form-group .mensaje-error {
     display: none;
     color: #E74C3C;
@@ -466,14 +461,12 @@ footer {
     display: block;
 }
 
-/* Texto de ayuda/sugerencia (siempre visible, no es error) */
 .form-group .texto-ayuda {
     color: var(--text-muted);
     font-size: 0.75rem;
     margin-top: 0.35rem;
 }
 
-/* Fila de checkbox (términos y condiciones, filtros) */
 .fila-checkbox {
     display: flex;
     align-items: flex-start;
@@ -495,7 +488,6 @@ footer {
     color: var(--text-dark);
 }
 
-/* Aviso general de éxito al enviar un formulario */
 .aviso-exito {
     display: none;
     background: var(--badge-bg);
@@ -541,7 +533,6 @@ footer {
     margin-bottom: 0;
 }
 
-/* Línea de tiempo del pedido */
 .timeline {
     display: flex;
     justify-content: space-between;
@@ -672,7 +663,6 @@ footer {
     margin-top: auto;
 }
 
-/* Mensaje cuando el filtro no arroja resultados */
 .sin-resultados {
     grid-column: 1 / -1;
     text-align: center;
@@ -710,6 +700,60 @@ footer {
     line-height: 1.6;
 }
 
+/* --- SECCIÓN DE REDES SOCIALES (NUEVO) --- */
+.redes-sociales-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border-light);
+}
+
+.redes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+}
+
+.red-card {
+    background: var(--bg-main);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.red-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.red-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.8rem;
+}
+
+.red-card h4 {
+    font-size: 1.05rem;
+    margin: 0.2rem 0;
+}
+
+.red-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    line-height: 1.4;
+}
+
 .grupo-ciudades {
     display: flex;
     flex-wrap: wrap;
@@ -735,7 +779,6 @@ footer {
     overflow: hidden;
 }
 
-/* Video embebido, responsive 16:9 */
 .video-wrapper {
     position: relative;
     width: 100%;
@@ -760,5 +803,183 @@ footer {
     }
     .mision-vision-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* =====================================================
+   CAPA TRANSPARENTE (OVERLAY) EN IMAGEN DE PRODUCTO
+   ===================================================== */
+.img-container {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.overlay-detalles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(43, 122, 75, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-overlay {
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+.img-container:hover .overlay-detalles {
+    opacity: 1;
+}
+
+.img-container:hover img {
+    transform: scale(1.05);
+}
+
+/* =====================================================
+   MODAL DE DETALLES Y RESEÑAS
+   ===================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 1.5rem;
+}
+
+.modal-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.modal-precio-highlight {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin: 0.4rem 0;
+}
+
+.modal-text {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.modal-meta p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.modal-divider {
+    border: 0;
+    border-top: 1px dashed var(--border-light);
+    margin: 1.2rem 0;
+}
+
+.estrellas-rating {
+    display: flex;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #BDC3C7;
+}
+
+.estrellas-rating span.activa {
+    color: #F1C40F;
+}
+
+.lista-resenas {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.item-resena {
+    background: #FAF8F5;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+}
+
+.item-resena .estrellas-val {
+    color: #F1C40F;
+}
+
+@media (max-width: 650px) {
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+    .modal-grid img {
+        height: 160px;
     }
 }

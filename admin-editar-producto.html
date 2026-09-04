@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto - Huerto Hogar</title>
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -12,7 +13,7 @@
         <aside class="sidebar">
             <div class="sidebar-header"><h2><i class="fas fa-leaf"></i> Huerto Hogar</h2></div>
             <nav class="sidebar-nav">
-                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+                <a href="admin.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                 <a href="admin-productos.html" class="nav-item active"><i class="fas fa-box"></i><span>Productos</span></a>
                 <a href="admin-usuarios.html" class="nav-item"><i class="fas fa-users"></i><span>Usuarios</span></a>
                 <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Volver al Sitio</span></a>
@@ -22,47 +23,49 @@
         <main class="main-content">
             <header class="header">
                 <h1>Editar Producto</h1>
-                <div class="user-info"><span>Admin</span><i class="fas fa-user-circle"></i></div>
+                <div class="user-info"><span id="nombreUsuarioNav">Admin</span><i class="fas fa-user-circle"></i></div>
             </header>
 
             <div class="content">
                 <div class="card">
                     <div class="card-header"><h2><i class="fas fa-edit"></i> Modificar Detalles</h2></div>
                     <div class="card-body">
+                        <div id="mensaje-error-editar-producto" style="margin-bottom: 1rem; font-weight: bold;"></div>
                         <form id="formEditarProducto" class="form">
                             <div class="form-group">
                                 <label for="editNombre">Nombre del Producto *</label>
-                                <input type="text" id="editNombre" value="Tomates Orgánicos" required>
+                                <input type="text" id="editNombre" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="editCategoria">Categoría *</label>
                                 <select id="editCategoria" required>
-                                    <option value="verduras" selected>Verduras</option>
-                                    <option value="frutas">Frutas</option>
-                                    <option value="herramientas">Herramientas</option>
-                                    <option value="semillas">Semillas</option>
+                                    <option value="Verduras">Verduras</option>
+                                    <option value="Frutas">Frutas</option>
+                                    <option value="Herramientas">Herramientas</option>
+                                    <option value="Semillas">Semillas</option>
                                 </select>
                             </div>
 
                             <div class="form-row" style="display: flex; gap: 1rem;">
                                 <div class="form-group" style="flex: 1;">
                                     <label for="editPrecio">Precio (CLP) *</label>
-                                    <input type="number" id="editPrecio" value="2500" required>
+                                    <input type="number" id="editPrecio" required>
                                 </div>
                                 <div class="form-group" style="flex: 1;">
                                     <label for="editStock">Stock Disponible *</label>
-                                    <input type="number" id="editStock" value="25" required>
+                                    <input type="text" id="editStock" placeholder="Ej: 25 kg o 50 unidades" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="editDesc">Descripción</label>
-                                <textarea id="editDesc" rows="4">Tomates cultivados sin pesticidas, ideales para ensaladas.</textarea>
+                                <label for="editImagen">Ruta o URL de Imagen</label>
+                                <input type="text" id="editImagen" placeholder="img/producto1.jpg">
                             </div>
 
-                            <div class="form-actions">
+                            <div class="form-actions" style="display: flex; gap: 0.5rem; margin-top: 1rem;">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Actualizar Producto</button>
+                                <button type="button" id="btn-eliminar-producto" class="btn btn-danger" style="background-color: #d32f2f; color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer;"><i class="fas fa-trash"></i> Eliminar</button>
                                 <a href="admin-productos.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
                             </div>
                         </form>
@@ -71,6 +74,8 @@
             </div>
         </main>
     </div>
-    <script src="js/admin.js"></script>
+
+    <!-- Enlace a app.js que contiene toda la lógica global -->
+    <script src="js/app.js"></script>
 </body>
 </html>

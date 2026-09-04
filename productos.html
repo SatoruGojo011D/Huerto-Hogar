@@ -41,10 +41,6 @@
         <div class="catalogo-layout">
 
             <!-- BARRA LATERAL: FILTROS -->
-            <!-- Es un <form> real (no solo una lista de checkboxes) para que
-                 el botón "Filtrar" pueda usar el evento "submit" en JS, y
-                 además cada checkbox filtra en vivo con el evento "change"
-                 (ver js/app.js, sección 5). -->
             <aside class="summary-box filtros-sidebar">
                 <form id="form-filtros">
                     <h3 class="serif">Categorías</h3>
@@ -68,7 +64,6 @@
 
             <!-- GRILLA DE PRODUCTOS -->
             <div>
-                <!-- Mensaje que se muestra solo si el filtro no encuentra productos -->
                 <p id="sin-resultados" class="sin-resultados" style="display:none;">
                     No encontramos productos con esos filtros. Prueba desmarcando alguna opción.
                 </p>
@@ -76,24 +71,39 @@
                 <section class="producto-grid" id="grid-productos" aria-label="Resultados del catálogo">
 
                     <!-- FRUTAS FRESCAS -->
-                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="1200" data-nombre="Manzanas Fuji">
-                        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji frescas">
+                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="1200" data-nombre="Manzanas Fuji"
+                        data-descripcion="Manzanas crocantes y jugosas, recién cosechadas. Ideales para colaciones sanas."
+                        data-origen="Valle del Maule" data-stock="150 kg" data-img="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji frescas">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Manzanas Fuji</h3>
                         <p class="unit-price">$1.200 CLP / kg</p>
                         <p class="stock-info">Stock: 150 kg &middot; Valle del Maule</p>
                         <button class="btn-checkout btn-agregar" data-id="FR001">Añadir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="1000" data-nombre="Naranjas Valencia">
-                        <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=500&q=80" alt="Naranjas Valencia">
+                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="1000" data-nombre="Naranjas Valencia"
+                        data-descripcion="Naranjas dulces con alto contenido de jugo y vitamina C natural."
+                        data-origen="Valle de Azapa" data-stock="200 kg" data-img="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=500&q=80" alt="Naranjas Valencia">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Naranjas Valencia</h3>
                         <p class="unit-price">$1.000 CLP / kg</p>
                         <p class="stock-info">Stock: 200 kg</p>
                         <button class="btn-checkout btn-agregar" data-id="FR002">Añadir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="800" data-nombre="Plátanos Cavendish">
-                        <img src="https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=500&q=80" alt="Plátanos Cavendish">
+                    <article class="cart-card producto-card" data-categoria="frutas" data-precio="800" data-nombre="Plátanos Cavendish"
+                        data-descripcion="Plátanos de textura suave y maduración perfecta para batidos y repostería."
+                        data-origen="Importación Directa" data-stock="250 kg" data-img="https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=500&q=80" alt="Plátanos Cavendish">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Plátanos Cavendish</h3>
                         <p class="unit-price">$800 CLP / kg</p>
                         <p class="stock-info">Stock: 250 kg</p>
@@ -101,24 +111,39 @@
                     </article>
 
                     <!-- VERDURAS ORGÁNICAS -->
-                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="900" data-nombre="Zanahorias Orgánicas">
-                        <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500&q=80" alt="Zanahorias orgánicas">
+                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="900" data-nombre="Zanahorias Orgánicas"
+                        data-descripcion="Cultivadas sin pesticidas en suelos ricos en nutrientes. Sabor Intenso."
+                        data-origen="Región de O'Higgins" data-stock="100 kg" data-img="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=500&q=80" alt="Zanahorias orgánicas">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Zanahorias Orgánicas</h3>
                         <p class="unit-price">$900 CLP / kg</p>
                         <p class="stock-info">Stock: 100 kg &middot; Región de O'Higgins</p>
                         <button class="btn-checkout btn-agregar" data-id="VR001">Añadir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="700" data-nombre="Espinacas Frescas">
-                        <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&q=80" alt="Espinacas frescas">
+                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="700" data-nombre="Espinacas Frescas"
+                        data-descripcion="Hojas verdes lavadas, listas para ensaladas o salteados llenos de hierro."
+                        data-origen="Melipilla" data-stock="80 bolsas" data-img="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&q=80" alt="Espinacas frescas">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Espinacas Frescas</h3>
                         <p class="unit-price">$700 CLP / bolsa 500g</p>
                         <p class="stock-info">Stock: 80 bolsas</p>
                         <button class="btn-checkout btn-agregar" data-id="VR002">Añadir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="1500" data-nombre="Pimientos Tricolores">
-                        <img src="https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=500&q=80" alt="Pimientos tricolores">
+                    <article class="cart-card producto-card" data-categoria="verduras" data-precio="1500" data-nombre="Pimientos Tricolores"
+                        data-descripcion="Surtido de pimientos rojo, verde y amarillo de cultivo bajo invernadero."
+                        data-origen="Limache" data-stock="120 kg" data-img="https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=500&q=80" alt="Pimientos tricolores">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Pimientos Tricolores</h3>
                         <p class="unit-price">$1.500 CLP / kg</p>
                         <p class="stock-info">Stock: 120 kg</p>
@@ -126,16 +151,26 @@
                     </article>
 
                     <!-- PRODUCTOS ORGÁNICOS -->
-                    <article class="cart-card producto-card" data-categoria="organicos" data-precio="5000" data-nombre="Miel Orgánica">
-                        <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=500&q=80" alt="Miel orgánica">
+                    <article class="cart-card producto-card" data-categoria="organicos" data-precio="5000" data-nombre="Miel Orgánica"
+                        data-descripcion="Miel multifloral 100% pura y no procesada de apicultores locales."
+                        data-origen="Apicultores locales" data-stock="50 frascos" data-img="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=500&q=80" alt="Miel orgánica">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Miel Orgánica</h3>
                         <p class="unit-price">$5.000 CLP / frasco 500g</p>
                         <p class="stock-info">Stock: 50 frascos &middot; Apicultores locales</p>
                         <button class="btn-checkout btn-agregar" data-id="PO001">Añadir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-categoria="organicos" data-precio="3200" data-nombre="Quinua Orgánica">
-                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80" alt="Quinua orgánica">
+                    <article class="cart-card producto-card" data-categoria="organicos" data-precio="3200" data-nombre="Quinua Orgánica"
+                        data-descripcion="Superalimento andino rico en proteínas, fibra y libre de gluten."
+                        data-origen="Altiplano Chileno" data-stock="60 kg" data-img="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80" alt="Quinua orgánica">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Quinua Orgánica</h3>
                         <p class="unit-price">$3.200 CLP / kg</p>
                         <p class="stock-info">Stock: 60 kg</p>
@@ -143,8 +178,13 @@
                     </article>
 
                     <!-- PRODUCTOS LÁCTEOS -->
-                    <article class="cart-card producto-card" data-categoria="lacteos" data-precio="1800" data-nombre="Leche Entera">
-                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&q=80" alt="Leche entera">
+                    <article class="cart-card producto-card" data-categoria="lacteos" data-precio="1800" data-nombre="Leche Entera"
+                        data-descripcion="Leche de libre pastoreo Pasteurizada y fresca del día."
+                        data-origen="Granjas de Osorno" data-stock="90 botellas" data-img="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&q=80">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&q=80" alt="Leche entera">
+                            <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                        </div>
                         <h3 class="serif">Leche Entera</h3>
                         <p class="unit-price">$1.800 CLP / botella 1L</p>
                         <p class="stock-info">Stock: 90 botellas &middot; Granjas locales</p>
@@ -155,6 +195,56 @@
             </div>
         </div>
     </main>
+
+    <!-- MODAL DE DETALLES DEL PRODUCTO Y RESEÑAS -->
+    <div id="modal-producto" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-cerrar" id="cerrar-modal">&times;</button>
+            
+            <div class="modal-grid">
+                <img id="modal-img" src="" alt="Producto">
+                <div class="modal-detalles">
+                    <h2 id="modal-titulo" class="serif"></h2>
+                    <p id="modal-precio" class="modal-precio-highlight"></p>
+                    <p id="modal-descripcion" class="modal-text"></p>
+                    
+                    <div class="modal-meta">
+                        <p><strong>Origen:</strong> <span id="modal-origen"></span></p>
+                        <p><strong>Disponibilidad:</strong> <span id="modal-stock"></span></p>
+                    </div>
+
+                    <hr class="modal-divider">
+
+                    <!-- SECCIÓN DE RESEÑAS -->
+                    <div class="seccion-resenas">
+                        <h3 class="serif">Reseñas y Calificación</h3>
+                        
+                        <!-- Formulario de Reseña -->
+                        <form id="form-resena" class="form-resena">
+                            <label>Tu Calificación:</label>
+                            <div class="estrellas-rating" id="selector-estrellas">
+                                <span data-value="1">&#9733;</span>
+                                <span data-value="2">&#9733;</span>
+                                <span data-value="3">&#9733;</span>
+                                <span data-value="4">&#9733;</span>
+                                <span data-value="5">&#9733;</span>
+                            </div>
+                            
+                            <div class="form-group" style="margin-top: 0.8rem;">
+                                <textarea id="texto-resena" rows="2" placeholder="Escribe tu opinión sobre el producto..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-checkout" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Enviar Reseña</button>
+                        </form>
+
+                        <!-- Lista de Comentarios -->
+                        <div class="lista-resenas" id="lista-resenas-contenedor">
+                            <!-- Se renderizan dinámicamente con JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -186,8 +276,6 @@
         </div>
     </footer>
 
-    <!-- Los filtros de categoría/precio y el botón "Añadir" están
-         conectados en js/app.js, sección 5. -->
     <script src="js/app.js"></script>
 </body>
 </html>

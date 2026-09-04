@@ -1,11 +1,23 @@
 /* ======================================================================
    HUERTO HOGAR - app.js
    Este archivo se carga en TODAS las páginas del sitio.
-   Cada bloque revisa primero si los elementos que necesita existen en
-   la página actual (con "if (elemento)") antes de usarlos, así un solo
-   archivo JS puede servir para carrito, registro, seguimiento y catálogo
-   sin generar errores en las páginas donde esos elementos no existen.
    ====================================================================== */
+
+// Helper global para prevenir ataques XSS al renderizar texto dinámico
+function escaparHTML(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+// Función global para actualizar el badge del carrito en el header
+function actualizarBadgeCarrito() {
+    const cantidad = parseInt(localStorage.getItem('hh_carrito_cantidad') || '0', 10);
+    document.querySelectorAll('#cart-counter').forEach(el => el.textContent = cantidad);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -30,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const qtyEl = card.querySelector('.qty-val');
             if (!qtyEl) return; // tarjeta de catálogo, no de carrito
 
-            const qty = parseInt(qtyEl.textContent);
-            const unitPrice = parseInt(card.getAttribute('data-unit-price'));
+            const qty = parseInt(qtyEl.textContent, 10) || 0;
+            const unitPrice = parseInt(card.getAttribute('data-unit-price'), 10) || 0;
             const cardSubtotal = qty * unitPrice;
 
             const itemTotalEl = card.querySelector('.item-total-price');
@@ -41,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subtotal += cardSubtotal;
         });
 
+        // Actualizar datos en pantalla
         if (cartCounter) cartCounter.textContent = itemsQty;
         if (totalCount) totalCount.textContent = itemsQty;
         if (subtotalText) subtotalText.textContent = `$${subtotal.toLocaleString('es-CL')} CLP`;
@@ -59,50 +72,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `Suma $${missing.toLocaleString('es-CL')} CLP más para despacho gratis.`
                 : `¡Tu envío es gratis!`;
         }
+
+        // Sincronizar la cantidad total con el localStorage
+        localStorage.setItem('hh_carrito_cantidad', itemsQty);
+        actualizarBadgeCarrito();
     }
 
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-plus')) {
             const qtyVal = e.target.previousElementSibling;
-            qtyVal.textContent = parseInt(qtyVal.textContent) + 1;
-            calculateCart();
+            if (qtyVal) {
+                qtyVal.textContent = parseInt(qtyVal.textContent || '0', 10) + 1;
+                calculateCart();
+            }
         }
 
         if (e.target.classList.contains('btn-minus')) {
             const qtyVal = e.target.nextElementSibling;
-            const current = parseInt(qtyVal.textContent);
-            if (current > 1) {
-                qtyVal.textContent = current - 1;
-                calculateCart();
+            if (qtyVal) {
+                const current = parseInt(qtyVal.textContent || '0', 10);
+                if (current > 1) {
+                    qtyVal.textContent = current - 1;
+                    calculateCart();
+                }
             }
         }
 
         if (e.target.classList.contains('remove-btn')) {
             const card = e.target.closest('.cart-card');
-            card.remove();
-            calculateCart();
+            if (card) {
+                card.remove();
+                calculateCart();
+            }
         }
     });
 
     calculateCart();
-
-    /* Contador del carrito visible en el header (persistido con localStorage
-       para que el número se mantenga al navegar entre páginas). */
-    function actualizarBadgeCarrito() {
-        const cantidad = parseInt(localStorage.getItem('hh_carrito_cantidad') || '0');
-        document.querySelectorAll('#cart-counter').forEach(el => el.textContent = cantidad);
-    }
     actualizarBadgeCarrito();
 
 
     /* ==================================================================
        2. HELPERS DE VALIDACIÓN
-       Funciones reutilizables para mostrar/ocultar errores en cualquier
-       formulario del sitio, con mensajes personalizados por campo.
        ================================================================== */
-
-    // Muestra un mensaje de error debajo del campo y lo marca como inválido
     function mostrarError(input, mensaje) {
+        if (!input) return;
         input.classList.add('campo-invalido');
         input.classList.remove('campo-valido');
         const contenedor = input.closest('.form-group') || input.parentElement;
@@ -114,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Limpia el error y marca el campo como válido
     function limpiarError(input) {
+        if (!input) return;
         input.classList.remove('campo-invalido');
         input.classList.add('campo-valido');
         const contenedor = input.closest('.form-group') || input.parentElement;
@@ -127,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Expresiones regulares reutilizadas en varios formularios
     const REGEX_EMAIL_GMAIL_HOTMAIL = /^[^\s@]+@(gmail|hotmail)\.[a-z]{2,}$/i;
     const REGEX_SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
 
@@ -198,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function validarTerminos() {
             const contenedor = campoTerminos.closest('.form-group') || campoTerminos.parentElement;
-            const errorEl = contenedor.querySelector('.mensaje-error');
+            const errorEl = contenedor ? contenedor.querySelector('.mensaje-error') : null;
             if (!campoTerminos.checked) {
                 if (errorEl) errorEl.classList.add('visible');
                 return false;
@@ -207,11 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         }
 
-        campoNombre.addEventListener('blur', validarNombre);
-        campoEmail.addEventListener('blur', validarEmail);
-        campoPassword.addEventListener('input', validarPassword);
-        campoConfirmPassword.addEventListener('input', validarConfirmPassword);
-        campoTerminos.addEventListener('change', validarTerminos);
+        if (campoNombre) campoNombre.addEventListener('blur', validarNombre);
+        if (campoEmail) campoEmail.addEventListener('blur', validarEmail);
+        if (campoPassword) campoPassword.addEventListener('input', validarPassword);
+        if (campoConfirmPassword) campoConfirmPassword.addEventListener('input', validarConfirmPassword);
+        if (campoTerminos) campoTerminos.addEventListener('change', validarTerminos);
 
         formRegistro.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -230,6 +242,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // === GUARDAR USUARIO REGISTRADO EN LOCALSTORAGE ===
+            let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+
+            const correoIngresado = campoEmail.value.trim().toLowerCase();
+            const yaExiste = usuarios.some(u => u.correo.toLowerCase() === correoIngresado);
+
+            if (yaExiste) {
+                mostrarError(campoEmail, 'Este correo ya se encuentra registrado.');
+                campoEmail.focus();
+                return;
+            }
+
+            const nuevoId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
+
+            const nuevoUsuario = {
+                id: nuevoId,
+                nombre: campoNombre.value.trim(),
+                correo: correoIngresado,
+                contrasena: campoPassword.value,
+                telefono: '',
+                direccion: '',
+                rol: 'cliente'
+            };
+
+            usuarios.push(nuevoUsuario);
+            localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+
             if (avisoExito) avisoExito.classList.add('visible');
             formRegistro.reset();
             setTimeout(() => {
@@ -240,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==================================================================
-       4. VALIDACIÓN Y SIMULACIÓN DE SEGUIMIENTO (seguimiento.html)
+       4. SEGUIMIENTO (seguimiento.html)
        ================================================================== */
     const formFecha = document.getElementById('form-fecha-entrega');
     const formRastreo = document.getElementById('form-rastreo');
@@ -250,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const avisoFecha = document.getElementById('aviso-fecha');
 
         const hoy = new Date().toISOString().split('T')[0];
-        campoFecha.setAttribute('min', hoy);
+        if (campoFecha) campoFecha.setAttribute('min', hoy);
 
         formFecha.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -279,10 +318,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const REGEX_PEDIDO = /^HH-\d{4,5}$/i;
 
         const pedidosSimulados = {
-            'HH-10234': 1, // Confirmado
-            'HH-55321': 2, // En Preparación
-            'HH-98765': 3, // En Camino
-            'HH-40001': 4  // Entregado
+            'HH-10234': 1,
+            'HH-55321': 2,
+            'HH-98765': 3,
+            'HH-40001': 4
         };
 
         function activarPasosHasta(pasoFinal) {
@@ -307,8 +346,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             limpiarError(campoPedido);
-            timeline.style.opacity = '1';
-            timeline.style.pointerEvents = 'auto';
+            if (timeline) {
+                timeline.style.opacity = '1';
+                timeline.style.pointerEvents = 'auto';
+            }
 
             const paso = pedidosSimulados[codigo] || 3;
             activarPasosHasta(paso);
@@ -323,17 +364,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridProductos = document.getElementById('grid-productos');
     const buscadorHeader = document.querySelector('.search-container input, .search-bar input');
 
-    if (formFiltros && gridProductos) {
+    if (gridProductos) {
         const tarjetas = Array.from(gridProductos.querySelectorAll('.producto-card'));
 
         function aplicarFiltros() {
-            const categoriasMarcadas = Array.from(
-                formFiltros.querySelectorAll('input[name="categoria"]:checked')
-            ).map(chk => chk.value);
+            const categoriasMarcadas = formFiltros 
+                ? Array.from(formFiltros.querySelectorAll('input[name="categoria"]:checked')).map(chk => chk.value)
+                : [];
 
-            const rangosMarcados = Array.from(
-                formFiltros.querySelectorAll('input[name="precio"]:checked')
-            ).map(chk => chk.value);
+            const rangosMarcados = formFiltros
+                ? Array.from(formFiltros.querySelectorAll('input[name="precio"]:checked')).map(chk => chk.value)
+                : [];
 
             const textoBusqueda = buscadorHeader ? buscadorHeader.value.trim().toLowerCase() : '';
 
@@ -341,8 +382,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             tarjetas.forEach(card => {
                 const categoria = card.getAttribute('data-categoria');
-                const precio = parseInt(card.getAttribute('data-precio'));
-                const nombre = card.getAttribute('data-nombre').toLowerCase();
+                const precio = parseInt(card.getAttribute('data-precio'), 10) || 0;
+                const nombre = (card.getAttribute('data-nombre') || '').toLowerCase();
 
                 const coincideCategoria = categoriasMarcadas.length === 0 || categoriasMarcadas.includes(categoria);
 
@@ -366,16 +407,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        formFiltros.addEventListener('submit', (e) => {
-            e.preventDefault();
-            aplicarFiltros();
-        });
-        formFiltros.addEventListener('change', aplicarFiltros);
+        if (formFiltros) {
+            formFiltros.addEventListener('submit', (e) => {
+                e.preventDefault();
+                aplicarFiltros();
+            });
+        }
+
         if (buscadorHeader) buscadorHeader.addEventListener('input', aplicarFiltros);
 
         gridProductos.addEventListener('click', (e) => {
             if (!e.target.classList.contains('btn-agregar')) return;
-            const actual = parseInt(localStorage.getItem('hh_carrito_cantidad') || '0');
+            const actual = parseInt(localStorage.getItem('hh_carrito_cantidad') || '0', 10);
             localStorage.setItem('hh_carrito_cantidad', actual + 1);
             actualizarBadgeCarrito();
 
@@ -416,27 +459,25 @@ document.addEventListener('DOMContentLoaded', () => {
        7. INICIO DE SESIÓN Y GESTIÓN DE USUARIOS (MÓDULO ADMIN)
        ================================================================== */
 
-  // 7.1 Inicialización de Base de Datos local simulada (Asegurada)
-let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+    // 7.1 Inicialización DB simulada de Usuarios
+    let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+    const existeAdmin = usuariosGuardados.some(u => u.correo.toLowerCase() === 'admin@gmail.com');
 
-// Verificar si existe el administrador piloto
-const existeAdmin = usuariosGuardados.some(u => u.correo.toLowerCase() === 'admin@gmail.com');
-
-if (!existeAdmin) {
-    const usuariosIniciales = [
-        { id: 1, nombre: "Administrador Jefe", correo: "admin@gmail.com", contrasena: "Admin123!", telefono: "987654321", direccion: "Sede Central", rol: "admin" },
-        { id: 2, nombre: "Juan Pérez", correo: "cliente@hotmail.com", contrasena: "Cliente123!", telefono: "912345678", direccion: "Av. Las Flores 123", rol: "cliente" }
-    ];
-    
-    // Si la lista estaba vacía, se cargan ambos; si no, se agrega el admin al inicio
-    if (usuariosGuardados.length === 0) {
-        usuariosGuardados = usuariosIniciales;
-    } else {
-        usuariosGuardados.unshift(usuariosIniciales[0]);
+    if (!existeAdmin) {
+        const usuariosIniciales = [
+            { id: 1, nombre: "Administrador Jefe", correo: "admin@gmail.com", contrasena: "Admin123!", telefono: "987654321", direccion: "Sede Central", rol: "admin" },
+            { id: 2, nombre: "Juan Pérez", correo: "cliente@hotmail.com", contrasena: "Cliente123!", telefono: "912345678", direccion: "Av. Las Flores 123", rol: "cliente" }
+        ];
+        
+        if (usuariosGuardados.length === 0) {
+            usuariosGuardados = usuariosIniciales;
+        } else {
+            usuariosGuardados.unshift(usuariosIniciales[0]);
+        }
+        
+        localStorage.setItem('usuarios_huerto', JSON.stringify(usuariosGuardados));
     }
-    
-    localStorage.setItem('usuarios_huerto', JSON.stringify(usuariosGuardados));
-}
+
     // 7.2 Lógica de Iniciar Sesión (login.html)
     const formLogin = document.getElementById('form-login');
     if (formLogin) {
@@ -455,7 +496,6 @@ if (!existeAdmin) {
                 mensajeError.style.color = 'red';
             }
 
-            // Validar correo Gmail/Hotmail
             if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(email)) {
                 if (mensajeError) mensajeError.textContent = 'Ingresa un correo válido (@gmail.com o @hotmail.com).';
                 return;
@@ -511,12 +551,12 @@ if (!existeAdmin) {
             const fila = document.createElement('tr');
             fila.style.borderBottom = '1px solid #eee';
             fila.innerHTML = `
-                <td style="padding: 0.8rem;">${u.id}</td>
-                <td style="padding: 0.8rem; font-weight: 600;">${u.nombre}</td>
-                <td style="padding: 0.8rem;">${u.correo}</td>
-                <td style="padding: 0.8rem;"><span style="background: #e8f5e9; color: #2e7d32; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">${u.rol}</span></td>
+                <td style="padding: 0.8rem;">${escaparHTML(u.id)}</td>
+                <td style="padding: 0.8rem; font-weight: 600;">${escaparHTML(u.nombre)}</td>
+                <td style="padding: 0.8rem;">${escaparHTML(u.correo)}</td>
+                <td style="padding: 0.8rem;"><span style="background: #e8f5e9; color: #2e7d32; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">${escaparHTML(u.rol)}</span></td>
                 <td style="padding: 0.8rem; text-align: center;">
-                    <a href="admin-editar-usuario.html?id=${u.id}" style="color: var(--primary-green); font-weight: 600; text-decoration: none;">Editar</a>
+                    <a href="admin-editar-usuario.html?id=${u.id}" style="color: var(--primary-green, #2e7d32); font-weight: 600; text-decoration: none;">Editar</a>
                 </td>
             `;
             cuerpoTabla.appendChild(fila);
@@ -575,11 +615,12 @@ if (!existeAdmin) {
     const formEditarUsuario = document.getElementById('form-editar-usuario');
     if (formEditarUsuario) {
         const urlParams = new URLSearchParams(window.location.search);
-        const idUsuario = parseInt(urlParams.get('id'));
+        const idUsuario = parseInt(urlParams.get('id'), 10);
 
         let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
         const usuarioActual = usuarios.find(u => u.id === idUsuario);
         const mensaje = document.getElementById('mensaje-error-editar');
+        const btnEliminar = document.getElementById('btn-eliminar-usuario');
 
         if (usuarioActual) {
             document.getElementById('editar-nombre').value = usuarioActual.nombre;
@@ -596,7 +637,6 @@ if (!existeAdmin) {
 
             const nombre = document.getElementById('editar-nombre').value.trim();
             const email = document.getElementById('editar-email').value.trim();
-            const passwordInput = document.getElementById('editar-password').value;
             const telefono = document.getElementById('editar-telefono').value.trim();
             const direccion = document.getElementById('editar-direccion').value.trim();
             const rol = document.getElementById('editar-rol').value;
@@ -607,32 +647,26 @@ if (!existeAdmin) {
             }
 
             if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(email)) {
-                if (mensaje) mensaje.textContent = 'El correo debe ser un dominio @gmail o @hotmail válido.';
-                return;
-            }
-
-            if (usuarios.some(u => u.correo.toLowerCase() === email.toLowerCase() && u.id !== idUsuario)) {
-                if (mensaje) mensaje.textContent = 'El correo pertenece a otro usuario registrado.';
+                if (mensaje) mensaje.textContent = 'El correo debe ser @gmail.com o @hotmail.com';
                 return;
             }
 
             const index = usuarios.findIndex(u => u.id === idUsuario);
             if (index !== -1) {
-                usuarios[index].nombre = nombre;
-                usuarios[index].correo = email;
-                usuarios[index].telefono = telefono;
-                usuarios[index].direccion = direccion;
-                usuarios[index].rol = rol;
-
-                if (passwordInput !== '') {
-                    usuarios[index].contrasena = passwordInput;
-                }
+                usuarios[index] = {
+                    ...usuarios[index],
+                    nombre,
+                    correo: email,
+                    telefono,
+                    direccion,
+                    rol
+                };
 
                 localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
 
                 if (mensaje) {
                     mensaje.style.color = '#2e7d32';
-                    mensaje.textContent = '¡Usuario actualizado con éxito!';
+                    mensaje.textContent = '¡Usuario actualizado correctamente!';
                 }
 
                 setTimeout(() => {
@@ -641,21 +675,212 @@ if (!existeAdmin) {
             }
         });
 
-        // Evento para Eliminar Usuario
-        const btnEliminar = document.getElementById('btn-eliminar-usuario');
         if (btnEliminar) {
             btnEliminar.addEventListener('click', () => {
-                if (!usuarioActual) return;
-
-                const confirmacion = confirm(`¿Estás seguro de que deseas eliminar al usuario "${usuarioActual.nombre}"? esta acción no se puede deshacer.`);
-                if (confirmacion) {
+                if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
                     usuarios = usuarios.filter(u => u.id !== idUsuario);
                     localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
-                    alert('Usuario eliminado correctamente.');
                     window.location.href = 'admin-usuarios.html';
                 }
             });
         }
+    }
+
+
+    /* ==================================================================
+       7.7 GESTIÓN DE PRODUCTOS (admin-productos.html / admin-editar-producto.html)
+       ================================================================== */
+
+    // 1. Inicialización DB simulada de Productos en localStorage
+    let productosGuardados = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+
+    if (productosGuardados.length === 0) {
+        productosGuardados = [
+            { id: 1, nombre: 'Tomates Orgánicos', categoria: 'Verduras', precio: 2500, stock: '25 kg', imagen: 'img/producto1.jpg' },
+            { id: 2, nombre: 'Lechuga Hidropónica', categoria: 'Verduras', precio: 1200, stock: '50 unidades', imagen: 'img/producto2.jpg' },
+            { id: 3, nombre: 'Zanahorias Frescas', categoria: 'Verduras', precio: 1800, stock: '30 kg', imagen: 'img/producto3.jpg' }
+        ];
+        localStorage.setItem('productos_huerto', JSON.stringify(productosGuardados));
+    }
+
+    // 2. Cargar Productos en Tabla Dinámica (admin-productos.html)
+    const cuerpoTablaProductos = document.getElementById('cuerpo-tabla-productos') || document.querySelector('.admin-container .table tbody');
+
+    function renderizarTablaProductos() {
+        if (!cuerpoTablaProductos) return;
+
+        const productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+        cuerpoTablaProductos.innerHTML = '';
+
+        if (productos.length === 0) {
+            cuerpoTablaProductos.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 1.5rem;">No hay productos registrados en el sistema.</td></tr>`;
+            return;
+        }
+
+        productos.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><img src="${escaparHTML(p.imagen || 'img/producto1.jpg')}" alt="${escaparHTML(p.nombre)}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
+                <td>${escaparHTML(p.nombre)}</td>
+                <td>${escaparHTML(p.categoria)}</td>
+                <td>$${Number(p.precio).toLocaleString('es-CL')}</td>
+                <td>${escaparHTML(p.stock)}</td>
+                <td>
+                    <a href="admin-editar-producto.html?id=${p.id}" class="btn-action btn-edit" title="Editar"><i class="fas fa-edit"></i></a>
+                    <button class="btn-action btn-delete" data-id="${p.id}" title="Eliminar"><i class="fas fa-trash"></i></button>
+                </td>
+            `;
+            cuerpoTablaProductos.appendChild(tr);
+        });
+    }
+
+    // 3. Manejo de eliminación de productos en la tabla principal
+    if (cuerpoTablaProductos) {
+        renderizarTablaProductos();
+
+        cuerpoTablaProductos.addEventListener('click', (e) => {
+            const btnDelete = e.target.closest('.btn-delete');
+            if (!btnDelete) return;
+
+            const idProducto = parseInt(btnDelete.getAttribute('data-id'), 10);
+            if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                let productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+                productos = productos.filter(p => p.id !== idProducto);
+                localStorage.setItem('productos_huerto', JSON.stringify(productos));
+                renderizarTablaProductos();
+            }
+        });
+    }
+
+    // 4. Lógica para Cargar, Editar y Eliminar desde (admin-editar-producto.html)
+    const formEditarProducto = document.getElementById('formEditarProducto') || document.getElementById('form-editar-producto');
+
+    if (formEditarProducto) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProducto = parseInt(urlParams.get('id'), 10);
+
+        let productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+        const productoActual = productos.find(p => p.id === idProducto);
+        const mensaje = document.getElementById('mensaje-error-editar-prod');
+        const btnEliminarProd = document.getElementById('btn-eliminar-producto');
+
+        if (productoActual) {
+            const elNombre = document.getElementById('editar-prod-nombre') || document.getElementById('nombre');
+            const elCategoria = document.getElementById('editar-prod-categoria') || document.getElementById('categoria');
+            const elPrecio = document.getElementById('editar-prod-precio') || document.getElementById('precio');
+            const elStock = document.getElementById('editar-prod-stock') || document.getElementById('stock');
+            const elImagen = document.getElementById('editar-prod-imagen') || document.getElementById('imagen');
+
+            if (elNombre) elNombre.value = productoActual.nombre;
+            if (elCategoria) elCategoria.value = productoActual.categoria;
+            if (elPrecio) elPrecio.value = productoActual.precio;
+            if (elStock) elStock.value = productoActual.stock;
+            if (elImagen) elImagen.value = productoActual.imagen || '';
+        } else {
+            if (mensaje) {
+                mensaje.textContent = 'Producto no encontrado.';
+                mensaje.style.color = 'red';
+            }
+        }
+
+        formEditarProducto.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = (document.getElementById('editar-prod-nombre') || document.getElementById('nombre')).value.trim();
+            const categoria = (document.getElementById('editar-prod-categoria') || document.getElementById('categoria')).value;
+            const precio = parseInt((document.getElementById('editar-prod-precio') || document.getElementById('precio')).value, 10);
+            const stock = (document.getElementById('editar-prod-stock') || document.getElementById('stock')).value.trim();
+            const imagen = (document.getElementById('editar-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/producto1.jpg';
+
+            if (!nombre || isNaN(precio) || !stock) {
+                if (mensaje) {
+                    mensaje.textContent = 'Por favor, completa todos los campos requeridos correctamente.';
+                    mensaje.style.color = 'red';
+                }
+                return;
+            }
+
+            const index = productos.findIndex(p => p.id === idProducto);
+            if (index !== -1) {
+                productos[index] = {
+                    ...productos[index],
+                    nombre,
+                    categoria,
+                    precio,
+                    stock,
+                    imagen
+                };
+
+                localStorage.setItem('productos_huerto', JSON.stringify(productos));
+
+                if (mensaje) {
+                    mensaje.style.color = '#2e7d32';
+                    mensaje.textContent = '¡Producto actualizado correctamente!';
+                }
+
+                setTimeout(() => {
+                    window.location.href = 'admin-productos.html';
+                }, 1000);
+            }
+        });
+
+        if (btnEliminarProd) {
+            btnEliminarProd.addEventListener('click', () => {
+                if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                    productos = productos.filter(p => p.id !== idProducto);
+                    localStorage.setItem('productos_huerto', JSON.stringify(productos));
+                    window.location.href = 'admin-productos.html';
+                }
+            });
+        }
+    }
+
+    // 5. Lógica para Crear Producto (admin-nuevo-producto.html)
+    const formNuevoProducto = document.getElementById('formNuevoProducto') || document.getElementById('form-nuevo-producto');
+
+    if (formNuevoProducto) {
+        formNuevoProducto.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = (document.getElementById('nuevo-prod-nombre') || document.getElementById('nombre')).value.trim();
+            const categoria = (document.getElementById('nuevo-prod-categoria') || document.getElementById('categoria')).value;
+            const precio = parseInt((document.getElementById('nuevo-prod-precio') || document.getElementById('precio')).value, 10);
+            const stock = (document.getElementById('nuevo-prod-stock') || document.getElementById('stock')).value.trim();
+            const imagen = (document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/producto1.jpg';
+            const mensaje = document.getElementById('mensaje-error-nuevo-prod');
+
+            if (!nombre || isNaN(precio) || !stock) {
+                if (mensaje) {
+                    mensaje.textContent = 'Por favor, rellena todos los campos correctamente.';
+                    mensaje.style.color = 'red';
+                }
+                return;
+            }
+
+            let productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+            const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+
+            const nuevoProducto = {
+                id: nuevoId,
+                nombre,
+                categoria,
+                precio,
+                stock,
+                imagen
+            };
+
+            productos.push(nuevoProducto);
+            localStorage.setItem('productos_huerto', JSON.stringify(productos));
+
+            if (mensaje) {
+                mensaje.style.color = '#2e7d32';
+                mensaje.textContent = '¡Producto agregado exitosamente!';
+            }
+
+            setTimeout(() => {
+                window.location.href = 'admin-productos.html';
+            }, 1000);
+        });
     }
 
 });

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuertoHogar | Mi Perfil</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="seguimiento.html">Seguimiento</a></li>
+                <li><a href="login.html">Mi cuenta</a></li>
+            </ul>
+        </nav>
+
+        <!-- ACCIONES DE USUARIO -->
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <a href="perfil.html" title="Mi Perfil" style="display: flex; align-items: center; color: var(--primary, #2d5a27); text-decoration: none;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+
+            <a href="carrito.html" class="cart-icon-wrapper">
+                🛒 <span class="cart-badge" id="cart-counter">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" style="max-width: 600px; margin: 3rem auto; padding: 0 1rem;">
+        <h2 class="serif" style="font-size: 2rem; margin-bottom: 0.5rem; text-align: center;">Mi Perfil</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Actualiza tu información personal y credenciales de acceso.</p>
+
+        <form id="profile-form" class="cart-card" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.2rem;">
+            
+            <div>
+                <label for="profile-name" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Nombre completo</label>
+                <input type="text" id="profile-name" name="name" required placeholder="Tu nombre completo" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <div>
+                <label for="profile-email" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Correo Electrónico</label>
+                <input type="email" id="profile-email" name="email" required placeholder="tu@email.com" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <div>
+                <label for="profile-phone" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Teléfono</label>
+                <input type="tel" id="profile-phone" name="phone" placeholder="+56 9 1234 5678" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 0.5rem 0;">
+
+            <h3 class="serif" style="font-size: 1.2rem; margin-bottom: -0.5rem;">Cambiar Contraseña</h3>
+
+            <div>
+                <label for="current-password" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Contraseña Actual</label>
+                <input type="password" id="current-password" name="currentPassword" placeholder="Solo si deseas cambiarla" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <div>
+                <label for="new-password" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Nueva Contraseña</label>
+                <input type="password" id="new-password" name="newPassword" placeholder="Mínimo 6 caracteres" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <button type="submit" class="btn-checkout" style="padding: 0.8rem; font-size: 1rem; margin-top: 1rem; cursor: pointer;">
+                Guardar Cambios
+            </button>
+        </form>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                </a>
+                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+            </div>
+            <div class="footer-col">
+                <ul style="margin-top: 0.5rem;">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="seguimiento.html">Seguimiento</a></li>
+                    <li><a href="login.html">Mi cuenta</a></li>
+                    <li><a href="perfil.html">Mi perfil</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="serif">Reparto</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
+                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
