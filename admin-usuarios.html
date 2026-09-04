@@ -3,76 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Usuarios - Huerto Hogar</title>
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>HuertoHogar | Panel Admin - Usuarios</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="admin-container">
-        <aside class="sidebar">
-            <div class="sidebar-header"><h2><i class="fas fa-leaf"></i> Huerto Hogar</h2></div>
-            <nav class="sidebar-nav">
-                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-                <a href="admin-productos.html" class="nav-item"><i class="fas fa-box"></i><span>Productos</span></a>
-                <a href="admin-usuarios.html" class="nav-item active"><i class="fas fa-users"></i><span>Usuarios</span></a>
-                <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Volver al Sitio</span></a>
-            </nav>
-        </aside>
 
-        <main class="main-content">
-            <header class="header">
-                <h1>Base de Datos de Usuarios</h1>
-                <div class="user-info"><span>Admin</span><i class="fas fa-user-circle"></i></div>
-            </header>
+    <!-- CABECERA -->
+    <header>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
 
-            <div class="content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2><i class="fas fa-users-cog"></i> Usuarios Registrados</h2>
-                        <a href="admin-nuevo-usuario.html" class="btn btn-primary"><i class="fas fa-user-plus"></i> Nuevo Usuario</a>
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#001</td>
-                                    <td>Carlos Ruiz</td>
-                                    <td>carlos@email.com</td>
-                                    <td>Cliente</td>
-                                    <td><span class="badge badge-success">Activo</span></td>
-                                    <td>
-                                        <a href="admin-editar-usuario.html?id=1" class="btn-action btn-edit"><i class="fas fa-edit"></i></a>
-                                        <button class="btn-action btn-delete"><i class="fas fa-ban"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#002</td>
-                                    <td>Ana López</td>
-                                    <td>ana@email.com</td>
-                                    <td>Administrador</td>
-                                    <td><span class="badge badge-success">Activo</span></td>
-                                    <td>
-                                        <a href="admin-editar-usuario.html?id=2" class="btn-action btn-edit"><i class="fas fa-edit"></i></a>
-                                        <button class="btn-action btn-delete"><i class="fas fa-ban"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="admin-usuarios.html" class="active">Administración</a></li>
+            </ul>
+        </nav>
+
+        <a href="carrito.html" class="cart-icon-wrapper">
+            🛒 <span class="cart-badge" id="cart-counter">0</span>
+        </a>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" style="max-width: 900px; margin-top: 4rem;">
+        <div class="summary-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h2 class="serif" style="font-size: 1.8rem; margin: 0;">Administración de Usuarios</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Gestiona las cuentas registradas en la plataforma.</p>
                 </div>
+                <a href="admin-nuevo-usuario.html" class="btn-checkout" style="text-decoration: none; padding: 0.6rem 1.2rem; font-size: 0.85rem; width: auto;">+ Crear Usuario</a>
             </div>
-        </main>
-    </div>
-    <script src="js/admin.js"></script>
+
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #eee; color: var(--text-muted);">
+                            <th style="padding: 0.8rem;">ID</th>
+                            <th style="padding: 0.8rem;">Nombre</th>
+                            <th style="padding: 0.8rem;">Correo</th>
+                            <th style="padding: 0.8rem;">Rol</th>
+                            <th style="padding: 0.8rem; text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tabla-usuarios">
+                        <!-- Carga dinámica vía JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                </a>
+                <p>Panel interno de gestión.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
 </body>
 </html>

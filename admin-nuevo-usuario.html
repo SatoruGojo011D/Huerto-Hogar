@@ -3,72 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Usuario - Huerto Hogar</title>
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>HuertoHogar | Nuevo Usuario</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="admin-container">
-        <aside class="sidebar">
-            <div class="sidebar-header"><h2><i class="fas fa-leaf"></i> Huerto Hogar</h2></div>
-            <nav class="sidebar-nav">
-                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-                <a href="admin-productos.html" class="nav-item"><i class="fas fa-box"></i><span>Productos</span></a>
-                <a href="admin-usuarios.html" class="nav-item active"><i class="fas fa-users"></i><span>Usuarios</span></a>
-                <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Volver al Sitio</span></a>
-            </nav>
-        </aside>
 
-        <main class="main-content">
-            <header class="header">
-                <h1>Registrar Nuevo Usuario</h1>
-                <div class="user-info"><span>Admin</span><i class="fas fa-user-circle"></i></div>
-            </header>
+    <!-- CABECERA -->
+    <header>
+        <a href="index.html" class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
+            <h1 class="serif">HuertoHogar</h1>
+        </a>
 
-            <div class="content">
-                <div class="card">
-                    <div class="card-header"><h2><i class="fas fa-user-plus"></i> Información del Usuario</h2></div>
-                    <div class="card-body">
-                        <form id="formNuevoUsuario" class="form">
-                            <div class="form-group">
-                                <label for="nombreUser">Nombre Completo *</label>
-                                <input type="text" id="nombreUser" required placeholder="Ej: Pedro Pérez">
-                                <span class="error-message" id="error-nombreUser"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="emailUser">Correo Electrónico *</label>
-                                <input type="email" id="emailUser" required placeholder="usuario@ejemplo.com">
-                                <span class="error-message" id="error-emailUser"></span>
-                            </div>
+        <nav>
+            <ul>
+                <li><a href="admin-usuarios.html" class="active">Volver a Usuarios</a></li>
+            </ul>
+        </nav>
+    </header>
 
-                            <div class="form-group">
-                                <label for="passUser">Contraseña *</label>
-                                <input type="password" id="passUser" required placeholder="Mínimo 8 caracteres">
-                                <span class="error-message" id="error-passUser"></span>
-                            </div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" style="max-width: 520px; margin-top: 3rem;">
+        <div class="summary-box">
+            <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Registrar Usuario</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Crea un nuevo perfil para la plataforma.</p>
 
-                            <div class="form-group">
-                                <label for="rolUser">Rol de Usuario *</label>
-                                <select id="rolUser" required>
-                                    <option value="">Seleccione un rol</option>
-                                    <option value="cliente">Cliente</option>
-                                    <option value="editor">Editor de Contenido</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
-                                <span class="error-message" id="error-rolUser"></span>
-                            </div>
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Crear Usuario</button>
-                                <a href="admin-usuarios.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
-                            </div>
-                        </form>
-                    </div>
+            <form id="form-nuevo-usuario" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Nombre Completo</label>
+                    <input type="text" id="nuevo-nombre" class="date-select" style="background: #FFF;" placeholder="Ej. Ana María" required>
                 </div>
-            </div>
-        </main>
-    </div>
-    <script src="js/admin.js"></script>
+
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Correo Electrónico</label>
+                    <input type="email" id="nuevo-email" class="date-select" style="background: #FFF;" placeholder="usuario@gmail.com" required>
+                </div>
+
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Contraseña</label>
+                    <input type="password" id="nuevo-password" class="date-select" style="background: #FFF;" placeholder="••••••••" required>
+                </div>
+
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Teléfono</label>
+                    <input type="tel" id="nuevo-telefono" class="date-select" style="background: #FFF;" placeholder="+56 9 1234 5678">
+                </div>
+
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Dirección</label>
+                    <input type="text" id="nuevo-direccion" class="date-select" style="background: #FFF;" placeholder="Av. Las Condes 123">
+                </div>
+
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Rol de Usuario</label>
+                    <select id="nuevo-rol" class="date-select" style="background: #FFF; width: 100%;" required>
+                        <option value="cliente">Cliente</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+
+                <div id="mensaje-error-nuevo" style="font-size: 0.85rem; text-align: center; font-weight: 600; min-height: 1.2rem;"></div>
+
+                <button type="submit" class="btn-checkout" style="margin-top: 0.5rem;">Guardar Usuario</button>
+                <a href="admin-usuarios.html" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; margin-top: 0.5rem;">Cancelar</a>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
 </body>
 </html>

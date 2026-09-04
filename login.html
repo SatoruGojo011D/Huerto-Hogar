@@ -42,13 +42,16 @@
             <form id="form-login" style="display: flex; flex-direction: column; gap: 1.2rem;">
                 <div>
                     <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Correo Electrónico</label>
-                    <input type="email" class="date-select" style="background: #FFF;" placeholder="nombre@correo.com" required>
+                    <input type="email" id="email" class="date-select" style="background: #FFF;" placeholder="nombre@gmail.com" required>
                 </div>
 
                 <div>
                     <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Contraseña</label>
-                    <input type="password" class="date-select" style="background: #FFF;" placeholder="••••••••" required>
+                    <input type="password" id="password" class="date-select" style="background: #FFF;" placeholder="••••••••" required>
                 </div>
+
+                <!-- CONTENEDOR DE MENSAJES -->
+                <div id="mensaje-error" style="font-size: 0.85rem; text-align: center; font-weight: 600; min-height: 1.2rem;"></div>
 
                 <button type="submit" class="btn-checkout" style="margin-top: 0.5rem;">Ingresar</button>
 

@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function mostrarError(input, mensaje) {
         input.classList.add('campo-invalido');
         input.classList.remove('campo-valido');
-        const contenedor = input.closest('.form-group');
+        const contenedor = input.closest('.form-group') || input.parentElement;
         if (!contenedor) return;
         const errorEl = contenedor.querySelector('.mensaje-error');
         if (errorEl) {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function limpiarError(input) {
         input.classList.remove('campo-invalido');
         input.classList.add('campo-valido');
-        const contenedor = input.closest('.form-group');
+        const contenedor = input.closest('.form-group') || input.parentElement;
         if (!contenedor) return;
         const errorEl = contenedor.querySelector('.mensaje-error');
         if (errorEl) {
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Expresiones regulares reutilizadas en varios formularios
-    const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const REGEX_EMAIL_GMAIL_HOTMAIL = /^[^\s@]+@(gmail|hotmail)\.[a-z]{2,}$/i;
     const REGEX_SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
 
 
@@ -145,8 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const campoTerminos = document.getElementById('terminos');
         const avisoExito = document.getElementById('aviso-exito-registro');
 
-        // Valida un campo individual y devuelve true/false.
-        // Se usa tanto en submit como en tiempo real (evento "input"/"blur").
         function validarNombre() {
             const valor = campoNombre.value.trim();
             if (valor === '') {
@@ -167,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 mostrarError(campoEmail, 'El correo electrónico es obligatorio.');
                 return false;
             }
-            if (!REGEX_EMAIL.test(valor)) {
-                mostrarError(campoEmail, 'Ingresa un correo válido, ej: nombre@correo.com');
+            if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(valor)) {
+                mostrarError(campoEmail, 'El correo debe ser dominio @gmail o @hotmail (ej: usuario@gmail.com).');
                 return false;
             }
             limpiarError(campoEmail);
@@ -209,8 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         }
 
-        // Validación en tiempo real: apenas el usuario sale del campo (blur)
-        // o escribe (input), se revisa y se muestra sugerencia inmediata.
         campoNombre.addEventListener('blur', validarNombre);
         campoEmail.addEventListener('blur', validarEmail);
         campoPassword.addEventListener('input', validarPassword);
@@ -218,10 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
         campoTerminos.addEventListener('change', validarTerminos);
 
         formRegistro.addEventListener('submit', (e) => {
-            e.preventDefault(); // evitamos el envío nativo para controlar todo por JS
+            e.preventDefault();
 
-            // Se ejecutan todas las validaciones (así se marcan todos los
-            // campos con error de una vez, no solo el primero que falla).
             const nombreOk = validarNombre();
             const emailOk = validarEmail();
             const passwordOk = validarPassword();
@@ -231,14 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const formularioValido = nombreOk && emailOk && passwordOk && confirmOk && terminosOk;
 
             if (!formularioValido) {
-                // Lleva el scroll al primer campo con error para que el usuario lo vea
                 const primerError = formRegistro.querySelector('.campo-invalido');
                 if (primerError) primerError.focus();
                 return;
             }
 
-            // Si todo es válido: mostramos aviso de éxito y simulamos
-            // la creación de cuenta redirigiendo a login.html
             if (avisoExito) avisoExito.classList.add('visible');
             formRegistro.reset();
             setTimeout(() => {
@@ -258,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const campoFecha = document.getElementById('fecha-entrega');
         const avisoFecha = document.getElementById('aviso-fecha');
 
-        // No se permite elegir una fecha anterior a hoy
         const hoy = new Date().toISOString().split('T')[0];
         campoFecha.setAttribute('min', hoy);
 
@@ -286,11 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const campoPedido = document.getElementById('codigo-pedido');
         const timeline = document.getElementById('linea-tiempo');
 
-        // Formato esperado de código de pedido: HH- seguido de 4 o 5 números
         const REGEX_PEDIDO = /^HH-\d{4,5}$/i;
 
-        // "Base de datos" simulada de pedidos, para que la demo en vivo
-        // se sienta real con distintos estados según el código ingresado.
         const pedidosSimulados = {
             'HH-10234': 1, // Confirmado
             'HH-55321': 2, // En Preparación
@@ -323,8 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
             timeline.style.opacity = '1';
             timeline.style.pointerEvents = 'auto';
 
-            // Si el código no está en la simulación, igual mostramos un
-            // estado por defecto ("En Camino") para no bloquear la demo.
             const paso = pedidosSimulados[codigo] || 3;
             activarPasosHasta(paso);
         });
@@ -381,8 +366,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Filtra al enviar el formulario (botón "Filtrar") y también
-        // en vivo apenas se marca/desmarca un checkbox.
         formFiltros.addEventListener('submit', (e) => {
             e.preventDefault();
             aplicarFiltros();
@@ -390,8 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formFiltros.addEventListener('change', aplicarFiltros);
         if (buscadorHeader) buscadorHeader.addEventListener('input', aplicarFiltros);
 
-        // Agregar producto al carrito (simulado con localStorage: suma
-        // la cantidad al contador del header en todas las páginas).
         gridProductos.addEventListener('click', (e) => {
             if (!e.target.classList.contains('btn-agregar')) return;
             const actual = parseInt(localStorage.getItem('hh_carrito_cantidad') || '0');
@@ -416,23 +397,265 @@ document.addEventListener('DOMContentLoaded', () => {
     if (botonesCiudad.length && mapaTiendas) {
         botonesCiudad.forEach(boton => {
             boton.addEventListener('click', () => {
-                // data-direccion trae la calle/número exacta del local (no
-                // solo el nombre de la ciudad), así el mapa muestra un pin
-                // en un punto concreto en vez de solo centrar la ciudad.
-                // z=16 (zoom alto) para que el pin se vea de cerca.
                 const direccion = boton.getAttribute('data-direccion');
                 mapaTiendas.src = `https://maps.google.com/maps?q=${encodeURIComponent(direccion)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
                 botonesCiudad.forEach(b => b.classList.remove('activo'));
                 boton.classList.add('activo');
 
-                // Actualiza el texto que confirma qué local se está mostrando
                 if (textoDireccionActual) {
                     const nombreLocal = boton.getAttribute('data-nombre') || direccion;
                     textoDireccionActual.textContent = `Mostrando: ${nombreLocal}`;
                 }
             });
         });
+    }
+
+
+    /* ==================================================================
+       7. INICIO DE SESIÓN Y GESTIÓN DE USUARIOS (MÓDULO ADMIN)
+       ================================================================== */
+
+  // 7.1 Inicialización de Base de Datos local simulada (Asegurada)
+let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+
+// Verificar si existe el administrador piloto
+const existeAdmin = usuariosGuardados.some(u => u.correo.toLowerCase() === 'admin@gmail.com');
+
+if (!existeAdmin) {
+    const usuariosIniciales = [
+        { id: 1, nombre: "Administrador Jefe", correo: "admin@gmail.com", contrasena: "Admin123!", telefono: "987654321", direccion: "Sede Central", rol: "admin" },
+        { id: 2, nombre: "Juan Pérez", correo: "cliente@hotmail.com", contrasena: "Cliente123!", telefono: "912345678", direccion: "Av. Las Flores 123", rol: "cliente" }
+    ];
+    
+    // Si la lista estaba vacía, se cargan ambos; si no, se agrega el admin al inicio
+    if (usuariosGuardados.length === 0) {
+        usuariosGuardados = usuariosIniciales;
+    } else {
+        usuariosGuardados.unshift(usuariosIniciales[0]);
+    }
+    
+    localStorage.setItem('usuarios_huerto', JSON.stringify(usuariosGuardados));
+}
+    // 7.2 Lógica de Iniciar Sesión (login.html)
+    const formLogin = document.getElementById('form-login');
+    if (formLogin) {
+        formLogin.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const mensajeError = document.getElementById('mensaje-error');
+
+            const email = emailInput ? emailInput.value.trim() : '';
+            const password = passwordInput ? passwordInput.value : '';
+
+            if (mensajeError) {
+                mensajeError.textContent = '';
+                mensajeError.style.color = 'red';
+            }
+
+            // Validar correo Gmail/Hotmail
+            if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(email)) {
+                if (mensajeError) mensajeError.textContent = 'Ingresa un correo válido (@gmail.com o @hotmail.com).';
+                return;
+            }
+
+            if (password.length < 8) {
+                if (mensajeError) mensajeError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
+                return;
+            }
+
+            const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+            const usuarioValido = usuarios.find(u => u.correo.toLowerCase() === email.toLowerCase() && u.contrasena === password);
+
+            if (usuarioValido) {
+                localStorage.setItem('sesion_activa', JSON.stringify(usuarioValido));
+
+                if (mensajeError) {
+                    mensajeError.style.color = '#2e7d32';
+                    mensajeError.textContent = '¡Ingreso exitoso! Redirigiendo...';
+                }
+
+                setTimeout(() => {
+                    if (usuarioValido.rol === 'admin') {
+                        window.location.href = 'admin-usuarios.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+            } else {
+                if (mensajeError) mensajeError.textContent = 'Correo o contraseña incorrectos.';
+            }
+        });
+    }
+
+    // 7.3 Protección de Rutas para Administradores (admin-*.html)
+    const esPaginaAdmin = window.location.pathname.includes('admin-');
+    if (esPaginaAdmin) {
+        const sesionActiva = JSON.parse(localStorage.getItem('sesion_activa'));
+        if (!sesionActiva || sesionActiva.rol !== 'admin') {
+            alert('Acceso restringido: Se requieren permisos de administrador.');
+            window.location.href = 'login.html';
+            return;
+        }
+    }
+
+    // 7.4 Cargar Usuarios en Tabla (admin-usuarios.html)
+    const cuerpoTabla = document.getElementById('cuerpo-tabla-usuarios');
+    if (cuerpoTabla) {
+        const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+        cuerpoTabla.innerHTML = '';
+
+        usuarios.forEach(u => {
+            const fila = document.createElement('tr');
+            fila.style.borderBottom = '1px solid #eee';
+            fila.innerHTML = `
+                <td style="padding: 0.8rem;">${u.id}</td>
+                <td style="padding: 0.8rem; font-weight: 600;">${u.nombre}</td>
+                <td style="padding: 0.8rem;">${u.correo}</td>
+                <td style="padding: 0.8rem;"><span style="background: #e8f5e9; color: #2e7d32; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">${u.rol}</span></td>
+                <td style="padding: 0.8rem; text-align: center;">
+                    <a href="admin-editar-usuario.html?id=${u.id}" style="color: var(--primary-green); font-weight: 600; text-decoration: none;">Editar</a>
+                </td>
+            `;
+            cuerpoTabla.appendChild(fila);
+        });
+    }
+
+    // 7.5 Crear Nuevo Usuario (admin-nuevo-usuario.html)
+    const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
+    if (formNuevoUsuario) {
+        formNuevoUsuario.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nuevo-nombre').value.trim();
+            const email = document.getElementById('nuevo-email').value.trim();
+            const password = document.getElementById('nuevo-password').value;
+            const telefono = document.getElementById('nuevo-telefono').value.trim();
+            const direccion = document.getElementById('nuevo-direccion').value.trim();
+            const rol = document.getElementById('nuevo-rol').value;
+            const mensaje = document.getElementById('mensaje-error-nuevo');
+
+            if (mensaje) {
+                mensaje.textContent = '';
+                mensaje.style.color = 'red';
+            }
+
+            if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(email)) {
+                if (mensaje) mensaje.textContent = 'El correo debe terminar en @gmail.com o @hotmail.com';
+                return;
+            }
+
+            let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+
+            if (usuarios.some(u => u.correo.toLowerCase() === email.toLowerCase())) {
+                if (mensaje) mensaje.textContent = 'El correo ya se encuentra registrado.';
+                return;
+            }
+
+            const nuevoId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
+            const nuevoUsuario = { id: nuevoId, nombre, correo: email, contrasena: password, telefono, direccion, rol };
+
+            usuarios.push(nuevoUsuario);
+            localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+
+            if (mensaje) {
+                mensaje.style.color = '#2e7d32';
+                mensaje.textContent = '¡Usuario registrado exitosamente!';
+            }
+
+            setTimeout(() => {
+                window.location.href = 'admin-usuarios.html';
+            }, 1000);
+        });
+    }
+
+    // 7.6 Editar y Eliminar Usuario (admin-editar-usuario.html)
+    const formEditarUsuario = document.getElementById('form-editar-usuario');
+    if (formEditarUsuario) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const idUsuario = parseInt(urlParams.get('id'));
+
+        let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+        const usuarioActual = usuarios.find(u => u.id === idUsuario);
+        const mensaje = document.getElementById('mensaje-error-editar');
+
+        if (usuarioActual) {
+            document.getElementById('editar-nombre').value = usuarioActual.nombre;
+            document.getElementById('editar-email').value = usuarioActual.correo;
+            document.getElementById('editar-telefono').value = usuarioActual.telefono || '';
+            document.getElementById('editar-direccion').value = usuarioActual.direccion || '';
+            document.getElementById('editar-rol').value = usuarioActual.rol;
+        } else {
+            if (mensaje) mensaje.textContent = 'Usuario no encontrado.';
+        }
+
+        formEditarUsuario.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('editar-nombre').value.trim();
+            const email = document.getElementById('editar-email').value.trim();
+            const passwordInput = document.getElementById('editar-password').value;
+            const telefono = document.getElementById('editar-telefono').value.trim();
+            const direccion = document.getElementById('editar-direccion').value.trim();
+            const rol = document.getElementById('editar-rol').value;
+
+            if (mensaje) {
+                mensaje.textContent = '';
+                mensaje.style.color = 'red';
+            }
+
+            if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(email)) {
+                if (mensaje) mensaje.textContent = 'El correo debe ser un dominio @gmail o @hotmail válido.';
+                return;
+            }
+
+            if (usuarios.some(u => u.correo.toLowerCase() === email.toLowerCase() && u.id !== idUsuario)) {
+                if (mensaje) mensaje.textContent = 'El correo pertenece a otro usuario registrado.';
+                return;
+            }
+
+            const index = usuarios.findIndex(u => u.id === idUsuario);
+            if (index !== -1) {
+                usuarios[index].nombre = nombre;
+                usuarios[index].correo = email;
+                usuarios[index].telefono = telefono;
+                usuarios[index].direccion = direccion;
+                usuarios[index].rol = rol;
+
+                if (passwordInput !== '') {
+                    usuarios[index].contrasena = passwordInput;
+                }
+
+                localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+
+                if (mensaje) {
+                    mensaje.style.color = '#2e7d32';
+                    mensaje.textContent = '¡Usuario actualizado con éxito!';
+                }
+
+                setTimeout(() => {
+                    window.location.href = 'admin-usuarios.html';
+                }, 1000);
+            }
+        });
+
+        // Evento para Eliminar Usuario
+        const btnEliminar = document.getElementById('btn-eliminar-usuario');
+        if (btnEliminar) {
+            btnEliminar.addEventListener('click', () => {
+                if (!usuarioActual) return;
+
+                const confirmacion = confirm(`¿Estás seguro de que deseas eliminar al usuario "${usuarioActual.nombre}"? esta acción no se puede deshacer.`);
+                if (confirmacion) {
+                    usuarios = usuarios.filter(u => u.id !== idUsuario);
+                    localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+                    alert('Usuario eliminado correctamente.');
+                    window.location.href = 'admin-usuarios.html';
+                }
+            });
+        }
     }
 
 });
