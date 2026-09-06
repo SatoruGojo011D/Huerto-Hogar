@@ -1,4 +1,6 @@
+/* Carrito: agrega productos, renderiza sus tarjetas y calcula cantidades, envío y total. */
 (function () {
+    // Recupera el carrito actual; si no existe, comienza con una lista vacía.
     function getCart() {
         try {
             return JSON.parse(localStorage.getItem('hh_carrito') || '[]');
@@ -7,10 +9,12 @@
         }
     }
 
+    // Persiste el carrito para conservarlo al cambiar de página.
     function saveCart(cart) {
         localStorage.setItem('hh_carrito', JSON.stringify(cart));
     }
 
+    // Normaliza un producto y aumenta su cantidad si ya estaba agregado.
     function addToCart(item) {
         const cart = getCart();
         const normalizedItem = {
@@ -39,6 +43,7 @@
         }
     }
 
+    // Construye las tarjetas del carrito y actualiza el resumen del pedido.
     function renderCart() {
         const cartItems = document.getElementById('cart-items');
         const emptyCart = document.getElementById('empty-cart');
@@ -120,6 +125,7 @@
         }
     }
 
+    // Registra botones dinámicos de aumentar, disminuir, eliminar y añadir productos.
     function initCart() {
         document.addEventListener('click', (e) => {
             const target = e.target;

@@ -1,6 +1,8 @@
+/* Administración y sesión: autenticación, perfil, protección admin y CRUD de usuarios/productos. */
 (function () {
     const REGEX_EMAIL_GMAIL_HOTMAIL = /^[^\s@]+@(gmail|hotmail)\.[a-z]{2,}$/i;
 
+    // Crea las cuentas iniciales de administrador y cliente si aún no existen.
     function ensureAdminSeed() {
         let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
         const existeAdmin = usuariosGuardados.some(u => u.correo.toLowerCase() === 'admin@gmail.com');
@@ -21,6 +23,7 @@
         }
     }
 
+    // Lee la sesión actual guardada después del inicio de sesión.
     function getUsuarioActivo() {
         try {
             const data = localStorage.getItem('sesion_activa');
@@ -30,11 +33,13 @@
         }
     }
 
+    // Elimina la sesión y devuelve al usuario a la pantalla de login.
     function cerrarSesion() {
         localStorage.removeItem('sesion_activa');
         window.location.href = 'login.html';
     }
 
+    // Oculta Mi cuenta y muestra el nombre, datos, editar perfil y cerrar sesión.
     function initAuthUI() {
         const usuario = getUsuarioActivo();
 
@@ -121,6 +126,7 @@
         });
     }
 
+    // Valida credenciales, guarda la sesión y redirige según el rol.
     function initLogin() {
         const formLogin = document.getElementById('form-login');
         if (!formLogin) return;
@@ -170,6 +176,7 @@
         });
     }
 
+    // Impide que un cliente entre directamente a páginas administrativas.
     function initAdminGuard() {
         const esPaginaAdmin = window.location.pathname.includes('admin-');
         if (!esPaginaAdmin) return;
@@ -182,6 +189,7 @@
         }
     }
 
+    // Dibuja la tabla de usuarios a partir de localStorage.
     function renderUsuariosTable() {
         const cuerpoTabla = document.getElementById('cuerpo-tabla-usuarios');
         if (!cuerpoTabla) return;
@@ -423,6 +431,7 @@
         }
     }
 
+    // Dibuja la tabla de productos y conecta las acciones de eliminar/editar.
     function renderProductsTable() {
         const cuerpoTablaProductos = document.getElementById('cuerpo-tabla-productos') || document.querySelector('.admin-container .table tbody');
         if (!cuerpoTablaProductos) return;
@@ -464,6 +473,7 @@
         });
     }
 
+    // Valida y guarda un producto creado desde el panel admin.
     function initCreateProduct() {
         const form = document.getElementById('formNuevoProducto') || document.getElementById('form-nuevo-producto');
         if (!form) return;
@@ -499,6 +509,7 @@
         });
     }
 
+    // Carga, actualiza o elimina el producto indicado en la URL.
     function initEditProduct() {
         const form = document.getElementById('formEditarProducto') || document.getElementById('form-editar-producto');
         if (!form) return;
@@ -577,6 +588,7 @@
         }
     }
 
+    // Inicializa todas las funciones disponibles en la página actual.
     function init() {
         ensureAdminSeed();
         initAuthUI();

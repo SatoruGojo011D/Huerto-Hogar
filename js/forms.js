@@ -1,7 +1,9 @@
+/* Formularios: valida registro, seguimiento, filtros del catálogo y acciones de añadir. */
 (function () {
     const REGEX_EMAIL_GMAIL_HOTMAIL = /^[^\s@]+@(gmail|hotmail)\.[a-z]{2,}$/i;
     const REGEX_SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
 
+    // Marca un campo inválido y muestra el mensaje asociado a su grupo.
     function mostrarError(input, mensaje) {
         if (!input) return;
         input.classList.add('campo-invalido');
@@ -16,6 +18,7 @@
         }
     }
 
+    // Quita el error y marca el campo como válido.
     function limpiarError(input) {
         if (!input) return;
         input.classList.remove('campo-invalido');
@@ -30,6 +33,7 @@
         }
     }
 
+    // Controla registro, reglas de contraseña, términos y creación del usuario.
     function initRegisterForm() {
         const form = document.getElementById('form-registro');
         if (!form) return;
@@ -151,6 +155,7 @@
         });
     }
 
+    // Valida la fecha de entrega y simula la búsqueda del estado de un pedido.
     function initTrackingForms() {
         const formFecha = document.getElementById('form-fecha-entrega');
         const formRastreo = document.getElementById('form-rastreo');
@@ -222,6 +227,7 @@
         }
     }
 
+    // Filtra las tarjetas por categoría/precio y conecta el botón Añadir.
     function initCatalogFilters() {
         const formFiltros = document.getElementById('form-filtros');
         const gridProductos = document.getElementById('grid-productos');

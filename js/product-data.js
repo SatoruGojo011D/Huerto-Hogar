@@ -1,4 +1,6 @@
+/* Productos: fuente de datos del catálogo, detalle dinámico y reseñas por producto. */
 (function () {
+    // Cada objeto contiene la información propia que se muestra en su página de detalle.
     const productos = [
         {
             id: 'FR001', nombre: 'Manzanas Fuji', categoria: 'Frutas Frescas', precio: 1200, unidad: 'kg', stock: '150 kg',
@@ -65,6 +67,7 @@
         }
     ];
 
+    // Busca el producto solicitado mediante el parámetro id de la URL.
     function getProduct(id) {
         return productos.find(producto => producto.id === id) || productos[0];
     }
@@ -75,6 +78,7 @@
             : String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[character]));
     }
 
+    // Recupera únicamente las reseñas asociadas al producto indicado.
     function getReviews(productId) {
         try {
             return JSON.parse(localStorage.getItem(`hh_resenas_${productId}`) || '[]');
@@ -83,6 +87,7 @@
         }
     }
 
+    // Guarda una reseña nueva sin mezclarla con las de otros productos.
     function saveReview(productId, review) {
         const reviews = getReviews(productId);
         reviews.unshift(review);
@@ -90,6 +95,7 @@
         return reviews;
     }
 
+    // Calcula el promedio y dibuja la lista de comentarios del producto.
     function renderReviews(productId, summaryElement, listElement) {
         const reviews = getReviews(productId);
         const total = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -113,6 +119,7 @@
             : '<p class="sin-resenas">Sé la primera persona en opinar sobre este producto.</p>';
     }
 
+    // Conecta las estrellas, el textarea y el botón que publica la reseña.
     function setupReviewForm(product) {
         const form = document.getElementById('form-resena');
         const selector = document.getElementById('selector-estrellas');
@@ -169,6 +176,7 @@
         renderReviews(product.id, summary, list);
     }
 
+    // Rellena la página de detalle con los datos del producto seleccionado.
     function renderDetailPage() {
         const detail = document.getElementById('detalle-producto');
         if (!detail) return;
@@ -208,6 +216,7 @@
         setupReviewForm(product);
     }
 
+    // Convierte el overlay Ver detalles en un enlace con el ID correcto.
     function initCatalogDetails() {
         const grid = document.getElementById('grid-productos');
         if (!grid) return;

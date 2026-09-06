@@ -1,4 +1,6 @@
+/* Arranque: espera a que exista el HTML y activa los módulos cargados en esa página. */
 document.addEventListener('DOMContentLoaded', () => {
+    // El orden importa: primero utilidades/datos, después módulos que dependen de ellos.
     if (window.HuertoHogar && typeof window.HuertoHogar.initCore === 'function') {
         window.HuertoHogar.initCore();
     }
