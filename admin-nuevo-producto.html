@@ -31,21 +31,33 @@
                     <div class="card-body">
                         <form id="formNuevoProducto" class="form">
                             <div class="form-group">
-                                <label for="nombreProd">Nombre del Producto *</label>
-                                <input type="text" id="nombreProd" required placeholder="Ej: Tomates Cherry">
+                                <label for="nuevo-prod-nombre">Nombre del Producto *</label>
+                                <input type="text" id="nuevo-prod-nombre" name="nuevo-prod-nombre" required placeholder="Ej: Tomates Cherry">
                             </div>
                             <div class="form-group">
-                                <label for="precioProd">Precio (CLP) *</label>
-                                <input type="number" id="precioProd" required placeholder="0">
+                                <label for="nuevo-prod-categoria">Categoría *</label>
+                                <select id="nuevo-prod-categoria" name="nuevo-prod-categoria" required>
+                                    <option value="Verduras">Verduras</option>
+                                    <option value="Frutas">Frutas</option>
+                                    <option value="Herramientas">Herramientas</option>
+                                    <option value="Semillas">Semillas</option>
+                                </select>
+                            </div>
+                            <div class="form-row" style="display: flex; gap: 1rem;">
+                                <div class="form-group" style="flex: 1;">
+                                    <label for="nuevo-prod-precio">Precio (CLP) *</label>
+                                    <input type="number" id="nuevo-prod-precio" name="nuevo-prod-precio" required placeholder="0">
+                                </div>
+                                <div class="form-group" style="flex: 1;">
+                                    <label for="nuevo-prod-stock">Stock Inicial *</label>
+                                    <input type="number" id="nuevo-prod-stock" name="nuevo-prod-stock" required placeholder="0">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="stockProd">Stock Inicial *</label>
-                                <input type="number" id="stockProd" required placeholder="0">
+                                <label for="nuevo-prod-imagen">Ruta o URL de Imagen</label>
+                                <input type="text" id="nuevo-prod-imagen" name="nuevo-prod-imagen" placeholder="img/producto1.jpg">
                             </div>
-                            <div class="form-group">
-                                <label for="descProd">Descripción</label>
-                                <textarea id="descProd" rows="4"></textarea>
-                            </div>
+                            <div id="mensaje-error-nuevo-prod" style="margin-bottom: 1rem; font-weight: bold; color: #d32f2f;"></div>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Producto</button>
                                 <a href="admin-productos.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
@@ -56,6 +68,8 @@
             </div>
         </main>
     </div>
+    <script src="js/core.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,78 @@
+/* =====================================================
+   PERFIL DE USUARIO
+   Estilos del formulario de edición de datos personales.
+   ===================================================== */
+
+.main-profile {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 2rem;
+}
+
+.profile-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.profile-form label {
+    display: block;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: #fff;
+}
+
+.profile-form input:focus {
+    outline: 2px solid rgba(43, 122, 75, 0.15);
+    border-color: var(--primary-green);
+}
+
+.profile-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.profile-actions .btn-checkout {
+    width: auto;
+    flex: 1;
+    min-width: 160px;
+}
+
+.profile-actions .btn-logout {
+    background: #7b1e1e;
+}
+
+.profile-alert {
+    display: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.profile-alert.success {
+    display: block;
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.profile-alert.error {
+    display: block;
+    background: #fdecea;
+    color: #b42318;
+}

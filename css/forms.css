@@ -108,3 +108,42 @@
 .aviso-exito.visible {
     display: block;
 }
+
+#form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+#form-login .form-group {
+    margin-bottom: 1.3rem;
+}
+
+#form-login input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background: #FAF8F5;
+    color: var(--text-dark);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#form-login input:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
+}
+
+#form-login label {
+    display: block;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+#form-login .login-submit {
+    margin-top: 0.5rem;
+}

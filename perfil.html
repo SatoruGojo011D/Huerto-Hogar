@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuertoHogar | Mi Perfil</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset-.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/perfil.css">
 </head>
 <body>
 
@@ -21,7 +26,6 @@
                 <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="noticias.html">Noticias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="seguimiento.html">Seguimiento</a></li>
                 <li><a href="login.html">Mi cuenta</a></li>
@@ -30,13 +34,6 @@
 
         <!-- ACCIONES DE USUARIO -->
         <div style="display: flex; align-items: center; gap: 1rem;">
-            <a href="perfil.html" title="Mi Perfil" style="display: flex; align-items: center; color: var(--primary, #2d5a27); text-decoration: none;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </a>
-
             <a href="carrito.html" class="cart-icon-wrapper">
                 🛒 <span class="cart-badge" id="cart-counter">0</span>
             </a>
@@ -49,6 +46,7 @@
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Actualiza tu información personal y credenciales de acceso.</p>
 
         <form id="profile-form" class="cart-card" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.2rem;">
+            <div id="perfil-mensaje" style="display: none; padding: 0.7rem 1rem; border-radius: 8px; font-weight: 600;"></div>
             
             <div>
                 <label for="profile-name" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Nombre completo</label>
@@ -65,6 +63,11 @@
                 <input type="tel" id="profile-phone" name="phone" placeholder="+56 9 1234 5678" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
             </div>
 
+            <div>
+                <label for="profile-address" style="display: block; font-weight: bold; margin-bottom: 0.4rem;">Dirección</label>
+                <input type="text" id="profile-address" name="address" placeholder="Tu dirección de entrega" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
             <hr style="border: 0; border-top: 1px solid #eee; margin: 0.5rem 0;">
 
             <h3 class="serif" style="font-size: 1.2rem; margin-bottom: -0.5rem;">Cambiar Contraseña</h3>
@@ -79,9 +82,14 @@
                 <input type="password" id="new-password" name="newPassword" placeholder="Mínimo 6 caracteres" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
             </div>
 
-            <button type="submit" class="btn-checkout" style="padding: 0.8rem; font-size: 1rem; margin-top: 1rem; cursor: pointer;">
-                Guardar Cambios
-            </button>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                <button type="submit" class="btn-checkout" style="padding: 0.8rem; font-size: 1rem; cursor: pointer; width: auto; flex: 1; min-width: 160px;">
+                    Guardar Cambios
+                </button>
+                <button type="button" id="btn-cerrar-sesion" class="btn-checkout" style="background: #7b1e1e; padding: 0.8rem; font-size: 1rem; cursor: pointer; width: auto; min-width: 160px;">
+                    Cerrar sesión
+                </button>
+            </div>
         </form>
     </main>
 
@@ -101,7 +109,6 @@
                     <li><a href="productos.html">Catálogo</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="blog.html">Blog</a></li>
-                    <li><a href="noticias.html">Noticias</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="seguimiento.html">Seguimiento</a></li>
                     <li><a href="login.html">Mi cuenta</a></li>
@@ -117,6 +124,10 @@
         </div>
     </footer>
 
+    <script src="js/core.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/admin.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

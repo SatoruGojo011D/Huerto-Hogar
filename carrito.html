@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi carrito - HuertoHogar</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset-.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/carrito.css">
 </head>
 <body>
 
@@ -20,7 +25,6 @@
                 <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="noticias.html">Noticias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="seguimiento.html">Seguimiento</a></li>
                 <li><a href="login.html">Mi cuenta</a></li>
@@ -28,7 +32,7 @@
         </nav>
 
         <a href="carrito.html" class="cart-icon-wrapper">
-            🛒 <span class="cart-badge" id="cart-counter">6</span>
+            🛒 <span class="cart-badge" id="cart-counter">0</span>
         </a>
     </header>
 
@@ -37,72 +41,31 @@
         <p class="cart-subtitle">Cosechamos tu pedido el día anterior a la entrega.</p>
 
         <div class="cart-grid">
-            <section class="cart-items">
-                <!-- Item 1 -->
-                <article class="cart-card" data-unit-price="1200">
-                    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=300&q=80" alt="Manzanas Fuji">
-                    <div class="cart-card-info">
-                        <h3 class="serif">Manzanas Fuji</h3>
-                        <p class="unit-price">$1.200 CLP/kg</p>
-                        <div class="qty-control">
-                            <button class="qty-btn btn-minus">−</button>
-                            <span class="qty-val">2</span>
-                            <button class="qty-btn btn-plus">+</button>
-                        </div>
-                    </div>
-                    <button class="remove-btn" title="Eliminar">🗑</button>
-                    <div class="item-total-price">$2.400 CLP</div>
-                </article>
-
-                <!-- Item 2 -->
-                <article class="cart-card" data-unit-price="5000">
-                    <img src="https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=300&q=80" alt="Miel Orgánica">
-                    <div class="cart-card-info">
-                        <h3 class="serif">Miel Orgánica</h3>
-                        <p class="unit-price">$5.000 CLP/frasco 500 g</p>
-                        <div class="qty-control">
-                            <button class="qty-btn btn-minus">−</button>
-                            <span class="qty-val">1</span>
-                            <button class="qty-btn btn-plus">+</button>
-                        </div>
-                    </div>
-                    <button class="remove-btn" title="Eliminar">🗑</button>
-                    <div class="item-total-price">$5.000 CLP</div>
-                </article>
-
-                <!-- Item 3 -->
-                <article class="cart-card" data-unit-price="1800">
-                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&q=80" alt="Leche Fresca Entera">
-                    <div class="cart-card-info">
-                        <h3 class="serif">Leche Fresca Entera</h3>
-                        <p class="unit-price">$1.800 CLP/botella 1 L</p>
-                        <div class="qty-control">
-                            <button class="qty-btn btn-minus">−</button>
-                            <span class="qty-val">3</span>
-                            <button class="qty-btn btn-plus">+</button>
-                        </div>
-                    </div>
-                    <button class="remove-btn" title="Eliminar">🗑</button>
-                    <div class="item-total-price">$5.400 CLP</div>
-                </article>
+            <section class="cart-items" id="cart-items">
+                <div class="empty-cart" id="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3>Tu carrito está vacío</h3>
+                    <p>Aún no has agregado productos. Explora el catálogo y añade lo que te guste.</p>
+                    <a href="productos.html" class="btn-checkout empty-cart-btn">Ver catálogo</a>
+                </div>
             </section>
 
             <aside class="summary-box">
                 <h3 class="serif">Resumen del pedido</h3>
 
                 <div class="summary-item">
-                    <span>Subtotal (<span id="total-count">6</span> ítems)</span>
-                    <strong id="subtotal-text">$12.800 CLP</strong>
+                    <span>Subtotal (<span id="total-count">0</span> ítems)</span>
+                    <strong id="subtotal-text">$0 CLP</strong>
                 </div>
 
                 <div class="summary-item">
                     <span>Despacho</span>
-                    <strong id="shipping-text">$2.990 CLP</strong>
+                    <strong id="shipping-text">$0 CLP</strong>
                 </div>
 
                 <div class="summary-item total-row">
                     <span>Total</span>
-                    <span class="total-price-text" id="total-text">$15.790 CLP</span>
+                    <span class="total-price-text" id="total-text">$0 CLP</span>
                 </div>
 
                 <div class="date-picker-box">
@@ -157,6 +120,10 @@
         </div>
     </footer>
 
+    <script src="js/core.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/admin.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

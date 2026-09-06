@@ -71,3 +71,81 @@ nav ul li a:hover, nav ul li a.active {
     align-items: center;
     justify-content: center;
 }
+
+.profile-menu {
+    position: relative;
+}
+
+.profile-menu__button {
+    border: 0;
+    background: transparent;
+    color: var(--primary-green);
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0.45rem 0;
+}
+
+.profile-menu__panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.75rem);
+    width: 250px;
+    padding: 1rem;
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    z-index: 110;
+}
+
+.profile-menu__panel strong {
+    display: block;
+    color: var(--title-brown);
+    margin-bottom: 0.8rem;
+}
+
+.profile-menu__details {
+    display: grid;
+    gap: 0.15rem;
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+}
+
+.profile-label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 0.35rem;
+    text-transform: uppercase;
+}
+
+.profile-menu__link,
+.profile-menu__logout {
+    display: block;
+    width: 100%;
+    margin-top: 0.9rem;
+    padding: 0.6rem 0.7rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.profile-menu__link {
+    background: var(--badge-bg);
+    color: var(--primary-green);
+    text-decoration: none;
+}
+
+.profile-menu__logout {
+    border: 0;
+    background: #7B1E1E;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+@media (max-width: 680px) {
+    .profile-menu__panel {
+        right: -2rem;
+    }
+}

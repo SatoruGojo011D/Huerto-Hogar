@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuertoHogar | Frescura del Campo a tu Mesa</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset-.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 
@@ -21,22 +26,14 @@
                 <li><a href="productos.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="noticias.html">Noticias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="seguimiento.html">Seguimiento</a></li>
                 <li><a href="login.html">Mi cuenta</a></li>
             </ul>
         </nav>
 
-        <!-- ACCIONES DE USUARIO (PERFIL Y CARRITO) -->
+        <!-- ACCIONES DE USUARIO -->
         <div style="display: flex; align-items: center; gap: 1rem;">
-            <a href="perfil.html" title="Mi Perfil" style="display: flex; align-items: center; color: inherit; text-decoration: none;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </a>
-
             <a href="carrito.html" class="cart-icon-wrapper">
                 🛒 <span class="cart-badge" id="cart-counter">0</span>
             </a>
@@ -45,49 +42,75 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
-        <section class="hero" style="text-align: center; padding: 4rem 1rem; background-color: #F4EFEA;">
-            <h2 class="serif" style="font-size: 2.5rem; margin-bottom: 1rem;">Del campo directo a tu mesa</h2>
-            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 1.5rem auto;">Productos frescos, orgánicos y cosechados por pequeños productores locales el día anterior a tu entrega.</p>
-            <a href="productos.html" class="btn-checkout" style="display: inline-block; width: auto; padding: 0.8rem 2rem; text-decoration: none;">Ver Catálogo</a>
+        <section class="home-hero">
+            <div class="home-hero__content container">
+                <div>
+                    <span class="section-kicker">HuertoHogar</span>
+                    <h2 class="serif">Del campo directo a tu mesa</h2>
+                    <p>Productos frescos, orgánicos y cosechados por pequeños productores locales el día anterior a tu entrega.</p>
+                    <div class="hero-actions">
+                        <a href="productos.html" class="btn-checkout home-btn">Ver Catálogo</a>
+                        <a href="nosotros.html" class="btn-secondary home-btn">Nuestra historia</a>
+                    </div>
+                    <ul class="hero-points">
+                        <li>Entrega local</li>
+                        <li>Sin intermediarios</li>
+                        <li>Productos frescos</li>
+                    </ul>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card hero-card--large">
+                        <img src="https://images.unsplash.com/photo-1464226184884-fa52ac9c6d53?w=900&q=80" alt="Verduras frescas">
+                    </div>
+                    <div class="hero-card hero-card--small">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=700&q=80" alt="Frutas frescas">
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="container">
-            <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 1.5rem;">Productos Destacados</h2>
+        <section class="container home-section">
+            <div class="section-heading">
+                <span class="section-kicker">Lo más elegido</span>
+                <h2 class="serif">Productos Destacados</h2>
+            </div>
             
-            <div class="cart-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
-                
-                <!-- Producto 1 -->
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji" style="width: 100%; height: 160px;">
-                    <h3 class="serif" style="margin-top: 0.8rem;">Manzanas Fuji</h3>
-                    <p class="unit-price">$1.200 CLP / kg</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir al Carrito</button>
+            <div class="featured-grid">
+                <article class="feature-card" data-id="FR001" data-name="Manzanas Fuji" data-price="1200">
+                    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=500&q=80" alt="Manzanas Fuji">
+                    <div class="feature-card__body">
+                        <h3 class="serif">Manzanas Fuji</h3>
+                        <p class="unit-price">$1.200 CLP / kg</p>
+                        <button class="btn-checkout feature-btn" type="button">Añadir al Carrito</button>
+                    </div>
                 </article>
 
-                <!-- Producto 2 -->
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=500&q=80" alt="Lechuga Hidropónica" style="width: 100%; height: 160px;">
-                    <h3 class="serif" style="margin-top: 0.8rem;">Lechuga Hidropónica</h3>
-                    <p class="unit-price">$1.200 CLP / un</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir al Carrito</button>
+                <article class="feature-card" data-id="VR001" data-name="Lechuga Hidropónica" data-price="1200">
+                    <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=500&q=80" alt="Lechuga Hidropónica">
+                    <div class="feature-card__body">
+                        <h3 class="serif">Lechuga Hidropónica</h3>
+                        <p class="unit-price">$1.200 CLP / un</p>
+                        <button class="btn-checkout feature-btn" type="button">Añadir al Carrito</button>
+                    </div>
                 </article>
 
-                <!-- Producto 3 -->
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500&q=80" alt="Tomate Cherry" style="width: 100%; height: 160px;">
-                    <h3 class="serif" style="margin-top: 0.8rem;">Tomate Cherry</h3>
-                    <p class="unit-price">$1.800 CLP / kg</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir al Carrito</button>
+                <article class="feature-card" data-id="FR002" data-name="Tomate Cherry" data-price="1800">
+                    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500&q=80" alt="Tomate Cherry">
+                    <div class="feature-card__body">
+                        <h3 class="serif">Tomate Cherry</h3>
+                        <p class="unit-price">$1.800 CLP / kg</p>
+                        <button class="btn-checkout feature-btn" type="button">Añadir al Carrito</button>
+                    </div>
                 </article>
 
-                <!-- Producto 4 -->
-                <article class="cart-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem;">
-                    <img src="https://images.unsplash.com/photo-1587486913049-53fc88980cfc?w=500&q=80" alt="Huevos de Campo" style="width: 100%; height: 160px;">
-                    <h3 class="serif" style="margin-top: 0.8rem;">Huevos de Campo</h3>
-                    <p class="unit-price">$4.500 CLP / docena</p>
-                    <button class="btn-checkout" style="padding: 0.5rem; font-size: 0.85rem; margin-top: auto;">Añadir al Carrito</button>
+                <article class="feature-card" data-id="PO001" data-name="Huevos de Campo" data-price="4500">
+                    <img src="https://images.unsplash.com/photo-1587486913049-53fc88980cfc?w=500&q=80" alt="Huevos de Campo">
+                    <div class="feature-card__body">
+                        <h3 class="serif">Huevos de Campo</h3>
+                        <p class="unit-price">$4.500 CLP / docena</p>
+                        <button class="btn-checkout feature-btn" type="button">Añadir al Carrito</button>
+                    </div>
                 </article>
-
             </div>
         </section>
     </main>
@@ -108,7 +131,6 @@
                     <li><a href="productos.html">Catálogo</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="blog.html">Blog</a></li>
-                    <li><a href="noticias.html">Noticias</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="seguimiento.html">Seguimiento</a></li>
                     <li><a href="login.html">Mi cuenta</a></li>
@@ -124,6 +146,10 @@
         </div>
     </footer>
 
+    <script src="js/core.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/admin.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

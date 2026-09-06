@@ -12,6 +12,7 @@
     --card-bg: #FFFFFF;
     --primary-green: #2B7A4B;
     --primary-hover: #215E39;
+    --primary-color: var(--primary-green);
     --title-brown: #7A4E2D;
     --text-dark: #2C3E50;
     --text-muted: #7F8C8D;

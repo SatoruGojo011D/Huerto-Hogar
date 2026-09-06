@@ -1,0 +1,228 @@
+(function () {
+    const productos = [
+        {
+            id: 'FR001', nombre: 'Manzanas Fuji', categoria: 'Frutas Frescas', precio: 1200, unidad: 'kg', stock: '150 kg',
+            origen: 'Valle del Maule', imagen: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=700&q=80',
+            descripcion: 'Manzanas crocantes y jugosas, recien cosechadas. Ideales para colaciones sanas.',
+            practicas: 'Cultivo local con manejo responsable del suelo y cosecha de temporada.',
+            impacto: 'Huella de carbono baja gracias a su produccion y distribucion local.'
+        },
+        {
+            id: 'FR002', nombre: 'Naranjas Valencia', categoria: 'Frutas Frescas', precio: 1000, unidad: 'kg', stock: '200 kg',
+            origen: 'Valle de Azapa', imagen: 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=700&q=80',
+            descripcion: 'Naranjas dulces con alto contenido de jugo y vitamina C natural.',
+            practicas: 'Produccion de temporada con seleccion manual de cada fruto.',
+            impacto: 'Producto de temporada que reduce el uso de almacenamiento prolongado.'
+        },
+        {
+            id: 'FR003', nombre: 'Platanos Cavendish', categoria: 'Frutas Frescas', precio: 800, unidad: 'kg', stock: '250 kg',
+            origen: 'Importacion Directa', imagen: 'https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=700&q=80',
+            descripcion: 'Platanos de textura suave y maduracion perfecta para batidos y reposteria.',
+            practicas: 'Seleccionados por madurez para evitar desperdicios en el hogar.',
+            impacto: 'Distribucion planificada para conservar la frescura y reducir mermas.'
+        },
+        {
+            id: 'VR001', nombre: 'Zanahorias Organicas', categoria: 'Verduras Organicas', precio: 900, unidad: 'kg', stock: '100 kg',
+            origen: "Region de O'Higgins", imagen: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=700&q=80',
+            descripcion: 'Cultivadas sin pesticidas en suelos ricos en nutrientes. Sabor intenso y textura firme.',
+            practicas: 'Manejo organico y cuidado del suelo durante todo el cultivo.',
+            impacto: 'Cultivo cercano que favorece recorridos de entrega mas cortos.'
+        },
+        {
+            id: 'VR002', nombre: 'Espinacas Frescas', categoria: 'Verduras Organicas', precio: 700, unidad: 'bolsa 500 g', stock: '80 bolsas',
+            origen: 'Melipilla', imagen: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=700&q=80',
+            descripcion: 'Hojas verdes lavadas, listas para ensaladas o salteados llenos de hierro.',
+            practicas: 'Cosecha cuidadosa y empaque practico para conservar sus hojas.',
+            impacto: 'Se entrega fresca para reducir el desperdicio por perdida de calidad.'
+        },
+        {
+            id: 'VR003', nombre: 'Pimientos Tricolores', categoria: 'Verduras Organicas', precio: 1500, unidad: 'kg', stock: '120 kg',
+            origen: 'Limache', imagen: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=700&q=80',
+            descripcion: 'Surtido de pimientos rojo, verde y amarillo de cultivo bajo invernadero.',
+            practicas: 'Cultivo protegido con uso eficiente del agua y cosecha manual.',
+            impacto: 'Produccion local que disminuye la distancia entre huerto y hogar.'
+        },
+        {
+            id: 'PO001', nombre: 'Miel Organica', categoria: 'Productos Organicos', precio: 5000, unidad: 'frasco 500 g', stock: '50 frascos',
+            origen: 'Apicultores locales', imagen: 'https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=700&q=80',
+            descripcion: 'Miel multifloral 100% pura y no procesada de apicultores locales.',
+            practicas: 'Apicultura responsable que protege las colmenas y la biodiversidad.',
+            impacto: 'Apoya la polinizacion y el trabajo de productores de la zona.'
+        },
+        {
+            id: 'PO003', nombre: 'Quinua Organica', categoria: 'Productos Organicos', precio: 3200, unidad: 'kg', stock: '60 kg',
+            origen: 'Altiplano Chileno', imagen: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=700&q=80',
+            descripcion: 'Superalimento andino rico en proteinas, fibra y libre de gluten.',
+            practicas: 'Cultivo tradicional con seleccion y limpieza cuidadosa del grano.',
+            impacto: 'Producto seco de larga duracion que ayuda a evitar desperdicios.'
+        },
+        {
+            id: 'PL001', nombre: 'Leche Entera', categoria: 'Productos Lacteos', precio: 1800, unidad: 'botella 1 L', stock: '90 botellas',
+            origen: 'Granjas de Osorno', imagen: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=700&q=80',
+            descripcion: 'Leche de libre pastoreo, pasteurizada y fresca del dia.',
+            practicas: 'Producida por granjas familiares con cuidado del ganado y envases retornables.',
+            impacto: 'Envase retornable y abastecimiento directo desde granjas locales.'
+        }
+    ];
+
+    function getProduct(id) {
+        return productos.find(producto => producto.id === id) || productos[0];
+    }
+
+    function escapeHtml(value) {
+        return window.HuertoHogar?.utils?.escaparHTML
+            ? window.HuertoHogar.utils.escaparHTML(value)
+            : String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[character]));
+    }
+
+    function getReviews(productId) {
+        try {
+            return JSON.parse(localStorage.getItem(`hh_resenas_${productId}`) || '[]');
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function saveReview(productId, review) {
+        const reviews = getReviews(productId);
+        reviews.unshift(review);
+        localStorage.setItem(`hh_resenas_${productId}`, JSON.stringify(reviews));
+        return reviews;
+    }
+
+    function renderReviews(productId, summaryElement, listElement) {
+        const reviews = getReviews(productId);
+        const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+        const average = reviews.length ? (total / reviews.length).toFixed(1) : 'Sin calificaciones';
+
+        if (summaryElement) {
+            summaryElement.textContent = reviews.length
+                ? `${'★'.repeat(Math.round(total / reviews.length))} ${average}/5 (${reviews.length} reseña${reviews.length === 1 ? '' : 's'})`
+                : 'Este producto todavía no tiene reseñas.';
+        }
+
+        if (!listElement) return;
+        listElement.innerHTML = reviews.length
+            ? reviews.map(review => `
+                <article class="item-resena">
+                    <strong>${escapeHtml(review.author)}</strong>
+                    <span class="estrellas-val">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+                    <p>${escapeHtml(review.comment)}</p>
+                </article>
+            `).join('')
+            : '<p class="sin-resenas">Sé la primera persona en opinar sobre este producto.</p>';
+    }
+
+    function setupReviewForm(product) {
+        const form = document.getElementById('form-resena');
+        const selector = document.getElementById('selector-estrellas');
+        const textarea = document.getElementById('texto-resena');
+        const summary = document.getElementById('resumen-calificacion');
+        const list = document.getElementById('lista-resenas-contenedor');
+        const message = document.getElementById('mensaje-resena');
+        let selectedRating = 0;
+
+        if (!form || !selector || !textarea) return;
+
+        const updateStars = () => selector.querySelectorAll('span').forEach(star => {
+            star.classList.toggle('activa', Number(star.dataset.value) <= selectedRating);
+        });
+
+        selector.addEventListener('click', event => {
+            const star = event.target.closest('span');
+            if (!star) return;
+            selectedRating = Number(star.dataset.value);
+            updateStars();
+        });
+
+        selector.addEventListener('keydown', event => {
+            const star = event.target.closest('span');
+            if (!star || (event.key !== 'Enter' && event.key !== ' ')) return;
+            event.preventDefault();
+            selectedRating = Number(star.dataset.value);
+            updateStars();
+        });
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const comment = textarea.value.trim();
+            if (!selectedRating || !comment) {
+                if (message) message.textContent = 'Selecciona una calificación y escribe una reseña.';
+                return;
+            }
+
+            let activeUser = null;
+            try { activeUser = JSON.parse(localStorage.getItem('sesion_activa') || 'null'); } catch (error) { activeUser = null; }
+            saveReview(product.id, {
+                rating: selectedRating,
+                comment,
+                author: activeUser?.nombre || 'Cliente de HuertoHogar',
+                date: new Date().toLocaleDateString('es-CL')
+            });
+            textarea.value = '';
+            selectedRating = 0;
+            updateStars();
+            if (message) message.textContent = 'Tu reseña fue publicada.';
+            renderReviews(product.id, summary, list);
+        });
+
+        renderReviews(product.id, summary, list);
+    }
+
+    function renderDetailPage() {
+        const detail = document.getElementById('detalle-producto');
+        if (!detail) return;
+
+        const product = getProduct(new URLSearchParams(window.location.search).get('id'));
+        document.title = `HuertoHogar | ${product.nombre}`;
+        const setText = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = value;
+        };
+
+        const image = document.getElementById('detalle-imagen');
+        if (image) {
+            image.src = product.imagen;
+            image.alt = product.nombre;
+        }
+        setText('detalle-codigo', `CODIGO: ${product.id}`);
+        setText('detalle-categoria', product.categoria);
+        setText('detalle-nombre', product.nombre);
+        setText('detalle-precio', `$${product.precio.toLocaleString('es-CL')} CLP / ${product.unidad}`);
+        setText('detalle-stock', `Stock disponible: ${product.stock}`);
+        setText('detalle-descripcion', product.descripcion);
+        setText('detalle-origen', product.origen);
+        setText('detalle-practicas', product.practicas);
+        setText('detalle-impacto', product.impacto);
+
+        const quantity = document.getElementById('cantidad');
+        if (quantity) quantity.max = parseInt(product.stock, 10) || 999;
+        const addButton = document.getElementById('btn-agregar-detalle');
+        if (addButton) addButton.addEventListener('click', () => {
+            const amount = Math.max(1, Number(quantity?.value) || 1);
+            window.HuertoHogar.addToCart({ ...product, cantidad: amount });
+            addButton.textContent = 'Añadido al carrito';
+            setTimeout(() => { addButton.textContent = 'Añadir al Carrito'; }, 1000);
+        });
+
+        setupReviewForm(product);
+    }
+
+    function initCatalogDetails() {
+        const grid = document.getElementById('grid-productos');
+        if (!grid) return;
+        grid.addEventListener('click', event => {
+            const details = event.target.closest('.overlay-detalles');
+            if (!details) return;
+            const card = details.closest('.producto-card');
+            const id = card?.querySelector('.btn-agregar')?.dataset.id;
+            if (id) window.location.href = `detalle-producto.html?id=${encodeURIComponent(id)}`;
+        });
+    }
+
+    window.HuertoHogar = window.HuertoHogar || {};
+    window.HuertoHogar.initProductData = function () {
+        initCatalogDetails();
+        renderDetailPage();
+    };
+})();
