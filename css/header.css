@@ -1,8 +1,11 @@
-/* --- HEADER Y BARRA DE NAVEGACIÓN --- */
+/* =====================================================
+   CABECERA (HEADER) Y NAVEGACIÓN
+   Compartido por todas las páginas: logo, menú y carrito.
+   ===================================================== */
 header {
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 1rem 5%;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,55 +14,60 @@ header {
     z-index: 100;
 }
 
-.logo h1 {
-    color: var(--primary-color);
-    font-size: 1.8rem;
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+}
+
+.brand-logo svg {
+    color: var(--primary-green);
+}
+
+.brand-logo h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: 600;
-    transition: color 0.3s;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
 }
 
-nav ul li a:hover {
-    color: var(--primary-color);
+nav ul li a:hover, nav ul li a.active {
+    color: var(--primary-green);
 }
 
-.cart-icon {
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* --- BARRA DE BÚSQUEDA --- */
-.search-container {
+.cart-icon-wrapper {
+    position: relative;
+    text-decoration: none;
+    color: var(--text-dark);
     display: flex;
     align-items: center;
-    background: #f0f0f0;
-    border-radius: 20px;
-    padding: 0.3rem 0.8rem;
-    margin: 0 1rem;
 }
 
-.search-container input {
-    border: none;
-    background: transparent;
-    padding: 0.3rem;
-    outline: none;
-    font-family: inherit;
-    width: 200px;
-}
-
-.search-container button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #E67E22;
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

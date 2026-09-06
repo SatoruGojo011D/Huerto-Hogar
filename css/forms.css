@@ -1,85 +1,110 @@
-/* --- FORMULARIOS (LOGIN, REGISTRO, CONTACTO) --- */
-.contenedor-formulario,
-.summary-box {
-    max-width: 500px;
-    margin: 3rem auto;
-    background: #FFFFFF;
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border: 1px solid #E5E7EB;
-}
-
-.contenedor-formulario h2,
-.summary-box h2 {
-    text-align: center;
-    margin-bottom: 0.5rem;
-    color: var(--primary-color, #2D6A4F);
-}
+/* =====================================================
+   FORMULARIOS CON VALIDACIÓN JS
+   Usado en registro.html y seguimiento.html (el JS que
+   marca campo-invalido/campo-valido y muestra
+   mensaje-error vive en js/app.js).
+   ===================================================== */
 
 .form-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.3rem;
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .form-group label {
+    font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 0.4rem;
-    font-size: 0.85rem;
-    color: var(--text-color, #333333);
+    color: var(--text-dark);
 }
 
-/* Aplicado a inputs, selects y el cuadro de mensaje (textarea) */
-.form-group input, 
+.form-group input,
 .form-group select,
-.form-group textarea,
-.input-field {
+.form-group textarea {
     width: 100%;
     padding: 0.8rem 1rem;
-    border: 1px solid #D1D5DB;
-    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background: #FAF8F5;
     font-family: inherit;
     font-size: 0.9rem;
-    background-color: #FFFFFF;
-    color: #333333;
+    color: var(--text-dark);
     box-sizing: border-box;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-group input:focus, 
+.form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus,
-.input-field:focus {
+.form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-color, #2D6A4F);
-    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
 }
 
-.form-group small {
-    color: #E74C3C;
-    font-size: 0.8rem;
-    margin-top: 0.3rem;
+.form-group input.campo-invalido,
+.form-group select.campo-invalido,
+.form-group textarea.campo-invalido {
+    border-color: #E74C3C;
+    background: #FDEDEC;
+}
+
+.form-group input.campo-valido,
+.form-group select.campo-valido,
+.form-group textarea.campo-valido {
+    border-color: var(--primary-green);
+}
+
+.form-group .mensaje-error {
     display: none;
+    color: #E74C3C;
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
 }
 
-.enlace-form {
+.form-group .mensaje-error.visible {
+    display: block;
+}
+
+.texto-ayuda {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+}
+
+.fila-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.fila-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 0.2rem;
+    accent-color: var(--primary-green);
+}
+
+.fila-checkbox label {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-dark);
+}
+
+.aviso-exito {
+    display: none;
+    background: var(--badge-bg);
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
     text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
 }
 
-.enlace-form a {
-    color: var(--primary-color, #2D6A4F);
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.enlace-form a:hover {
-    text-decoration: underline;
-}
-
-.info-contacto {
-    text-align: center;
-    margin-bottom: 2rem;
+.aviso-exito.visible {
+    display: block;
 }

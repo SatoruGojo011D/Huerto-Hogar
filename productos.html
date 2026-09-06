@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuertoHogar | Catálogo de Productos</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset-.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/catalogo.css">
 </head>
 <body>
 
@@ -213,11 +218,22 @@
                         <p><strong>Disponibilidad:</strong> <span id="modal-stock"></span></p>
                     </div>
 
+                    <!-- Botón de compartir: usa la API nativa de compartir del
+                         celular/navegador si existe, o copia el link si no -->
+                    <button type="button" id="btn-compartir" class="btn-compartir">
+                        🔗 Compartir producto
+                    </button>
+                    <span id="mensaje-compartir" class="mensaje-compartir"></span>
+
                     <hr class="modal-divider">
 
                     <!-- SECCIÓN DE RESEÑAS -->
                     <div class="seccion-resenas">
                         <h3 class="serif">Reseñas y Calificación</h3>
+
+                        <!-- Promedio de calificación y cantidad de reseñas,
+                             se calcula y actualiza con JS -->
+                        <p id="resumen-calificacion" class="resumen-calificacion"></p>
                         
                         <!-- Formulario de Reseña -->
                         <form id="form-resena" class="form-resena">
@@ -232,6 +248,7 @@
                             
                             <div class="form-group" style="margin-top: 0.8rem;">
                                 <textarea id="texto-resena" rows="2" placeholder="Escribe tu opinión sobre el producto..." required></textarea>
+                                <small class="mensaje-error"></small>
                             </div>
                             <button type="submit" class="btn-checkout" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Enviar Reseña</button>
                         </form>

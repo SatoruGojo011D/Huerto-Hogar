@@ -1,86 +1,369 @@
-/* --- VISTA: CATÁLOGO Y GRILLA --- */
-.contenedor-catalogo {
-    display: flex;
-    gap: 2rem;
-    padding: 2rem 5%;
-}
+/* =====================================================
+   CATÁLOGO DE PRODUCTOS (productos.html)
+   Filtros, grilla de productos, overlay "Ver detalles",
+   modal de detalle/reseñas y botón de compartir.
+   ===================================================== */
 
-.sidebar-filtros {
-    width: 250px;
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    height: fit-content;
-}
-
-.sidebar-filtros h3 {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
-}
-
-.grupo-filtro {
-    margin-bottom: 1.5rem;
-}
-
-.grupo-filtro label {
-    display: block;
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.grupo-filtro input[type="checkbox"] {
-    margin-right: 10px;
-    accent-color: var(--primary-color);
-}
-
-.main-catalogo {
-    flex: 1;
-}
-
-.grid-productos {
+.catalogo-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 240px 1fr;
     gap: 2rem;
+    align-items: start;
 }
 
-.card-producto {
-    background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: box-shadow 0.3s;
+/* Tarjeta base (la misma que usa el carrito): borde, esquinas
+   redondeadas y sombra suave. producto-card la reutiliza. */
+.cart-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 1.2rem;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
-.card-producto:hover {
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+.unit-price {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
 }
 
-.card-producto img {
-    max-width: 100%;
-    height: 150px;
+/* Estilos de formulario (label + input + mensaje de error), usados
+   en el formulario de reseñas dentro del modal de producto. */
+.form-group {
+    margin-bottom: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-dark);
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background: #FAF8F5;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    box-sizing: border-box;
+}
+
+.form-group textarea.campo-invalido {
+    border-color: #E74C3C;
+    background: #FDEDEC;
+}
+
+.form-group .mensaje-error {
+    display: none;
+    color: #E74C3C;
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
+}
+
+.form-group .mensaje-error.visible {
+    display: block;
+}
+
+.filtros-sidebar {
+    padding: 1.3rem;
+}
+
+.filtros-sidebar h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+}
+
+.lista-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.4rem;
+}
+
+.lista-filtros label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.lista-filtros input[type="checkbox"] {
+    accent-color: var(--primary-green);
+}
+
+.producto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+}
+
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1rem;
+}
+
+.producto-card img {
+    width: 100%;
+    height: 140px;
     object-fit: cover;
+    border-radius: 10px;
+}
+
+.producto-card h3 {
+    margin-top: 0.8rem;
+    font-size: 1rem;
+}
+
+.producto-card .stock-info {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.producto-card .btn-checkout {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    margin-top: auto;
+}
+
+.sin-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem;
+}
+
+@media (max-width: 850px) {
+    .catalogo-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- CAPA "VER DETALLES" AL PASAR EL CURSOR SOBRE LA FOTO --- */
+.img-container {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.overlay-detalles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(43, 122, 75, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-overlay {
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+.img-container:hover .overlay-detalles {
+    opacity: 1;
+}
+
+.img-container:hover img {
+    transform: scale(1.05);
+}
+
+/* --- MODAL DE DETALLE Y RESEÑAS --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 1.5rem;
+}
+
+.modal-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.modal-precio-highlight {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin: 0.4rem 0;
+}
+
+.modal-text {
+    font-size: 0.9rem;
+    color: var(--text-dark);
     margin-bottom: 1rem;
-    background-color: #eaeaea;
-    border-radius: 5px;
 }
 
-.precio {
-    color: var(--primary-color);
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin: 0.5rem 0 1rem 0;
+.modal-meta p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
 }
 
-@media (max-width: 768px) {
-    .contenedor-catalogo {
-        flex-direction: column;
+.modal-divider {
+    border: 0;
+    border-top: 1px dashed var(--border-light);
+    margin: 1.2rem 0;
+}
+
+.estrellas-rating {
+    display: flex;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #BDC3C7;
+}
+
+.estrellas-rating span.activa {
+    color: #F1C40F;
+}
+
+.lista-resenas {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.item-resena {
+    background: #FAF8F5;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+}
+
+.item-resena .estrellas-val {
+    color: #F1C40F;
+}
+
+@media (max-width: 650px) {
+    .modal-grid {
+        grid-template-columns: 1fr;
     }
-    .sidebar-filtros {
-        width: 100%;
+    .modal-grid img {
+        height: 160px;
     }
+}
+
+/* --- COMPARTIR PRODUCTO Y RESUMEN DE CALIFICACIÓN --- */
+.btn-compartir {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: 1px solid var(--primary-green);
+    color: var(--primary-green);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.6rem;
+    transition: background 0.2s ease;
+}
+
+.btn-compartir:hover {
+    background: rgba(43, 122, 75, 0.08);
+}
+
+.mensaje-compartir {
+    font-size: 0.78rem;
+    color: var(--primary-green);
+    margin-left: 0.6rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mensaje-compartir.visible {
+    opacity: 1;
+}
+
+.resumen-calificacion {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.resumen-calificacion .estrellas-val {
+    color: #F1C40F;
 }

@@ -1,0 +1,82 @@
+/* =====================================================
+   SEGUIMIENTO DE PEDIDOS (seguimiento.html)
+   Bloques de la página, y la línea de tiempo del pedido.
+   ===================================================== */
+
+.bloque-seguimiento {
+    margin-bottom: 2.2rem;
+    padding-bottom: 2.2rem;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.bloque-seguimiento:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.fila-inline {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.fila-inline .form-group {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 0;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--border-light);
+    z-index: 1;
+}
+
+.paso {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.paso .circulo {
+    width: 34px;
+    height: 34px;
+    background: #EFECE6;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    line-height: 34px;
+    font-weight: bold;
+    color: var(--text-muted);
+    transition: background 0.3s, color 0.3s;
+}
+
+.paso p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.paso.activo .circulo {
+    background: var(--primary-green);
+    color: #fff;
+}
+
+.paso.activo p {
+    color: var(--primary-green);
+    font-weight: 600;
+}

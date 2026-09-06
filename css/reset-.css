@@ -1,4 +1,8 @@
-/* --- RESET BÁSICO --- */
+/* =====================================================
+   RESET Y TIPOGRAFÍA BASE
+   Quita los márgenes/rellenos por defecto del navegador
+   y define la fuente y el color base del texto.
+   ===================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -7,12 +11,12 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    line-height: 1.5;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, .serif {
     font-family: 'Playfair Display', serif;
-    color: var(--title-color);
+    color: var(--title-brown);
 }

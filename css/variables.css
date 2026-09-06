@@ -1,10 +1,20 @@
-/* --- IMPORTACIÓN DE TIPOGRAFÍAS Y VARIABLES --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap');
+/* =====================================================
+   VARIABLES GLOBALES
+   Colores, tipografías y tokens de diseño usados en
+   TODO el sitio. Se enlaza en todas las páginas antes
+   que cualquier otro CSS, porque los demás archivos
+   dependen de estas variables (var(--primary-green), etc).
+   ===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-    --bg-color: #F7F7F7;        /* Blanco Suave */
-    --primary-color: #2E8B57;   /* Verde Esmeralda */
-    --accent-color: #FFD700;    /* Amarillo Mostaza */
-    --title-color: #8B4513;     /* Marrón Claro */
-    --text-color: #333333;      /* Texto Oscuro */
+    --bg-main: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --primary-green: #2B7A4B;
+    --primary-hover: #215E39;
+    --title-brown: #7A4E2D;
+    --text-dark: #2C3E50;
+    --text-muted: #7F8C8D;
+    --border-light: #EFECE6;
+    --badge-bg: #E8F5E9;
 }
