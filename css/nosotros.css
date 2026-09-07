@@ -143,6 +143,66 @@
     border: none;
 }
 
+/* Mapa inicial: silueta visual de Chile y puntos rojos de las sucursales. */
+.mapa-general {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eaf5e7, #f8fbf5);
+}
+
+.mapa-general svg {
+    width: min(100%, 360px);
+    height: 100%;
+}
+
+.chile-outline {
+    fill: #dbeed5;
+    stroke: #77a96f;
+    stroke-width: 2;
+}
+
+.city-marker {
+    fill: #d83434;
+    stroke: #fff;
+    stroke-width: 3;
+    filter: drop-shadow(0 2px 3px rgba(80, 20, 20, 0.3));
+}
+
+.map-label {
+    fill: #2c3e50;
+    font-family: Montserrat, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.mapa-general-title,
+.mapa-general-hint {
+    position: absolute;
+    left: 1rem;
+    margin: 0;
+}
+
+.mapa-general-title {
+    top: 1rem;
+    color: var(--title-brown);
+    font: 600 1.25rem 'Playfair Display', serif;
+}
+
+.mapa-general-hint {
+    bottom: 1rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.mapa-container iframe[hidden],
+.mapa-general[hidden] {
+    display: none;
+}
+
 /* --- VIDEO INSTITUCIONAL (responsive 16:9) --- */
 .video-wrapper {
     position: relative;

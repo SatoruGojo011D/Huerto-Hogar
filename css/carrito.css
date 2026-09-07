@@ -156,9 +156,10 @@
 }
 
 .progress-fill {
-    width: 75%;
+    width: 0%;
     height: 100%;
     background: var(--primary-green);
+    transition: width 0.35s ease;
 }
 
 .free-shipping-indicator {
@@ -217,3 +218,21 @@
         grid-column: 2;
     }
 }
+
+/* Boleta confirmada: modal centrado que funciona como comprobante final. */
+.receipt-overlay { position: fixed; inset: 0; z-index: 1200; display: grid; place-items: center; padding: 1rem; background: rgba(28, 50, 35, 0.62); }
+.receipt-overlay[hidden] { display: none; }
+.receipt-modal { position: relative; width: min(100%, 460px); padding: 2.2rem; border-radius: 24px; background: #fffdf9; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25); text-align: center; }
+.receipt-close { position: absolute; top: 0.8rem; right: 1rem; border: 0; background: transparent; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; }
+.receipt-success-icon { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 0.8rem; border-radius: 50%; background: var(--badge-bg); color: var(--primary-green); font-size: 1.8rem; font-weight: 700; }
+.receipt-kicker { color: var(--primary-green); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.receipt-modal h2 { margin: 0.35rem 0; font-size: 1.8rem; }
+.receipt-lead { color: var(--text-muted); font-size: 0.88rem; }
+.receipt-code-box { margin: 1.3rem 0; padding: 0.9rem; border: 1px dashed #a9c9ad; border-radius: 12px; background: #f1f8ef; }
+.receipt-code-box span, .receipt-details span { display: block; color: var(--text-muted); font-size: 0.75rem; }
+.receipt-code-box strong { color: var(--primary-green); font-size: 1.4rem; letter-spacing: 0.08em; }
+.receipt-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.3rem; text-align: left; }
+.receipt-details strong { color: var(--text-dark); font-size: 0.82rem; }
+.receipt-track-btn { display: block; width: 100%; text-decoration: none; }
+.receipt-secondary-btn { margin-top: 0.75rem; border: 0; background: transparent; color: var(--primary-green); cursor: pointer; font-weight: 600; }
+body.receipt-open { overflow: hidden; }

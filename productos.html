@@ -15,6 +15,7 @@
 <body>
 
     <!-- CABECERA -->
+    <!-- Cabecera: navegación del catálogo y acceso al carrito. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -39,6 +40,7 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
+    <!-- Contenido principal: filtros y resultados del catálogo. -->
     <main class="container">
         <h2 class="cart-title serif">Catálogo de Productos</h2>
         <p class="cart-subtitle">Selecciona los mejores productos frescos directamente traídos de la granja.</p>
@@ -46,6 +48,7 @@
         <div class="catalogo-layout">
 
             <!-- BARRA LATERAL: FILTROS -->
+            <!-- Filtros: permite limitar productos por categoría y precio. -->
             <aside class="summary-box filtros-sidebar">
                 <form id="form-filtros">
                     <h3 class="serif">Categorías</h3>
@@ -73,6 +76,7 @@
                     No encontramos productos con esos filtros. Prueba desmarcando alguna opción.
                 </p>
 
+                <!-- Grilla: tarjetas con datos que usa forms.js para filtrar y comprar. -->
                 <section class="producto-grid" id="grid-productos" aria-label="Resultados del catálogo">
 
                     <!-- FRUTAS FRESCAS -->
@@ -185,7 +189,7 @@
                     <!-- PRODUCTOS LÁCTEOS -->
                     <article class="cart-card producto-card" data-categoria="lacteos" data-precio="1800" data-nombre="Leche Entera"
                         data-descripcion="Leche de libre pastoreo Pasteurizada y fresca del día."
-                        data-origen="Granjas de Osorno" data-stock="90 botellas" data-img="img/quinoa.jpg">
+                        data-origen="Granjas de Osorno" data-stock="90 botellas" data-img="img/leche.jpg">
                         <div class="img-container">
                             <img src="img/leche.jpg" alt="Leche entera">
                             <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
@@ -202,6 +206,7 @@
     </main>
 
     <!-- MODAL DE DETALLES DEL PRODUCTO Y RESEÑAS -->
+    <!-- Modal dinámico: muestra la información completa y permite compartir el producto. -->
     <div id="modal-producto" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-cerrar" id="cerrar-modal">&times;</button>
@@ -264,6 +269,7 @@
     </div>
 
     <!-- FOOTER -->
+    <!-- Pie de página: navegación secundaria y datos de la cooperativa. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
@@ -292,6 +298,7 @@
         </div>
     </footer>
 
+    <!-- Scripts que activan catálogo, carrito, reseñas y sesión. -->
     <script src="js/core.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/product-data.js"></script>

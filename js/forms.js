@@ -160,6 +160,18 @@
         const formFecha = document.getElementById('form-fecha-entrega');
         const formRastreo = document.getElementById('form-rastreo');
 
+        // Prefija el último pedido confirmado o el código recibido desde la boleta.
+        if (formRastreo) {
+            try {
+                const ultimoPedido = JSON.parse(localStorage.getItem('hh_ultimo_pedido') || 'null');
+                const codigoUrl = new URLSearchParams(window.location.search).get('codigo');
+                const campoPedido = document.getElementById('codigo-pedido');
+                if (campoPedido) campoPedido.value = codigoUrl || ultimoPedido?.code || '';
+            } catch (error) {
+                // Si el almacenamiento está dañado, el cliente aún puede escribir el código manualmente.
+            }
+        }
+
         if (formFecha) {
             const campoFecha = document.getElementById('fecha-entrega');
             const avisoFecha = document.getElementById('aviso-fecha');
@@ -221,7 +233,15 @@
                     timeline.style.pointerEvents = 'auto';
                 }
 
-                const paso = pedidosSimulados[codigo] || 3;
+                // Los pedidos reales guardados tienen prioridad sobre los ejemplos de demostración.
+                let paso = pedidosSimulados[codigo] || 3;
+                try {
+                    const pedidos = JSON.parse(localStorage.getItem('hh_pedidos') || '[]');
+                    const pedidoGuardado = pedidos.find(pedido => pedido.code === codigo);
+                    if (pedidoGuardado) paso = pedidoGuardado.status || 1;
+                } catch (error) {
+                    // Se conserva el estado simulado si los pedidos guardados no son válidos.
+                }
                 activarPasosHasta(paso);
             });
         }
@@ -292,7 +312,7 @@
                 id: card.getAttribute('data-id') || card.getAttribute('data-nombre') || `prod-${Date.now()}`,
                 nombre: card.getAttribute('data-nombre') || 'Producto',
                 precio: Number(card.getAttribute('data-precio')) || 0,
-                imagen: card.getAttribute('data-img') || 'img/producto1.jpg',
+                imagen: card.getAttribute('data-img') || 'img/manzanas-fuji.png',
                 cantidad: 1
             };
 
@@ -320,13 +340,19 @@
     function initLocationsMap() {
         const botonesCiudad = document.querySelectorAll('.btn-ciudad');
         const mapaTiendas = document.getElementById('mapa-tiendas');
+        const mapaGeneral = document.getElementById('mapa-general');
         const textoDireccionActual = document.getElementById('direccion-actual');
 
         if (botonesCiudad.length && mapaTiendas) {
+            mapaTiendas.hidden = true;
+            if (mapaGeneral) mapaGeneral.hidden = false;
             botonesCiudad.forEach(boton => {
                 boton.addEventListener('click', () => {
                     const direccion = boton.getAttribute('data-direccion');
-                    mapaTiendas.src = `https://maps.google.com/maps?q=${encodeURIComponent(direccion)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+                    const consultaMapa = boton.getAttribute('data-mapa') || direccion;
+                    mapaTiendas.src = `https://maps.google.com/maps?q=${encodeURIComponent(consultaMapa)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+                    mapaTiendas.hidden = false;
+                    if (mapaGeneral) mapaGeneral.hidden = true;
 
                     botonesCiudad.forEach(b => b.classList.remove('activo'));
                     boton.classList.add('activo');

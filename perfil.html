@@ -15,6 +15,7 @@
 <body>
 
     <!-- CABECERA -->
+    <!-- Cabecera: navegación y menú de sesión activa. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -42,10 +43,12 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
+    <!-- Contenido principal: datos personales del usuario autenticado. -->
     <main class="container" style="max-width: 600px; margin: 3rem auto; padding: 0 1rem;">
         <h2 class="serif" style="font-size: 2rem; margin-bottom: 0.5rem; text-align: center;">Mi Perfil</h2>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Actualiza tu información personal y credenciales de acceso.</p>
 
+        <!-- Formulario de perfil: admin.js carga y guarda los datos de la sesión. -->
         <form id="profile-form" class="cart-card" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.2rem;">
             <div id="perfil-mensaje" style="display: none; padding: 0.7rem 1rem; border-radius: 8px; font-weight: 600;"></div>
             
@@ -95,6 +98,7 @@
     </main>
 
     <!-- FOOTER -->
+    <!-- Pie de página: enlaces institucionales. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">

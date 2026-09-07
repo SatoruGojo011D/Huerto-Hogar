@@ -5,12 +5,14 @@
     margin: 0 auto;
 }
 
+/* Cambia aquí el bloque visual principal de la página de inicio. */
 .home-hero {
     position: relative;
     min-height: 500px;
     max-width: 1100px;
     border-radius: 24px;
     overflow: hidden; /* recorta la imagen para que respete las esquinas redondeadas */
+    /* Imagen de fondo del inicio; puede reemplazarse por otra ruta de img/. */
     background-image: url('../img/hero-campo.png');
     background-size: cover; /* la imagen cubre todo el bloque sin deformarse */
     background-position: center; /* centra la imagen dentro del bloque */
@@ -19,6 +21,7 @@
     align-items:flex-end; /* empuja el contenido (texto) hacia abajo del bloque */
 }
 
+/* Overlay: oscurece la imagen para mejorar la lectura del texto. */
 .home-hero::before { /* capa oscura semi-transparente encima de la imagen, para que el texto blanco se lea bien */
     content: '';
     position: absolute;
@@ -35,6 +38,7 @@
     margin: 0; /* anula el margin:auto que hereda de .container, para que quede pegado a la izquierda */
 }
 
+/* Etiqueta pequeña que identifica la campaña o sección. */
 .section-kicker { /* cosecha del dia*/
     display: inline-block;
     margin-bottom: 1rem;
@@ -125,6 +129,7 @@
     font-size: clamp(2rem, 3vw, 2.7rem);
 }
 
+/* Grilla: organiza las tarjetas de productos destacados. */
 .featured-grid { /* grilla de las tarjetas de producto: 4 columnas iguales */
     display: grid;
     grid-template-columns: repeat(4, minmax(220px, 1fr));

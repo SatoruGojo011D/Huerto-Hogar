@@ -15,6 +15,7 @@
 <body>
 
     <!-- CABECERA -->
+    <!-- Cabecera: navegación pública de la página institucional. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -39,6 +40,7 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL NOSOTROS -->
+    <!-- Contenido principal: historia, valores, redes y sucursales. -->
     <main class="seccion-nosotros">
 
         <!-- HISTORIA -->
@@ -53,6 +55,7 @@
         </section>
 
         <!-- MISIÓN Y VISIÓN -->
+        <!-- Misión y visión: explica el propósito de HuertoHogar. -->
         <section aria-label="Misión y Visión">
             <div class="mision-vision-grid">
                 <div class="mision-vision-card">
@@ -80,6 +83,7 @@
         </section>
 
         <!-- SECCIÓN DE REDES SOCIALES (PROMOCIÓN DE PRODUCTOS) -->
+        <!-- Redes sociales: enlaces a los canales externos de la marca. -->
         <section class="redes-sociales-section">
             <h3 class="serif">📲 ¡Síguenos y Promociona con Nosotros!</h3>
             <p class="redes-subtitulo">
@@ -131,6 +135,7 @@
         </section>
 
         <!-- MAPA DE SUCURSALES -->
+        <!-- Sucursales: ubicaciones y mapa informativo. -->
         <section class="mapa-sucursales">
             <h3 class="serif" style="text-align: center;">Nuestras Ubicaciones</h3>
             <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
@@ -138,7 +143,7 @@
             </p>
 
             <div class="grupo-ciudades">
-                <button type="button" class="btn-checkout btn-ciudad activo"
+                <button type="button" class="btn-checkout btn-ciudad"
                     data-direccion="Av. Providencia 1208, Providencia, Santiago, Chile"
                     data-nombre="HuertoHogar Santiago — Av. Providencia 1208">Santiago</button>
                 <button type="button" class="btn-checkout btn-ciudad"
@@ -148,30 +153,51 @@
                     data-direccion="Camino Villarrica-Pucón 1500, Villarrica, Chile"
                     data-nombre="HuertoHogar Villarrica — Camino a Pucón 1500">Villarrica</button>
                 <button type="button" class="btn-checkout btn-ciudad"
-                    data-direccion="Avenida Prat 450, Nacimiento, Chile"
-                    data-nombre="HuertoHogar Nacimiento — Av. Prat 450">Nacimiento</button>
+                    data-direccion="Avenida Prat 450, Nacimiento, Región del Biobío, Chile"
+                    data-mapa="-37.035719,-72.784826"
+                    data-nombre="HuertoHogar Nacimiento — Av. Prat 450, Región del Biobío">Nacimiento</button>
                 <button type="button" class="btn-checkout btn-ciudad"
                     data-direccion="Av. San Martín 2100, Viña del Mar, Chile"
                     data-nombre="HuertoHogar Viña del Mar — Av. San Martín 2100">Viña del Mar</button>
             </div>
 
             <div class="mapa-container">
+                <!-- Vista inicial: mapa general de Chile con los puntos de las sucursales. -->
+                <div class="mapa-general" id="mapa-general" role="img" aria-label="Mapa general de Chile con sucursales marcadas en rojo">
+                    <svg viewBox="0 0 360 560" aria-hidden="true" focusable="false">
+                        <path class="chile-outline" d="M145 18 C125 58 136 92 121 126 C108 160 112 193 96 229 C83 260 94 290 76 324 C63 350 75 378 59 406 C47 430 55 461 44 490 C39 510 50 535 66 548 C82 530 78 502 91 477 C105 450 99 420 112 392 C126 363 118 334 134 305 C149 277 140 245 155 214 C170 184 160 153 176 124 C190 97 180 70 194 45 C181 31 165 23 145 18 Z"></path>
+                        <circle class="city-marker" cx="154" cy="116" r="7"><title>Santiago</title></circle>
+                        <circle class="city-marker" cx="146" cy="151" r="7"><title>Viña del Mar</title></circle>
+                        <circle class="city-marker" cx="126" cy="292" r="7"><title>Nacimiento</title></circle>
+                        <circle class="city-marker" cx="114" cy="342" r="7"><title>Villarrica</title></circle>
+                        <circle class="city-marker" cx="91" cy="405" r="7"><title>Puerto Montt</title></circle>
+                        <text class="map-label" x="168" y="112">Santiago</text>
+                        <text class="map-label" x="160" y="148">Viña del Mar</text>
+                        <text class="map-label" x="140" y="288">Nacimiento</text>
+                        <text class="map-label" x="128" y="338">Villarrica</text>
+                        <text class="map-label" x="105" y="401">Puerto Montt</text>
+                    </svg>
+                    <p class="mapa-general-title">Nuestras tiendas en Chile</p>
+                    <p class="mapa-general-hint">Selecciona una ciudad para ver la dirección exacta.</p>
+                </div>
                 <iframe
                     id="mapa-tiendas"
-                    src="https://maps.google.com/maps?q=Av.+Providencia+1208,+Providencia,+Santiago,+Chile&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    hidden
+                    src="about:blank"
                     loading="lazy"
                     title="Mapa de ubicaciones HuertoHogar">
                 </iframe>
             </div>
 
             <p id="direccion-actual" class="texto-ayuda" style="margin-top: 0.8rem; text-align: center;">
-                Mostrando: HuertoHogar Santiago — Av. Providencia 1208
+                Selecciona una ciudad para ver la dirección exacta de la tienda.
             </p>
         </section>
 
     </main>
 
     <!-- FOOTER -->
+    <!-- Pie de página: navegación secundaria y contacto. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">

@@ -21,7 +21,7 @@
             id: item.id,
             nombre: item.nombre || 'Producto',
             precio: Number(item.precio) || 0,
-            imagen: item.imagen || 'img/producto1.jpg',
+            imagen: item.imagen || 'img/manzanas-fuji.png',
             qty: Number(item.cantidad || item.qty || 1)
         };
 
@@ -53,6 +53,8 @@
         const shippingText = document.getElementById('shipping-text');
         const freeShippingLbl = document.getElementById('free-shipping-lbl');
         const co2Value = document.getElementById('co2-value');
+        const co2Progress = document.getElementById('co2-progress');
+        const progressTrack = co2Progress ? co2Progress.parentElement : null;
 
         if (!cartItems) return;
 
@@ -108,6 +110,12 @@
             const co2 = (itemsQty * 0.416).toFixed(1);
             co2Value.textContent = `${co2} kg CO₂e`;
         }
+        if (co2Progress) {
+            // Cada unidad aumenta la huella representada; el ancho se limita al 100%.
+            const progress = itemsQty === 0 ? 0 : Math.min(100, Math.max(12, itemsQty * 16));
+            co2Progress.style.width = `${progress}%`;
+            if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(progress));
+        }
         if (freeShippingLbl) {
             const missing = 25000 - subtotal;
             freeShippingLbl.textContent = missing > 0
@@ -123,6 +131,58 @@
         if (window.HuertoHogar && typeof window.HuertoHogar.utils?.actualizarBadgeCarrito === 'function') {
             window.HuertoHogar.utils.actualizarBadgeCarrito();
         }
+    }
+
+    // Crea un código, guarda una copia del pedido y muestra la boleta final.
+    function confirmOrder() {
+        const cart = getCart();
+        if (!cart.length) {
+            alert('Agrega al menos un producto antes de confirmar el pedido.');
+            return;
+        }
+        const subtotal = cart.reduce((sum, item) => sum + Number(item.precio) * Number(item.qty), 0);
+        const shipping = subtotal >= 25000 ? 0 : 2990;
+        const order = {
+            code: `HH-${Math.floor(10000 + Math.random() * 90000)}`,
+            createdAt: new Date().toISOString(),
+            delivery: document.querySelector('.date-select')?.value || 'Fecha por confirmar',
+            items: cart,
+            subtotal,
+            shipping,
+            total: subtotal + shipping,
+            status: 1
+        };
+        localStorage.setItem('hh_ultimo_pedido', JSON.stringify(order));
+        localStorage.setItem('hh_pedidos', JSON.stringify([order, ...getStoredOrders()]));
+        localStorage.removeItem('hh_carrito');
+        renderCart();
+        showReceipt(order);
+    }
+
+    // Recupera pedidos anteriores sin romper el flujo si localStorage tiene datos inválidos.
+    function getStoredOrders() {
+        try { return JSON.parse(localStorage.getItem('hh_pedidos') || '[]'); } catch (error) { return []; }
+    }
+
+    // Coloca los datos guardados en la boleta y la muestra centrada en la página.
+    function showReceipt(order) {
+        const overlay = document.getElementById('receipt-overlay');
+        if (!overlay) return;
+        document.getElementById('receipt-code').textContent = order.code;
+        document.getElementById('receipt-delivery').textContent = order.delivery;
+        document.getElementById('receipt-total').textContent = `$${order.total.toLocaleString('es-CL')} CLP`;
+        document.getElementById('receipt-track').href = `seguimiento.html?codigo=${encodeURIComponent(order.code)}`;
+        overlay.hidden = false;
+        document.body.classList.add('receipt-open');
+    }
+
+    // Conecta confirmar pedido y las acciones secundarias de la boleta.
+    function initOrderReceipt() {
+        document.getElementById('btn-confirmar-pedido')?.addEventListener('click', confirmOrder);
+        const overlay = document.getElementById('receipt-overlay');
+        const close = () => { if (overlay) overlay.hidden = true; document.body.classList.remove('receipt-open'); };
+        document.getElementById('receipt-close')?.addEventListener('click', close);
+        document.getElementById('receipt-continue')?.addEventListener('click', () => { window.location.href = 'productos.html'; });
     }
 
     // Registra botones dinámicos de aumentar, disminuir, eliminar y añadir productos.
@@ -181,7 +241,7 @@
                     id: card.dataset.id || `home-${Date.now()}`,
                     nombre: card.dataset.name || card.querySelector('h3')?.textContent || 'Producto',
                     precio: Number(card.dataset.price || card.querySelector('.unit-price')?.textContent.replace(/[^\d]/g, '') || 0),
-                    imagen: card.querySelector('img')?.src || 'img/producto1.jpg',
+                    imagen: card.querySelector('img')?.src || 'img/manzanas-fuji.png',
                     cantidad: 1
                 };
 
@@ -192,6 +252,7 @@
         });
 
         renderCart();
+        initOrderReceipt();
         if (window.HuertoHogar && typeof window.HuertoHogar.utils?.actualizarBadgeCarrito === 'function') {
             window.HuertoHogar.utils.actualizarBadgeCarrito();
         }

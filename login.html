@@ -15,6 +15,7 @@
 <body>
 
     <!-- CABECERA -->
+    <!-- Cabecera: navegación pública antes de iniciar sesión. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -39,11 +40,13 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
+    <!-- Contenido principal: formulario de acceso de usuarios. -->
     <main class="container" style="max-width: 480px; margin-top: 4rem;">
         <div class="summary-box">
             <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Iniciar Sesión</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Ingresa a tu cuenta para administrar tus pedidos.</p>
 
+            <!-- Formulario de login: admin.js valida credenciales y crea la sesión. -->
             <form id="form-login" style="display: flex; flex-direction: column; gap: 1.2rem;">
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
@@ -68,6 +71,7 @@
     </main>
 
     <!-- FOOTER -->
+    <!-- Pie de página: enlaces institucionales. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">

@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <!-- CABECERA -->
+    <!-- Cabecera administrativa: navegación de usuarios y productos. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -36,30 +38,31 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="container" style="max-width: 900px; margin-top: 4rem;">
+    <!-- Contenido principal: inventario, creación y edición de productos. -->
+    <main class="container products-admin">
         <div class="summary-box">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div class="products-toolbar">
                 <div>
-                    <h2 class="serif" style="font-size: 1.8rem; margin: 0;">Administración de Productos</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Gestiona el catálogo e inventario de la tienda.</p>
+                    <h2 class="serif">Administración de Productos</h2>
+                    <p>Gestiona el catálogo e inventario de la tienda.</p>
                 </div>
-                
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <a href="admin-usuarios.html" class="btn-checkout" style="text-decoration: none; padding: 0.6rem 1.2rem; font-size: 0.85rem; width: auto; background-color: #555;">Ir a Usuarios</a>
-                    <a href="admin-nuevo-producto.html" class="btn-checkout" style="text-decoration: none; padding: 0.6rem 1.2rem; font-size: 0.85rem; width: auto;">+ Crear Producto</a>
+                <div class="products-actions">
+                    <a href="admin-usuarios.html" class="btn btn-secondary"><i class="fas fa-users"></i> Usuarios</a>
+                    <a href="admin-nuevo-producto.html" class="btn btn-primary"><i class="fas fa-plus"></i> Crear producto</a>
                 </div>
             </div>
 
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+            <div class="admin-table-wrap">
+                <!-- Tabla dinámica: admin.js dibuja filas y conecta sus acciones. -->
+                <table class="admin-products-table">
                     <thead>
                         <tr style="border-bottom: 2px solid #eee; color: var(--text-muted);">
-                            <th style="padding: 0.8rem;">Imagen</th>
-                            <th style="padding: 0.8rem;">Nombre</th>
-                            <th style="padding: 0.8rem;">Categoría</th>
-                            <th style="padding: 0.8rem;">Precio</th>
-                            <th style="padding: 0.8rem;">Stock</th>
-                            <th style="padding: 0.8rem; text-align: center;">Acciones</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th style="text-align: center;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpo-tabla-productos">
@@ -71,6 +74,7 @@
     </main>
 
     <!-- FOOTER -->
+    <!-- Pie de página: identificación del panel interno. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">

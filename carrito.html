@@ -14,6 +14,7 @@
 </head>
 <body>
 
+    <!-- Cabecera: navegación general y contador de productos. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -37,11 +38,13 @@
         </a>
     </header>
 
+    <!-- Contenido principal: productos seleccionados y resumen de compra. -->
     <main class="container">
         <h2 class="cart-title serif">Mi carrito</h2>
         <p class="cart-subtitle">Cosechamos tu pedido el día anterior a la entrega.</p>
 
         <div class="cart-grid">
+            <!-- Lista dinámica: cart.js inserta aquí los productos del localStorage. -->
             <section class="cart-items" id="cart-items">
                 <div class="empty-cart" id="empty-cart">
                     <div class="empty-cart-icon">🛒</div>
@@ -84,17 +87,34 @@
                     </div>
                     <div class="impact-value" id="co2-value">2.5 kg CO₂e</div>
                     <p class="impact-sub">Este pedido evita 72 km de transporte intermediario y usa envases retornables.</p>
-                    <div class="progress-track">
-                        <div class="progress-fill"></div>
+                    <div class="progress-track" role="progressbar" aria-label="Huella de carbono del carrito" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-fill" id="co2-progress"></div>
                     </div>
                 </div>
 
-                <button class="btn-checkout" onclick="alert('Pedido confirmado con éxito.');">Confirmar Pedido</button>
+                <!-- Este botón crea el pedido, guarda sus datos y abre la boleta final. -->
+                <button class="btn-checkout" id="btn-confirmar-pedido" type="button">Confirmar Pedido</button>
                 <p class="free-shipping-indicator" id="free-shipping-lbl">Suma $12.200 CLP más para despacho gratis.</p>
             </aside>
         </div>
     </main>
 
+    <!-- Boleta modal: comprobante visual que aparece cuando el pedido fue guardado. -->
+    <div class="receipt-overlay" id="receipt-overlay" hidden>
+        <section class="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="receipt-title">
+            <button class="receipt-close" id="receipt-close" type="button" aria-label="Cerrar boleta">&times;</button>
+            <div class="receipt-success-icon">✓</div>
+            <p class="receipt-kicker">Pedido confirmado</p>
+            <h2 class="serif" id="receipt-title">Gracias por tu compra</h2>
+            <p class="receipt-lead">Tu pedido fue registrado correctamente y ya puedes seguirlo con su código.</p>
+            <div class="receipt-code-box"><span>Número de pedido</span><strong id="receipt-code">HH-00000</strong></div>
+            <div class="receipt-details"><span>Entrega</span><strong id="receipt-delivery"></strong><span>Total pagado</span><strong id="receipt-total"></strong></div>
+            <a class="btn-checkout receipt-track-btn" id="receipt-track" href="seguimiento.html">Ver seguimiento</a>
+            <button class="receipt-secondary-btn" id="receipt-continue" type="button">Volver al catálogo</button>
+        </section>
+    </div>
+
+    <!-- Pie de página: información institucional y enlaces. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
@@ -121,6 +141,7 @@
         </div>
     </footer>
 
+    <!-- Scripts que cargan, actualizan y validan el carrito. -->
     <script src="js/core.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/forms.js"></script>

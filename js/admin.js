@@ -49,6 +49,11 @@
             }
         });
 
+        // El perfil solo debe aparecer cuando existe una sesión autenticada.
+        document.querySelectorAll('a[href="perfil.html"]').forEach(link => {
+            if (!usuario) link.style.display = 'none';
+        });
+
         const headers = document.querySelectorAll('header');
         headers.forEach(header => {
             if (header.querySelector('[data-session-ui="true"]')) return;
@@ -181,7 +186,12 @@
         const esPaginaAdmin = window.location.pathname.includes('admin-');
         if (!esPaginaAdmin) return;
 
-        const sesionActiva = JSON.parse(localStorage.getItem('sesion_activa'));
+        let sesionActiva = null;
+        try {
+            sesionActiva = JSON.parse(localStorage.getItem('sesion_activa') || 'null');
+        } catch (error) {
+            localStorage.removeItem('sesion_activa');
+        }
         if (!sesionActiva || sesionActiva.rol !== 'admin') {
             alert('Acceso restringido: Se requieren permisos de administrador.');
             window.location.href = 'login.html';
@@ -324,6 +334,16 @@
         }
     }
 
+    // Sustituye rutas antiguas por imágenes que sí existen actualmente en la carpeta img.
+    function getProductImage(imagen) {
+        const imagenesAntiguas = {
+            'img/producto1.jpg': 'img/manzanas-fuji.png',
+            'img/producto2.jpg': 'img/naranjas.jpg',
+            'img/producto3.jpg': 'img/zanahorias.png'
+        };
+        return imagenesAntiguas[imagen] || imagen || 'img/manzanas-fuji.png';
+    }
+
     function initProfileForm() {
         const form = document.getElementById('profile-form');
         if (!form) return;
@@ -447,19 +467,21 @@
         productos.forEach((p) => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><img src="${p.imagen || 'img/producto1.jpg'}" alt="${p.nombre}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
-                <td>${p.nombre}</td>
-                <td>${p.categoria}</td>
-                <td>$${Number(p.precio).toLocaleString('es-CL')}</td>
+                <td><img class="product-thumb" src="${getProductImage(p.imagen)}" alt="${p.nombre}"></td>
+                <td class="product-name">${p.nombre}</td>
+                <td class="product-category">${p.categoria}</td>
+                <td class="product-price">$${Number(p.precio).toLocaleString('es-CL')}</td>
                 <td>${p.stock}</td>
-                <td>
+                <td><div class="product-actions">
                     <a href="admin-editar-producto.html?id=${p.id}" class="btn-action btn-edit" title="Editar"><i class="fas fa-edit"></i></a>
                     <button class="btn-action btn-delete" data-id="${p.id}" title="Eliminar"><i class="fas fa-trash"></i></button>
-                </td>
+                </div></td>
             `;
             cuerpoTablaProductos.appendChild(tr);
         });
 
+        if (cuerpoTablaProductos.dataset.actionsReady === 'true') return;
+        cuerpoTablaProductos.dataset.actionsReady = 'true';
         cuerpoTablaProductos.addEventListener('click', (e) => {
             const btnDelete = e.target.closest('.btn-delete');
             if (!btnDelete) return;
@@ -478,13 +500,18 @@
         const form = document.getElementById('formNuevoProducto') || document.getElementById('form-nuevo-producto');
         if (!form) return;
 
+        const imageInput = document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen');
+        form.querySelectorAll('input[name="imagen-producto"]').forEach(option => {
+            option.addEventListener('change', () => { imageInput.value = option.value; });
+        });
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const nombre = (document.getElementById('nuevo-prod-nombre') || document.getElementById('nombre')).value.trim();
             const categoria = (document.getElementById('nuevo-prod-categoria') || document.getElementById('categoria')).value;
             const precio = parseInt((document.getElementById('nuevo-prod-precio') || document.getElementById('precio')).value, 10);
             const stock = (document.getElementById('nuevo-prod-stock') || document.getElementById('stock')).value.trim();
-            const imagen = (document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/producto1.jpg';
+            const imagen = (document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/manzanas-fuji.png';
             const mensaje = document.getElementById('mensaje-error-nuevo-prod');
 
             if (!nombre || isNaN(precio) || !stock) {
@@ -531,7 +558,12 @@
             if (elCategoria) elCategoria.value = productoActual.categoria;
             if (elPrecio) elPrecio.value = productoActual.precio;
             if (elStock) elStock.value = productoActual.stock;
-            if (elImagen) elImagen.value = productoActual.imagen || '';
+            const imagenActual = getProductImage(productoActual.imagen);
+            if (elImagen) elImagen.value = imagenActual;
+            form.querySelectorAll('input[name="imagen-producto"]').forEach(option => {
+                option.checked = option.value === imagenActual;
+                option.addEventListener('change', () => { elImagen.value = option.value; });
+            });
         } else if (mensaje) {
             mensaje.textContent = 'Producto no encontrado.';
             mensaje.style.color = '#d32f2f';
@@ -543,7 +575,7 @@
             const categoria = (document.getElementById('editar-prod-categoria') || document.getElementById('categoria')).value;
             const precio = parseInt((document.getElementById('editar-prod-precio') || document.getElementById('precio')).value, 10);
             const stock = (document.getElementById('editar-prod-stock') || document.getElementById('stock')).value.trim();
-            const imagen = (document.getElementById('editar-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/producto1.jpg';
+            const imagen = (document.getElementById('editar-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/manzanas-fuji.png';
 
             if (!nombre || isNaN(precio) || !stock) {
                 if (mensaje) {
@@ -580,9 +612,9 @@
         let productosGuardados = JSON.parse(localStorage.getItem('productos_huerto')) || [];
         if (productosGuardados.length === 0) {
             productosGuardados = [
-                { id: 1, nombre: 'Tomates Orgánicos', categoria: 'Verduras', precio: 2500, stock: '25 kg', imagen: 'img/producto1.jpg' },
-                { id: 2, nombre: 'Lechuga Hidropónica', categoria: 'Verduras', precio: 1200, stock: '50 unidades', imagen: 'img/producto2.jpg' },
-                { id: 3, nombre: 'Zanahorias Frescas', categoria: 'Verduras', precio: 1800, stock: '30 kg', imagen: 'img/producto3.jpg' }
+                { id: 1, nombre: 'Manzanas Fuji', categoria: 'Frutas', precio: 1200, stock: '150 kg', imagen: 'img/manzanas-fuji.png' },
+                { id: 2, nombre: 'Naranjas Valencia', categoria: 'Frutas', precio: 1000, stock: '200 kg', imagen: 'img/naranjas.jpg' },
+                { id: 3, nombre: 'Zanahorias Frescas', categoria: 'Verduras', precio: 900, stock: '100 kg', imagen: 'img/zanahorias.png' }
             ];
             localStorage.setItem('productos_huerto', JSON.stringify(productosGuardados));
         }

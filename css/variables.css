@@ -9,14 +9,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap');
 
 :root {
+    /* Fondo general color crema usado por las páginas. */
     --bg-main: #FAF8F5;
+    /* Color de fondo de tarjetas y paneles. */
     --card-bg: #FFFFFF;
+    /* Verde principal de botones, enlaces y elementos destacados. */
     --primary-green: #2B7A4B;
+    /* Verde más oscuro usado al pasar el cursor sobre acciones. */
     --primary-hover: #215E39;
+    /* Alias del verde principal para hojas antiguas. */
     --primary-color: var(--primary-green);
+    /* Café usado en títulos y encabezados. */
     --title-brown: #7A4E2D;
+    /* Color principal del texto. */
     --text-dark: #2C3E50;
+    /* Color de textos secundarios y descripciones. */
     --text-muted: #7F8C8D;
+    /* Color de bordes suaves de campos y tarjetas. */
     --border-light: #EFECE6;
+    /* Fondo de etiquetas y estados positivos. */
     --badge-bg: #E8F5E9;
 }

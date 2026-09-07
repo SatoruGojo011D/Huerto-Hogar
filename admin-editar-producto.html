@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto - Huerto Hogar</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset-.css">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -20,7 +22,9 @@
             </nav>
         </aside>
 
+        <!-- Área principal: formulario para modificar o eliminar un producto. -->
         <main class="main-content">
+            <!-- Cabecera administrativa: identifica la edición seleccionada. -->
             <header class="header">
                 <h1>Editar Producto</h1>
                 <div class="user-info"><span id="nombreUsuarioNav">Admin</span><i class="fas fa-user-circle"></i></div>
@@ -30,7 +34,8 @@
                 <div class="card">
                     <div class="card-header"><h2><i class="fas fa-edit"></i> Modificar Detalles</h2></div>
                     <div class="card-body">
-                        <div id="mensaje-error-editar-prod" style="margin-bottom: 1rem; font-weight: bold; color: #d32f2f;"></div>
+                        <div id="mensaje-error-editar-prod" class="form-message"></div>
+                        <!-- Formulario de edición: carga datos por ID y actualiza localStorage. -->
                         <form id="formEditarProducto" class="form">
                             <div class="form-group">
                                 <label for="editar-prod-nombre">Nombre del Producto *</label>
@@ -47,25 +52,36 @@
                                 </select>
                             </div>
 
-                            <div class="form-row" style="display: flex; gap: 1rem;">
-                                <div class="form-group" style="flex: 1;">
+                            <div class="form-row">
+                                <div class="form-group">
                                     <label for="editar-prod-precio">Precio (CLP) *</label>
                                     <input type="number" id="editar-prod-precio" name="editar-prod-precio" required>
                                 </div>
-                                <div class="form-group" style="flex: 1;">
+                                <div class="form-group">
                                     <label for="editar-prod-stock">Stock Disponible *</label>
                                     <input type="text" id="editar-prod-stock" name="editar-prod-stock" placeholder="Ej: 25 kg o 50 unidades" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="editar-prod-imagen">Ruta o URL de Imagen</label>
-                                <input type="text" id="editar-prod-imagen" name="editar-prod-imagen" placeholder="img/producto1.jpg">
+                                <label for="editar-prod-imagen">Imagen del producto</label>
+                                <div class="image-picker" aria-label="Selecciona una imagen">
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/manzanas-fuji.png"><img src="img/manzanas-fuji.png" alt="Manzanas Fuji"><span>Manzanas</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/naranjas.jpg"><img src="img/naranjas.jpg" alt="Naranjas"><span>Naranjas</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/platanos.jpg"><img src="img/platanos.jpg" alt="Plátanos"><span>Plátanos</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/zanahorias.png"><img src="img/zanahorias.png" alt="Zanahorias"><span>Zanahorias</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/espinaca.png"><img src="img/espinaca.png" alt="Espinaca"><span>Espinaca</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/pimentones.jpg"><img src="img/pimentones.jpg" alt="Pimentones"><span>Pimentones</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/miel-organica.png"><img src="img/miel-organica.png" alt="Miel orgánica"><span>Miel</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/quinoa.jpg"><img src="img/quinoa.jpg" alt="Quinua"><span>Quinua</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/leche.jpg"><img src="img/leche.jpg" alt="Leche"><span>Leche</span></label>
+                                </div>
+                                <input type="hidden" id="editar-prod-imagen" name="editar-prod-imagen">
                             </div>
 
-                            <div class="form-actions" style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <div class="form-actions">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Actualizar Producto</button>
-                                <button type="button" id="btn-eliminar-producto" class="btn btn-danger" style="background-color: #d32f2f; color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer;"><i class="fas fa-trash"></i> Eliminar</button>
+                                <button type="button" id="btn-eliminar-producto" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
                                 <a href="admin-productos.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
                             </div>
                         </form>

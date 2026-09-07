@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap');
+/* Hoja histórica global: reúne estilos generales compartidos de versiones anteriores. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;600;700;1,400&display=swap');
 
+/* Variables heredadas de la hoja global antigua. */
 :root {
     --bg-main: #FAF8F5;
     --card-bg: #FFFFFF;
@@ -12,6 +14,7 @@
     --badge-bg: #E8F5E9;
 }
 
+/* Reset básico: elimina márgenes y hace predecible el cálculo de tamaños. */
 * {
     margin: 0;
     padding: 0;
@@ -22,6 +25,7 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Base del documento: fuente, fondo y color de texto general. */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-main);
@@ -43,6 +47,7 @@ h1, h2, h3, h4, .serif {
     color: var(--title-brown);
 }
 
+/* Contenedor: limita el ancho y centra el contenido de cada página. */
 .container {
     max-width: 1100px;
     margin: 3rem auto;
