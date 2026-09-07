@@ -4,63 +4,63 @@
     const productos = [
         {
             id: 'FR001', nombre: 'Manzanas Fuji', categoria: 'Frutas Frescas', precio: 1200, unidad: 'kg', stock: '150 kg',
-            origen: 'Valle del Maule', imagen: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?w=700&q=80',
+            origen: 'Valle del Maule', imagen: 'img/manzanas-fuji.png',
             descripcion: 'Manzanas crocantes y jugosas, recien cosechadas. Ideales para colaciones sanas.',
             practicas: 'Cultivo local con manejo responsable del suelo y cosecha de temporada.',
             impacto: 'Huella de carbono baja gracias a su produccion y distribucion local.'
         },
         {
             id: 'FR002', nombre: 'Naranjas Valencia', categoria: 'Frutas Frescas', precio: 1000, unidad: 'kg', stock: '200 kg',
-            origen: 'Valle de Azapa', imagen: 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=700&q=80',
+            origen: 'Valle de Azapa', imagen: 'img/naranjas.jpg',
             descripcion: 'Naranjas dulces con alto contenido de jugo y vitamina C natural.',
             practicas: 'Produccion de temporada con seleccion manual de cada fruto.',
             impacto: 'Producto de temporada que reduce el uso de almacenamiento prolongado.'
         },
         {
             id: 'FR003', nombre: 'Platanos Cavendish', categoria: 'Frutas Frescas', precio: 800, unidad: 'kg', stock: '250 kg',
-            origen: 'Importacion Directa', imagen: 'https://images.unsplash.com/photo-1571501679680-a971d73d8eb1?w=700&q=80',
+            origen: 'Importacion Directa', imagen: 'img/platanos.jpg',
             descripcion: 'Platanos de textura suave y maduracion perfecta para batidos y reposteria.',
             practicas: 'Seleccionados por madurez para evitar desperdicios en el hogar.',
             impacto: 'Distribucion planificada para conservar la frescura y reducir mermas.'
         },
         {
             id: 'VR001', nombre: 'Zanahorias Organicas', categoria: 'Verduras Organicas', precio: 900, unidad: 'kg', stock: '100 kg',
-            origen: "Region de O'Higgins", imagen: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=700&q=80',
+            origen: "Region de O'Higgins", imagen: 'img/zanahorias.png',
             descripcion: 'Cultivadas sin pesticidas en suelos ricos en nutrientes. Sabor intenso y textura firme.',
             practicas: 'Manejo organico y cuidado del suelo durante todo el cultivo.',
             impacto: 'Cultivo cercano que favorece recorridos de entrega mas cortos.'
         },
         {
             id: 'VR002', nombre: 'Espinacas Frescas', categoria: 'Verduras Organicas', precio: 700, unidad: 'bolsa 500 g', stock: '80 bolsas',
-            origen: 'Melipilla', imagen: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=700&q=80',
+            origen: 'Melipilla', imagen: 'img/espinaca.png',
             descripcion: 'Hojas verdes lavadas, listas para ensaladas o salteados llenos de hierro.',
             practicas: 'Cosecha cuidadosa y empaque practico para conservar sus hojas.',
             impacto: 'Se entrega fresca para reducir el desperdicio por perdida de calidad.'
         },
         {
             id: 'VR003', nombre: 'Pimientos Tricolores', categoria: 'Verduras Organicas', precio: 1500, unidad: 'kg', stock: '120 kg',
-            origen: 'Limache', imagen: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=700&q=80',
+            origen: 'Limache', imagen: 'img/pimentones.jpg',
             descripcion: 'Surtido de pimientos rojo, verde y amarillo de cultivo bajo invernadero.',
             practicas: 'Cultivo protegido con uso eficiente del agua y cosecha manual.',
             impacto: 'Produccion local que disminuye la distancia entre huerto y hogar.'
         },
         {
             id: 'PO001', nombre: 'Miel Organica', categoria: 'Productos Organicos', precio: 5000, unidad: 'frasco 500 g', stock: '50 frascos',
-            origen: 'Apicultores locales', imagen: 'https://images.unsplash.com/photo-1587049352847-4d4b124052bb?w=700&q=80',
+            origen: 'Apicultores locales', imagen: 'img/miel-organica.png',
             descripcion: 'Miel multifloral 100% pura y no procesada de apicultores locales.',
             practicas: 'Apicultura responsable que protege las colmenas y la biodiversidad.',
             impacto: 'Apoya la polinizacion y el trabajo de productores de la zona.'
         },
         {
             id: 'PO003', nombre: 'Quinua Organica', categoria: 'Productos Organicos', precio: 3200, unidad: 'kg', stock: '60 kg',
-            origen: 'Altiplano Chileno', imagen: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=700&q=80',
+            origen: 'Altiplano Chileno', imagen: 'img/quinoa.jpg',
             descripcion: 'Superalimento andino rico en proteinas, fibra y libre de gluten.',
             practicas: 'Cultivo tradicional con seleccion y limpieza cuidadosa del grano.',
             impacto: 'Producto seco de larga duracion que ayuda a evitar desperdicios.'
         },
         {
             id: 'PL001', nombre: 'Leche Entera', categoria: 'Productos Lacteos', precio: 1800, unidad: 'botella 1 L', stock: '90 botellas',
-            origen: 'Granjas de Osorno', imagen: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=700&q=80',
+            origen: 'Granjas de Osorno', imagen: 'img/leche.jpg',
             descripcion: 'Leche de libre pastoreo, pasteurizada y fresca del dia.',
             practicas: 'Producida por granjas familiares con cuidado del ganado y envases retornables.',
             impacto: 'Envase retornable y abastecimiento directo desde granjas locales.'
