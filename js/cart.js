@@ -99,7 +99,9 @@
         if (totalCount) totalCount.textContent = itemsQty;
         if (subtotalText) subtotalText.textContent = `$${subtotal.toLocaleString('es-CL')} CLP`;
 
+
         const shippingCost = subtotal > 0 && subtotal >= 25000 ? 0 : 2990;
+
         const grandTotal = subtotal > 0 ? subtotal + shippingCost : 0;
 
         if (shippingText) shippingText.textContent = `$${shippingCost.toLocaleString('es-CL')} CLP`;
