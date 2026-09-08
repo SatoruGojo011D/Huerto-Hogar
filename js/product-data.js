@@ -216,7 +216,7 @@
         setupReviewForm(product);
     }
 
-    // Convierte el overlay Ver detalles en un enlace con el ID correcto.
+    // Al hacer click en el overlay "Ver detalles" navegar a la página de detalle.
     function initCatalogDetails() {
         const grid = document.getElementById('grid-productos');
         if (!grid) return;
@@ -224,7 +224,11 @@
             const details = event.target.closest('.overlay-detalles');
             if (!details) return;
             const card = details.closest('.producto-card');
-            if (card) openCatalogModal(card);
+            if (!card) return;
+            const id = card.dataset.id || card.querySelector('button[data-id]')?.dataset.id || card.dataset.nombre;
+            if (id) {
+                window.location.href = `detalle-producto.html?id=${encodeURIComponent(id)}`;
+            }
         });
     }
 
