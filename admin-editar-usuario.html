@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuertoHogar | Editar Usuario</title>
     <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/reset-.css">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/buttons.css">
@@ -17,14 +17,16 @@
     <!-- CABECERA -->
     <!-- Cabecera administrativa: navegación y cuenta activa. -->
     <header>
-        <a href="index.html" class="brand-logo">
+        <a href="admin-dashboard.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
             <h1 class="serif">HuertoHogar</h1>
         </a>
 
         <nav>
             <ul>
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
                 <li><a href="admin-usuarios.html" class="active">Volver a Usuarios</a></li>
+                <li><a href="admin-productos.html">Productos</a></li>
             </ul>
         </nav>
     </header>
@@ -36,7 +38,7 @@
             <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Editar Usuario</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Modifica los permisos o datos de la cuenta.</p>
 
-            <!-- Formulario de edición: admin.js busca el usuario mediante el ID de la URL. -->
+            <!-- Formulario de edición: administracion.js busca el usuario mediante el ID de la URL. -->
             <form id="form-editar-usuario" style="display: flex; flex-direction: column; gap: 1rem;">
                 <div>
                     <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Nombre Completo</label>
@@ -85,8 +87,8 @@
         </div>
     </main>
 
-    <script src="js/core.js"></script>
-    <script src="js/admin.js"></script>
+    <script src="js/inicializacion.js"></script>
+    <script src="js/administracion.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
