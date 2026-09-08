@@ -247,6 +247,63 @@
         }
     }
 
+    // Añade al catálogo los productos creados desde el panel administrativo.
+    function renderAdminProducts(gridProductos) {
+        const escaparHTML = window.HuertoHogar?.utils?.escaparHTML || (value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[character])));
+        let productosGuardados = [];
+        try {
+            productosGuardados = JSON.parse(localStorage.getItem('productos_huerto') || '[]');
+        } catch (error) {
+            productosGuardados = [];
+        }
+
+        const nombresExistentes = new Set(
+            Array.from(gridProductos.querySelectorAll('.producto-card'))
+                .map(card => (card.dataset.nombre || '').trim().toLowerCase())
+        );
+
+        productosGuardados.forEach(producto => {
+            const nombre = String(producto.nombre || '').trim();
+            if (!nombre || nombresExistentes.has(nombre.toLowerCase())) return;
+
+            const categoria = String(producto.categoria || 'otros').trim();
+            const categoriaFiltro = categoria
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .split(/\s+/)[0];
+            const precio = Number(producto.precio) || 0;
+            const imagen = producto.imagen || 'img/manzanas-fuji.png';
+            const stock = producto.stock || 'Sin stock informado';
+            const nombreSeguro = escaparHTML(nombre);
+            const imagenSegura = escaparHTML(imagen);
+            const stockSeguro = escaparHTML(stock);
+            const idSeguro = escaparHTML(producto.id);
+            const card = document.createElement('article');
+            card.className = 'cart-card producto-card';
+            card.dataset.id = String(producto.id);
+            card.dataset.categoria = categoriaFiltro;
+            card.dataset.precio = String(precio);
+            card.dataset.nombre = nombre;
+            card.dataset.descripcion = `${nombre} disponible en HuertoHogar.`;
+            card.dataset.origen = 'HuertoHogar';
+            card.dataset.stock = String(stock);
+            card.dataset.img = imagen;
+            card.innerHTML = `
+                <div class="img-container">
+                    <img src="${imagenSegura}" alt="${nombreSeguro}">
+                    <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
+                </div>
+                <h3 class="serif">${nombreSeguro}</h3>
+                <p class="unit-price">$${precio.toLocaleString('es-CL')} CLP</p>
+                <p class="stock-info">Stock: ${stockSeguro}</p>
+                <button class="btn-checkout btn-agregar" data-id="${idSeguro}">Añadir</button>
+            `;
+            gridProductos.appendChild(card);
+            nombresExistentes.add(nombre.toLowerCase());
+        });
+    }
+
     // Filtra las tarjetas por categoría/precio y conecta el botón Añadir.
     function initCatalogFilters() {
         const formFiltros = document.getElementById('form-filtros');
@@ -255,6 +312,7 @@
 
         if (!gridProductos) return;
 
+        renderAdminProducts(gridProductos);
         const tarjetas = Array.from(gridProductos.querySelectorAll('.producto-card'));
 
         function aplicarFiltros() {
