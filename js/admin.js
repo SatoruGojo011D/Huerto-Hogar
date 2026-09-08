@@ -119,6 +119,21 @@
             }
         });
 
+        // Si la sesión es de un administrador, reemplazar la navegación por el menú del panel
+        if (usuario && usuario.rol === 'admin') {
+            const adminNav = `
+                <li><a href="admin-dashboard.html" class="active">Panel</a></li>
+                <li><a href="admin-usuarios.html">Usuarios</a></li>
+                <li><a href="admin-productos.html">Productos</a></li>
+                <li><a href="admin-nuevo-producto.html">Nuevo Producto</a></li>
+            `;
+            document.querySelectorAll('header nav ul').forEach(ul => { ul.innerHTML = adminNav; });
+            // Ocultar icono de carrito y enlaces públicos redundantes
+            document.querySelectorAll('.cart-icon-wrapper').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('a[href="login.html"]').forEach(a => a.style.display = 'none');
+            document.querySelectorAll('a[href="perfil.html"]').forEach(a => a.style.display = 'none');
+        }
+
         document.addEventListener('click', (event) => {
             document.querySelectorAll('.profile-menu').forEach(menu => {
                 if (!menu.contains(event.target)) {
@@ -197,6 +212,26 @@
             window.location.href = 'login.html';
             return;
         }
+    }
+
+    // Restringe que un administrador navegue por las páginas públicas (catálogo, nosotros, etc.).
+    // Si la sesión activa pertenece a un `admin`, se le redirige al panel administrativo.
+    function initAdminPublicRestriction() {
+        const usuario = getUsuarioActivo();
+        if (!usuario || usuario.rol !== 'admin') return;
+
+        const path = window.location.pathname || '';
+        const file = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
+
+        // Permitir exclusivamente páginas del panel administrativo y la pantalla de login
+        const esPaginaAdmin = file.startsWith('admin-');
+        const permitidas = ['login.html'];
+
+        if (esPaginaAdmin || permitidas.includes(file) || file === '') return;
+
+        alert('Acceso restringido: las cuentas con rol administrador deben usar el panel administrativo.');
+        // Redirigir al dashboard admin.
+        window.location.href = 'admin-dashboard.html';
     }
 
     // Dibuja la tabla de usuarios a partir de localStorage.
@@ -624,6 +659,7 @@
     function init() {
         ensureAdminSeed();
         initAuthUI();
+        initAdminPublicRestriction();
         initLogin();
         initAdminGuard();
         initProfileForm();
