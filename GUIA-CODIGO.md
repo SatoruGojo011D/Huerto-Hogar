@@ -192,7 +192,6 @@ Esta guía explica la responsabilidad real de cada archivo y de cada bloque impo
 
 - `css/variables.css`: colores, tipografías y tokens compartidos.
 - `css/reset.css`: reset y normalización global.
-- `css/styles.css`: estilos generales antiguos; actualmente está duplicado parcialmente y no es la hoja principal de todas las páginas.
 
 ### Componentes y páginas
 
@@ -200,7 +199,7 @@ Esta guía explica la responsabilidad real de cada archivo y de cada bloque impo
 - `css/footer.css`: pie de página.
 - `css/buttons.css`: botones comunes.
 - `css/home.css`: héroe y contenido de inicio.
-- `css/catalogo.css`: filtros, tarjetas y modal del catálogo.
+- `css/catalogo.css`: filtros y tarjetas del catálogo.
 - `css/carrito.css`: tarjetas, cantidades y resumen del carrito.
 - `css/producto-detalle.css`: composición de la página de detalle.
 - `css/forms.css`: formularios públicos.

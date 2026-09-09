@@ -257,14 +257,24 @@
             productosGuardados = [];
         }
 
+        const productosConImagen = productosGuardados.filter(producto => (
+            typeof producto.imagen === 'string' && producto.imagen.trim()
+        ));
+        if (productosConImagen.length !== productosGuardados.length) {
+            localStorage.setItem('productos_huerto', JSON.stringify(productosConImagen));
+            productosGuardados = productosConImagen;
+        }
+
+        const tarjetasExistentes = Array.from(gridProductos.querySelectorAll('.producto-card'));
+        const idsExistentes = new Set(tarjetasExistentes.map(card => String(card.dataset.id || '')));
         const nombresExistentes = new Set(
-            Array.from(gridProductos.querySelectorAll('.producto-card'))
-                .map(card => (card.dataset.nombre || '').trim().toLowerCase())
+            tarjetasExistentes.map(card => (card.dataset.nombre || '').trim().toLowerCase())
         );
 
         productosGuardados.forEach(producto => {
             const nombre = String(producto.nombre || '').trim();
-            if (!nombre || nombresExistentes.has(nombre.toLowerCase())) return;
+            const id = String(producto.id || '').trim();
+            if (!nombre || !id || idsExistentes.has(id) || nombresExistentes.has(nombre.toLowerCase())) return;
 
             const categoria = String(producto.categoria || 'otros').trim();
             const categoriaFiltro = categoria
@@ -273,15 +283,15 @@
                 .replace(/[\u0300-\u036f]/g, '')
                 .split(/\s+/)[0];
             const precio = Number(producto.precio) || 0;
-            const imagen = producto.imagen || 'img/manzanas-fuji.png';
+            const imagen = producto.imagen.trim();
             const stock = producto.stock || 'Sin stock informado';
             const nombreSeguro = escaparHTML(nombre);
             const imagenSegura = escaparHTML(imagen);
             const stockSeguro = escaparHTML(stock);
-            const idSeguro = escaparHTML(producto.id);
+            const idSeguro = escaparHTML(id);
             const card = document.createElement('article');
             card.className = 'cart-card producto-card';
-            card.dataset.id = String(producto.id);
+            card.dataset.id = id;
             card.dataset.categoria = categoriaFiltro;
             card.dataset.precio = String(precio);
             card.dataset.nombre = nombre;
@@ -300,6 +310,7 @@
                 <button class="btn-checkout btn-agregar" data-id="${idSeguro}">Añadir</button>
             `;
             gridProductos.appendChild(card);
+            idsExistentes.add(id);
             nombresExistentes.add(nombre.toLowerCase());
         });
     }

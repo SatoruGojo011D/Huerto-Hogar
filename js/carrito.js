@@ -46,7 +46,6 @@
     // Construye las tarjetas del carrito y actualiza el resumen del pedido.
     function renderCart() {
         const cartItems = document.getElementById('cart-items');
-        const emptyCart = document.getElementById('empty-cart');
         const totalCount = document.getElementById('total-count');
         const subtotalText = document.getElementById('subtotal-text');
         const totalText = document.getElementById('total-text');

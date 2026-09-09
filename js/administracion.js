@@ -360,7 +360,7 @@
             'img/producto2.jpg': 'img/naranjas.jpg',
             'img/producto3.jpg': 'img/zanahorias.png'
         };
-        return imagenesAntiguas[imagen] || imagen || 'img/manzanas-fuji.png';
+        return imagenesAntiguas[imagen] || (typeof imagen === 'string' ? imagen.trim() : '');
     }
 
     function initProfileForm() {
@@ -648,7 +648,14 @@
         productosGuardados = productosGuardados.map(producto => ({
             ...producto,
             id: idsAntiguos[producto.id] || producto.id
-        }));
+        })).filter(producto => getProductImage(producto.imagen));
+
+        const productosUnicos = new Map();
+        productosGuardados.forEach(producto => {
+            const id = String(producto.id || '').trim();
+            if (id && !productosUnicos.has(id)) productosUnicos.set(id, producto);
+        });
+        productosGuardados = Array.from(productosUnicos.values());
 
         productosCatalogo.forEach(productoCatalogo => {
             if (!productosGuardados.some(producto => String(producto.id) === productoCatalogo.id)) {

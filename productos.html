@@ -205,69 +205,6 @@
         </div>
     </main>
 
-    <!-- MODAL DE DETALLES DEL PRODUCTO Y RESEÑAS -->
-    <!-- Modal dinámico: muestra la información completa y permite compartir el producto. -->
-    <div id="modal-producto" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-cerrar" id="cerrar-modal">&times;</button>
-            
-            <div class="modal-grid">
-                <img id="modal-img" src="" alt="Producto">
-                <div class="modal-detalles">
-                    <h2 id="modal-titulo" class="serif"></h2>
-                    <p id="modal-precio" class="modal-precio-highlight"></p>
-                    <p id="modal-descripcion" class="modal-text"></p>
-                    
-                    <div class="modal-meta">
-                        <p><strong>Origen:</strong> <span id="modal-origen"></span></p>
-                        <p><strong>Disponibilidad:</strong> <span id="modal-stock"></span></p>
-                    </div>
-
-                    <!-- Botón de compartir: usa la API nativa de compartir del
-                         celular/navegador si existe, o copia el link si no -->
-                    <button type="button" id="btn-compartir" class="btn-compartir">
-                        🔗 Compartir producto
-                    </button>
-                    <span id="mensaje-compartir" class="mensaje-compartir"></span>
-
-                    <hr class="modal-divider">
-
-                    <!-- SECCIÓN DE RESEÑAS -->
-                    <div class="seccion-resenas">
-                        <h3 class="serif">Reseñas y Calificación</h3>
-
-                        <!-- Promedio de calificación y cantidad de reseñas,
-                             se calcula y actualiza con JS -->
-                        <p id="resumen-calificacion" class="resumen-calificacion"></p>
-                        
-                        <!-- Formulario de Reseña -->
-                        <form id="form-resena" class="form-resena">
-                            <label>Tu Calificación:</label>
-                            <div class="estrellas-rating" id="selector-estrellas">
-                                <span data-value="1">&#9733;</span>
-                                <span data-value="2">&#9733;</span>
-                                <span data-value="3">&#9733;</span>
-                                <span data-value="4">&#9733;</span>
-                                <span data-value="5">&#9733;</span>
-                            </div>
-                            
-                            <div class="form-group" style="margin-top: 0.8rem;">
-                                <textarea id="texto-resena" rows="2" placeholder="Escribe tu opinión sobre el producto..." required></textarea>
-                                <small class="mensaje-error"></small>
-                            </div>
-                            <button type="submit" class="btn-checkout" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Enviar Reseña</button>
-                        </form>
-
-                        <!-- Lista de Comentarios -->
-                        <div class="lista-resenas" id="lista-resenas-contenedor">
-                            <!-- Se renderizan dinámicamente con JS -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- FOOTER -->
     <!-- Pie de página: navegación secundaria y datos de la cooperativa. -->
     <footer>

@@ -232,56 +232,9 @@
         });
     }
 
-    // Rellena y abre el modal que aparece al pulsar "Ver detalles" en una tarjeta.
-    function openCatalogModal(card) {
-        const modal = document.getElementById('modal-producto');
-        if (!modal) return;
-        const setText = (id, value) => {
-            const element = document.getElementById(id);
-            if (element) element.textContent = value || '';
-        };
-        const image = card.querySelector('img');
-        const name = card.dataset.nombre || card.querySelector('h3')?.textContent || 'Producto';
-        const price = Number(card.dataset.precio || 0);
-        const modalImage = document.getElementById('modal-img');
-        if (modalImage && image) { modalImage.src = image.src; modalImage.alt = name; }
-        setText('modal-titulo', name);
-        setText('modal-precio', `$${price.toLocaleString('es-CL')} CLP`);
-        setText('modal-descripcion', card.dataset.descripcion);
-        setText('modal-origen', card.dataset.origen);
-        setText('modal-stock', card.dataset.stock);
-        modal.dataset.shareUrl = `${window.location.origin}${window.location.pathname}?producto=${encodeURIComponent(card.dataset.id || name)}`;
-        modal.dataset.shareName = name;
-        modal.classList.add('activo');
-    }
-
-    // Conecta cierre, tecla Escape y compartir/copiado del producto actual.
-    function initCatalogModal() {
-        const modal = document.getElementById('modal-producto');
-        if (!modal) return;
-        const close = () => modal.classList.remove('activo');
-        document.getElementById('cerrar-modal')?.addEventListener('click', close);
-        modal.addEventListener('click', event => { if (event.target === modal) close(); });
-        document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
-        document.getElementById('btn-compartir')?.addEventListener('click', async () => {
-            const name = modal.dataset.shareName || 'Producto HuertoHogar';
-            const url = modal.dataset.shareUrl || window.location.href;
-            const message = document.getElementById('mensaje-compartir');
-            try {
-                if (navigator.share) await navigator.share({ title: name, text: `Mira ${name} en HuertoHogar`, url });
-                else if (navigator.clipboard) await navigator.clipboard.writeText(url);
-                else throw new Error('Clipboard unavailable');
-                if (message) { message.textContent = navigator.share ? 'Producto compartido.' : 'Enlace copiado.'; message.classList.add('visible'); }
-            } catch (error) {
-                if (message && error.name !== 'AbortError') { message.textContent = 'No se pudo compartir el producto.'; message.classList.add('visible'); }
-            }
-        });
-    }
-
     window.HuertoHogar = window.HuertoHogar || {};
     window.HuertoHogar.initProductData = function () {
         initCatalogDetails();
-        initCatalogModal();
         renderDetailPage();
     };
 })();
