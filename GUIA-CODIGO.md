@@ -258,6 +258,58 @@ background-image: url('../img/hero-campo.png');
 
 Si se quiere cambiar el color de la capa oscura sobre la imagen, se modifica `background` dentro de `.home-hero::before`.
 
+### ¿Cómo cambiar el color de fondo de la página de inicio?
+
+La página de inicio usa `css/home.css`. Para cambiar el color de fondo de toda la página, agrega o modifica `body` en ese archivo. Por ejemplo, para usar un fondo verde muy claro en `index.html`:
+
+```css
+/* Fondo general de index.html. */
+body {
+	background-color: #EEF5E8;
+}
+```
+
+Si solo quieres cambiar el fondo del bloque principal de inicio y conservar la imagen, modifica `.home-hero`:
+
+```css
+/* Fondo alternativo del hero de index.html cuando no se usa una imagen. */
+.home-hero {
+	background-image: none;
+	background-color: #2D5A27;
+}
+```
+
+### ¿Cómo cambiar el color de fondo del catálogo?
+
+La página `productos.html` usa `css/catalogo.css`. Para cambiar el fondo de toda la página, agrega o modifica `body` en ese archivo. Por ejemplo:
+
+```css
+/* Fondo general de productos.html. */
+body {
+	background-color: #F3F0E8;
+}
+```
+
+Para cambiar únicamente el fondo de las tarjetas del catálogo, modifica `.cart-card`, que también es la base visual de `.producto-card`:
+
+```css
+/* Fondo de las tarjetas de productos en productos.html. */
+.cart-card {
+	background: #FFFFFF;
+}
+```
+
+Si el cambio debe aplicarse solo a las tarjetas del catálogo y no a otras tarjetas que reutilicen `.cart-card`, usa un selector más específico:
+
+```css
+/* Fondo exclusivo de las tarjetas de productos del catálogo. */
+.producto-card {
+	background: #FFFFFF;
+}
+```
+
+Después de guardar, recarga `index.html` o `productos.html` en el navegador. Si el color no cambia, revisa que la hoja correspondiente esté enlazada y que otra regla CSS más específica no esté sobrescribiendo el valor.
+
 ### ¿Cómo cambiar el color de los botones?
 
 En `css/variables.css`, cambia `--primary-green` para el color principal y `--primary-hover` para el color al pasar el mouse. Los botones usan esas variables desde `css/buttons.css`, `css/home.css` y `css/admin.css`.
