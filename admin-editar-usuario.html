@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- Formulario administrativo para modificar o eliminar un usuario existente. -->
 <html lang="es">
 <head>
@@ -15,7 +15,7 @@
 <body>
 
     <!-- CABECERA -->
-    <!-- Cabecera administrativa: navegación y cuenta activa. -->
+    <!-- Cabecera administrativa: navegaciÃ³n y cuenta activa. -->
     <header>
         <a href="admin-dashboard.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -32,57 +32,57 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <!-- Contenido principal: modificación o eliminación de un usuario. -->
-    <main class="container" style="max-width: 520px; margin-top: 3rem;">
+    <!-- Contenido principal: modificaciÃ³n o eliminaciÃ³n de un usuario. -->
+    <main class="container">
         <div class="summary-box">
-            <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Editar Usuario</h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Modifica los permisos o datos de la cuenta.</p>
+            <h2 class="serif">Editar Usuario</h2>
+            <p>Modifica los permisos o datos de la cuenta.</p>
 
-            <!-- Formulario de edición: administracion.js busca el usuario mediante el ID de la URL. -->
-            <form id="form-editar-usuario" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Formulario de ediciÃ³n: administracion.js busca el usuario mediante el ID de la URL. -->
+            <form id="form-editar-usuario">
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Nombre Completo</label>
-                    <input type="text" id="editar-nombre" class="date-select" style="background: #FFF;" required>
+                    <label>Nombre Completo</label>
+                    <input type="text" id="editar-nombre" class="date-select" required>
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Correo Electrónico</label>
-                    <input type="email" id="editar-email" class="date-select" style="background: #FFF;" required>
+                    <label>Correo ElectrÃ³nico</label>
+                    <input type="email" id="editar-email" class="date-select" required>
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Nueva Contraseña (Opcional)</label>
-                    <input type="password" id="editar-password" class="date-select" style="background: #FFF;" placeholder="Dejar en blanco para mantener la actual">
+                    <label>Nueva ContraseÃ±a (Opcional)</label>
+                    <input type="password" id="editar-password" class="date-select" placeholder="Dejar en blanco para mantener la actual">
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Teléfono</label>
-                    <input type="tel" id="editar-telefono" class="date-select" style="background: #FFF;">
+                    <label>TelÃ©fono</label>
+                    <input type="tel" id="editar-telefono" class="date-select">
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Dirección</label>
-                    <input type="text" id="editar-direccion" class="date-select" style="background: #FFF;">
+                    <label>DirecciÃ³n</label>
+                    <input type="text" id="editar-direccion" class="date-select">
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Rol de Usuario</label>
-                    <select id="editar-rol" class="date-select" style="background: #FFF; width: 100%;" required>
+                    <label>Rol de Usuario</label>
+                    <select id="editar-rol" class="date-select" required>
                         <option value="cliente">Cliente</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>
 
-                <div id="mensaje-error-editar" style="font-size: 0.85rem; text-align: center; font-weight: 600; min-height: 1.2rem;"></div>
+                <div id="mensaje-error-editar"></div>
 
-                <button type="submit" class="btn-checkout" style="margin-top: 0.5rem;">Actualizar Datos</button>
+                <button type="submit" class="btn-checkout">Actualizar Datos</button>
                 
-                <!-- BOTÓN DE ELIMINAR -->
-                <button type="button" id="btn-eliminar-usuario" style="background: #dc3545; color: white; border: none; padding: 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 0.5rem;">
-                    🗑️ Eliminar Usuario
+                <!-- BOTÃ“N DE ELIMINAR -->
+                <button type="button" id="btn-eliminar-usuario">
+                    ðŸ—‘ï¸ Eliminar Usuario
                 </button>
 
-                <a href="admin-usuarios.html" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; margin-top: 0.5rem;">Cancelar</a>
+                <a href="admin-usuarios.html">Cancelar</a>
             </form>
         </div>
     </main>

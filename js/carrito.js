@@ -48,6 +48,7 @@
         const cartItems = document.getElementById('cart-items');
         const totalCount = document.getElementById('total-count');
         const subtotalText = document.getElementById('subtotal-text');
+        const ivaText = document.getElementById('iva-text');
         const totalText = document.getElementById('total-text');
         const shippingText = document.getElementById('shipping-text');
         const freeShippingLbl = document.getElementById('free-shipping-lbl');
@@ -102,9 +103,10 @@
 
 
         const shippingCost = subtotal > 0 && subtotal >= 25000 ? 0 : 2990;
+        const iva = subtotal * 0.19;
+        const grandTotal = subtotal > 0 ? subtotal + iva + shippingCost : 0;
 
-        const grandTotal = subtotal > 0 ? subtotal + shippingCost : 0;
-
+        if (ivaText) ivaText.textContent = `$${iva.toLocaleString('es-CL')} CLP`;
         if (shippingText) shippingText.textContent = `$${shippingCost.toLocaleString('es-CL')} CLP`;
         if (totalText) totalText.textContent = `$${grandTotal.toLocaleString('es-CL')} CLP`;
         if (co2Value) {
@@ -134,6 +136,91 @@
         }
     }
 
+    function normalizeDigits(value) {
+        return String(value || '').replace(/\D/g, '');
+    }
+
+    function formatCardInput(value) {
+        const digits = normalizeDigits(value).slice(0, 16);
+        const groups = [];
+        for (let i = 0; i < digits.length; i += 4) {
+            groups.push(digits.slice(i, i + 4));
+        }
+        return groups.join(' ');
+    }
+
+    function formatExpiryInput(value) {
+        const digits = normalizeDigits(value).slice(0, 4);
+        if (digits.length <= 2) return digits;
+        return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    }
+
+    function setPaymentMessage(text, valid) {
+        const message = document.getElementById('card-message');
+        if (!message) return;
+        message.textContent = text || '';
+        message.classList.remove('payment-message-success', 'payment-message-error');
+        if (text) {
+            message.classList.add(valid ? 'payment-message-success' : 'payment-message-error');
+        }
+    }
+
+    function validateCardPayment() {
+        const name = document.getElementById('card-name')?.value.trim() || '';
+        const number = normalizeDigits(document.getElementById('card-number')?.value || '');
+        const expiry = document.getElementById('card-expiry')?.value.trim() || '';
+        const cvv = normalizeDigits(document.getElementById('card-cvv')?.value || '');
+
+        if (!name || !number || !expiry || !cvv) {
+            setPaymentMessage('Completa todos los datos de la tarjeta para continuar.', false);
+            return false;
+        }
+
+        if (number.length !== 16) {
+            setPaymentMessage('El número de tarjeta debe tener 16 dígitos.', false);
+            return false;
+        }
+
+        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+            setPaymentMessage('La fecha de vencimiento debe tener formato MM/AA.', false);
+            return false;
+        }
+
+        const [month, year] = expiry.split('/').map(Number);
+        const now = new Date();
+        const expiryDate = new Date(2000 + year, month, 0, 23, 59, 59);
+        if (expiryDate < new Date(now.getFullYear(), now.getMonth(), 1)) {
+            setPaymentMessage('La tarjeta está vencida.', false);
+            return false;
+        }
+
+        if (cvv.length < 3 || cvv.length > 4) {
+            setPaymentMessage('El CVV debe tener 3 o 4 dígitos.', false);
+            return false;
+        }
+
+        setPaymentMessage('Pago con tarjeta válido.', true);
+        return true;
+    }
+
+    function bindPaymentValidation() {
+        const name = document.getElementById('card-name');
+        const number = document.getElementById('card-number');
+        const expiry = document.getElementById('card-expiry');
+        const cvv = document.getElementById('card-cvv');
+
+        if (!name && !number && !expiry && !cvv) return;
+
+        [name, number, expiry, cvv].forEach((field) => {
+            if (!field) return;
+            field.addEventListener('input', () => {
+                if (field === number) field.value = formatCardInput(field.value);
+                if (field === expiry) field.value = formatExpiryInput(field.value);
+                validateCardPayment();
+            });
+        });
+    }
+
     // Crea un código, guarda una copia del pedido y muestra la boleta final.
     function confirmOrder() {
         const cart = getCart();
@@ -141,17 +228,36 @@
             alert('Agrega al menos un producto antes de confirmar el pedido.');
             return;
         }
+
+        if (!validateCardPayment()) {
+            return;
+        }
+
         const subtotal = cart.reduce((sum, item) => sum + Number(item.precio) * Number(item.qty), 0);
         const shipping = subtotal >= 25000 ? 0 : 2990;
+        const iva = subtotal * 0.19;
+        const usuarioActivo = (() => {
+            try {
+                return JSON.parse(localStorage.getItem('sesion_activa') || 'null');
+            } catch (error) {
+                return null;
+            }
+        })();
         const order = {
             code: `HH-${Math.floor(10000 + Math.random() * 90000)}`,
             createdAt: new Date().toISOString(),
             delivery: document.querySelector('.date-select')?.value || 'Fecha por confirmar',
             items: cart,
             subtotal,
+            iva,
             shipping,
-            total: subtotal + shipping,
-            status: 1
+            total: subtotal + iva + shipping,
+            status: 1,
+            cliente: usuarioActivo ? {
+                nombre: usuarioActivo.nombre || 'Cliente',
+                correo: usuarioActivo.correo || '',
+                telefono: usuarioActivo.telefono || ''
+            } : { nombre: 'Cliente', correo: '', telefono: '' }
         };
         localStorage.setItem('hh_ultimo_pedido', JSON.stringify(order));
         localStorage.setItem('hh_pedidos', JSON.stringify([order, ...getStoredOrders()]));
@@ -253,6 +359,7 @@
         });
 
         renderCart();
+        bindPaymentValidation();
         initOrderReceipt();
         if (window.HuertoHogar && typeof window.HuertoHogar.utils?.actualizarBadgeCarrito === 'function') {
             window.HuertoHogar.utils.actualizarBadgeCarrito();

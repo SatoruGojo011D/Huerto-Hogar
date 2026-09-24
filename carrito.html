@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- Carrito: muestra los productos guardados, cantidades, costos y resumen del pedido. -->
 <html lang="es">
 <head>
@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <!-- Cabecera: navegación general y contador de productos. -->
+    <!-- Cabecera: navegaciÃ³n general y contador de productos. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -24,7 +24,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="productos.html">CatÃ¡logo</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
@@ -34,23 +34,23 @@
         </nav>
 
         <a href="carrito.html" class="cart-icon-wrapper">
-            🛒 <span class="cart-badge" id="cart-counter">0</span>
+            ðŸ›’ <span class="cart-badge" id="cart-counter">0</span>
         </a>
     </header>
 
     <!-- Contenido principal: productos seleccionados y resumen de compra. -->
     <main class="container">
         <h2 class="cart-title serif">Mi carrito</h2>
-        <p class="cart-subtitle">Cosechamos tu pedido el día anterior a la entrega.</p>
+        <p class="cart-subtitle">Cosechamos tu pedido el dÃ­a anterior a la entrega.</p>
 
         <div class="cart-grid">
-            <!-- Lista dinámica: carrito.js inserta aquí los productos del localStorage. -->
+            <!-- Lista dinÃ¡mica: carrito.js inserta aquÃ­ los productos del localStorage. -->
             <section class="cart-items" id="cart-items">
                 <div class="empty-cart" id="empty-cart">
-                    <div class="empty-cart-icon">🛒</div>
-                    <h3>Tu carrito está vacío</h3>
-                    <p>Aún no has agregado productos. Explora el catálogo y añade lo que te guste.</p>
-                    <a href="productos.html" class="btn-checkout empty-cart-btn">Ver catálogo</a>
+                    <div class="empty-cart-icon">ðŸ›’</div>
+                    <h3>Tu carrito estÃ¡ vacÃ­o</h3>
+                    <p>AÃºn no has agregado productos. Explora el catÃ¡logo y aÃ±ade lo que te guste.</p>
+                    <a href="productos.html" class="btn-checkout empty-cart-btn">Ver catÃ¡logo</a>
                 </div>
             </section>
 
@@ -60,6 +60,11 @@
                 <div class="summary-item">
                     <span>Subtotal (<span id="total-count">0</span> producto(s))</span>
                     <strong id="subtotal-text">$0 CLP</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>IVA (19%)</span>
+                    <strong id="iva-text">$0 CLP</strong>
                 </div>
 
                 <div class="summary-item">
@@ -73,11 +78,11 @@
                 </div>
 
                 <div class="date-picker-box">
-                    <label>📅 Fecha de entrega</label>
+                    <label>ðŸ“… Fecha de entrega</label>
                     <select class="date-select">
-                        <option>Viernes, 11 De Septiembre · 09:00 - 13:00</option>
-                        <option>Sábado, 12 De Septiembre · 14:00 - 18:00</option>
-                        <option>Lunes, 14 De Septiembre · 09:00 - 13:00</option>
+                        <option>Viernes, 11 De Septiembre Â· 09:00 - 13:00</option>
+                        <option>SÃ¡bado, 12 De Septiembre Â· 14:00 - 18:00</option>
+                        <option>Lunes, 14 De Septiembre Â· 09:00 - 13:00</option>
                         <option>Martes, 15 De Septiembre . 09:00 - 13:00</option>
 
                     </select>
@@ -85,18 +90,47 @@
 
                 <div class="green-impact-card">
                     <div class="impact-header">
-                        🍃 Huella de carbono reducida
+                        ðŸƒ Huella de carbono reducida
                     </div>
-                    <div class="impact-value" id="co2-value">2.5 kg CO₂e</div>
+                    <div class="impact-value" id="co2-value">2.5 kg COâ‚‚e</div>
                     <p class="impact-sub">Este pedido evita 72 km de transporte intermediario y usa envases retornables.</p>
                     <div class="progress-track" role="progressbar" aria-label="Huella de carbono del carrito" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                         <div class="progress-fill" id="co2-progress"></div>
                     </div>
                 </div>
 
-                <!-- Este botón crea el pedido, guarda sus datos y abre la boleta final. -->
+                <div class="payment-box">
+                    <h4 class="payment-title serif">Pago con tarjeta</h4>
+
+                    <div class="payment-form" id="payment-form">
+                        <label>
+                            Nombre del titular
+                            <input id="card-name" type="text" placeholder="Ej: Ana GarcÃ­a" autocomplete="cc-name">
+                        </label>
+
+                        <label>
+                            NÃºmero de tarjeta
+                            <input id="card-number" type="text" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
+                        </label>
+
+                        <div class="payment-grid">
+                            <label>
+                                Vencimiento
+                                <input id="card-expiry" type="text" inputmode="numeric" maxlength="5" placeholder="MM/AA" autocomplete="cc-exp">
+                            </label>
+                            <label>
+                                CVV
+                                <input id="card-cvv" type="password" inputmode="numeric" maxlength="4" placeholder="123" autocomplete="cc-csc">
+                            </label>
+                        </div>
+
+                        <p id="card-message" class="payment-message" aria-live="polite"></p>
+                    </div>
+                </div>
+
+                <!-- Este botÃ³n crea el pedido, guarda sus datos y abre la boleta final. -->
                 <button class="btn-checkout" id="btn-confirmar-pedido" type="button">Confirmar Pedido</button>
-                <p class="free-shipping-indicator" id="free-shipping-lbl">Suma $12.200 CLP más para despacho gratis.</p>
+                <p class="free-shipping-indicator" id="free-shipping-lbl">Suma $12.200 CLP mÃ¡s para despacho gratis.</p>
             </aside>
         </div>
     </main>
@@ -105,39 +139,39 @@
     <div class="receipt-overlay" id="receipt-overlay" hidden>
         <section class="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="receipt-title">
             <button class="receipt-close" id="receipt-close" type="button" aria-label="Cerrar boleta">&times;</button>
-            <div class="receipt-success-icon">✓</div>
+            <div class="receipt-success-icon">âœ“</div>
             <p class="receipt-kicker">Pedido confirmado</p>
             <h2 class="serif" id="receipt-title">Gracias por tu compra</h2>
-            <p class="receipt-lead">Tu pedido fue registrado correctamente y ya puedes seguirlo con su código.</p>
-            <div class="receipt-code-box"><span>Número de pedido</span><strong id="receipt-code">HH-00000</strong></div>
+            <p class="receipt-lead">Tu pedido fue registrado correctamente y ya puedes seguirlo con su cÃ³digo.</p>
+            <div class="receipt-code-box"><span>NÃºmero de pedido</span><strong id="receipt-code">HH-00000</strong></div>
             <div class="receipt-details"><span>Entrega</span><strong id="receipt-delivery"></strong><span>Total pagado</span><strong id="receipt-total"></strong></div>
             <a class="btn-checkout receipt-track-btn" id="receipt-track" href="seguimiento.html">Ver seguimiento</a>
-            <button class="receipt-secondary-btn" id="receipt-continue" type="button">Volver al catálogo</button>
+            <button class="receipt-secondary-btn" id="receipt-continue" type="button">Volver al catÃ¡logo</button>
         </section>
     </div>
 
-    <!-- Pie de página: información institucional y enlaces. -->
+    <!-- Pie de pÃ¡gina: informaciÃ³n institucional y enlaces. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="brand-logo">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
-                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                    <h1 class="serif">HuertoHogar</h1>
                 </a>
-                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+                <p>Cooperativa de pequeÃ±os productores chilenos. Cosechamos el dÃ­a previo a tu entrega.</p>
             </div>
             <div class="footer-col">
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="productos.html">CatÃ¡logo</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="login.html">Mi cuenta</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4 class="serif">Reparto</h4>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
-                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                <p>
+                    Santiago Â· ViÃ±a del Mar<br>ConcepciÃ³n Â· Puerto Montt
                 </p>
             </div>
         </div>

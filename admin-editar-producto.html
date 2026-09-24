@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- Formulario administrativo para modificar o eliminar un producto existente. -->
 <html lang="es">
 <head>
@@ -22,9 +22,9 @@
             </nav>
         </aside>
 
-        <!-- Área principal: formulario para modificar o eliminar un producto. -->
+        <!-- Ãrea principal: formulario para modificar o eliminar un producto. -->
         <main class="main-content">
-            <!-- Cabecera administrativa: identifica la edición seleccionada. -->
+            <!-- Cabecera administrativa: identifica la ediciÃ³n seleccionada. -->
             <header class="header">
                 <h1>Editar Producto</h1>
                 <div class="user-info"><span id="nombreUsuarioNav">Admin</span><i class="fas fa-user-circle"></i></div>
@@ -35,7 +35,7 @@
                     <div class="card-header"><h2><i class="fas fa-edit"></i> Modificar Detalles</h2></div>
                     <div class="card-body">
                         <div id="mensaje-error-editar-prod" class="form-message"></div>
-                        <!-- Formulario de edición: carga datos por ID y actualiza localStorage. -->
+                        <!-- Formulario de ediciÃ³n: carga datos por ID y actualiza localStorage. -->
                         <form id="formEditarProducto" class="form">
                             <div class="form-group">
                                 <label for="editar-prod-nombre">Nombre del Producto *</label>
@@ -43,12 +43,9 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="editar-prod-categoria">Categoría *</label>
-                                <select id="editar-prod-categoria" name="editar-prod-categoria" required>
-                                    <option value="Verduras">Verduras</option>
-                                    <option value="Frutas">Frutas</option>
-                                    <option value="Herramientas">Herramientas</option>
-                                    <option value="Semillas">Semillas</option>
+                                <label for="editar-prod-categoria">CategorÃ­a *</label>
+                                <select id="editar-prod-categoria" name="editar-prod-categoria" data-role="categoria" required>
+                                    <option value="">Seleccione una categorÃ­a</option>
                                 </select>
                             </div>
 
@@ -68,14 +65,15 @@
                                 <div class="image-picker" aria-label="Selecciona una imagen">
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/manzanas-fuji.png"><img src="img/manzanas-fuji.png" alt="Manzanas Fuji"><span>Manzanas</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/naranjas.jpg"><img src="img/naranjas.jpg" alt="Naranjas"><span>Naranjas</span></label>
-                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/platanos.jpg"><img src="img/platanos.jpg" alt="Plátanos"><span>Plátanos</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/platanos.jpg"><img src="img/platanos.jpg" alt="PlÃ¡tanos"><span>PlÃ¡tanos</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/zanahorias.png"><img src="img/zanahorias.png" alt="Zanahorias"><span>Zanahorias</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/espinaca.png"><img src="img/espinaca.png" alt="Espinaca"><span>Espinaca</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/pimentones.jpg"><img src="img/pimentones.jpg" alt="Pimentones"><span>Pimentones</span></label>
-                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/miel-organica.png"><img src="img/miel-organica.png" alt="Miel orgánica"><span>Miel</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/miel-organica.png"><img src="img/miel-organica.png" alt="Miel orgÃ¡nica"><span>Miel</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/quinoa.jpg"><img src="img/quinoa.jpg" alt="Quinua"><span>Quinua</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/leche.jpg"><img src="img/leche.jpg" alt="Leche"><span>Leche</span></label>
                                 </div>
+                                <input type="file" id="editar-prod-file" accept="image/*">
                                 <input type="hidden" id="editar-prod-imagen" name="editar-prod-imagen">
                             </div>
 

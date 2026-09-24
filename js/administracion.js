@@ -192,7 +192,7 @@
                 }
 
                 setTimeout(() => {
-                    window.location.href = usuarioValido.rol === 'admin' ? 'admin-usuarios.html' : 'index.html';
+                    window.location.href = usuarioValido.rol === 'admin' ? 'admin-dashboard.html' : 'index.html';
                 }, 1000);
             } else {
                 if (mensajeError) mensajeError.textContent = 'Correo o contraseña incorrectos.';
@@ -220,7 +220,7 @@
 
     // Dibuja la tabla de usuarios a partir de localStorage.
     function renderUsuariosTable() {
-        const cuerpoTabla = document.getElementById('cuerpo-tabla-usuarios');
+        const cuerpoTabla = document.getElementById('cuerpo-tabla-usuarios') || document.getElementById('cuerpo-tabla-usuarios-dashboard');
         if (!cuerpoTabla) return;
 
         const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
@@ -235,11 +235,192 @@
                 <td style="padding: 0.8rem;">${u.correo}</td>
                 <td style="padding: 0.8rem;"><span style="background: #e8f5e9; color: #2e7d32; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">${u.rol}</span></td>
                 <td style="padding: 0.8rem; text-align: center;">
-                    <a href="admin-editar-usuario.html?id=${u.id}" style="color: var(--primary-green, #2e7d32); font-weight: 600; text-decoration: none;">Editar</a>
+                    <div class="product-actions">
+                        <button type="button" class="btn-action btn-edit" data-action="select-user" data-user-id="${u.id}" title="Ver y editar"><i class="fas fa-edit"></i></button>
+                        <a href="admin-editar-usuario.html?id=${u.id}" class="btn-action btn-edit" title="Abrir edición completa" style="display: inline-flex; text-decoration: none; color: var(--primary-green);"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
                 </td>
             `;
             cuerpoTabla.appendChild(fila);
         });
+
+        cuerpoTabla.querySelectorAll('[data-action="select-user"]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const id = Number(button.getAttribute('data-user-id'));
+                cargarUsuarioDetalle(id);
+            });
+        });
+
+        const primerUsuario = usuarios[0];
+        if (primerUsuario && document.getElementById('dashboard-user-detail-form')) {
+            cargarUsuarioDetalle(primerUsuario.id);
+        }
+    }
+
+    function obtenerHistorialComprasUsuario(idUsuario) {
+        const pedidos = JSON.parse(localStorage.getItem('hh_pedidos') || '[]');
+        return pedidos.filter((pedido) => {
+            const cliente = pedido.cliente || pedido.usuario || {};
+            const nombre = typeof cliente === 'object' ? cliente.nombre || '' : '';
+            const correo = typeof cliente === 'object' ? cliente.correo || '' : '';
+            const matchId = Number(pedido.usuarioId || pedido.userId || 0) === Number(idUsuario);
+            const matchEmail = Boolean(correo) && correo.toLowerCase() === (document.getElementById('dashboard-user-email')?.value || '').toLowerCase();
+            const matchName = Boolean(nombre) && nombre.toLowerCase() === (document.getElementById('dashboard-user-name')?.value || '').toLowerCase();
+            return matchId || matchEmail || matchName;
+        });
+    }
+
+    function cargarUsuarioDetalle(idUsuario) {
+        const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+        const usuario = usuarios.find(u => Number(u.id) === Number(idUsuario));
+        const form = document.getElementById('dashboard-user-detail-form');
+        if (!form || !usuario) return;
+
+        document.getElementById('dashboard-user-id').value = usuario.id;
+        document.getElementById('dashboard-user-name').value = usuario.nombre || '';
+        document.getElementById('dashboard-user-email').value = usuario.correo || '';
+        document.getElementById('dashboard-user-phone').value = usuario.telefono || '';
+        document.getElementById('dashboard-user-address').value = usuario.direccion || '';
+        document.getElementById('dashboard-user-role').value = usuario.rol || 'cliente';
+
+        const historial = obtenerHistorialComprasUsuario(usuario.id);
+        const body = document.getElementById('dashboard-user-history-body');
+        if (!body) return;
+
+        body.innerHTML = '';
+        if (!historial.length) {
+            body.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 1rem;">Este usuario aún no tiene compras registradas.</td></tr>';
+            return;
+        }
+
+        historial.forEach((pedido) => {
+            const row = document.createElement('tr');
+            const estado = pedido.status === 3 ? 'Completado' : pedido.status === 2 ? 'Enviado' : 'Pendiente';
+            const claseEstado = pedido.status === 3 ? 'completed' : pedido.status === 2 ? 'sent' : 'pending';
+            row.innerHTML = `
+                <td>${pedido.code || 'HH-0000'}</td>
+                <td>${pedido.createdAt ? new Date(pedido.createdAt).toLocaleDateString('es-CL') : 'Sin fecha'}</td>
+                <td>$${Number(pedido.total || 0).toLocaleString('es-CL')}</td>
+                <td><span class="status-badge ${claseEstado}">${estado}</span></td>
+            `;
+            body.appendChild(row);
+        });
+    }
+
+    function initCreateUserDashboard() {
+        const form = document.getElementById('dashboard-user-create-form');
+        if (!form) return;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById('dashboard-new-user-name').value.trim();
+            const correo = document.getElementById('dashboard-new-user-email').value.trim();
+            const telefono = document.getElementById('dashboard-new-user-phone').value.trim();
+            const direccion = document.getElementById('dashboard-new-user-address').value.trim();
+            const rol = document.getElementById('dashboard-new-user-role').value;
+            const password = document.getElementById('dashboard-new-user-password').value;
+            const message = document.getElementById('dashboard-new-user-message');
+
+            if (!nombre || !correo || !password) {
+                if (message) {
+                    message.textContent = 'Nombre, correo y contraseña son obligatorios.';
+                    message.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(correo)) {
+                if (message) {
+                    message.textContent = 'El correo debe terminar en @gmail.com o @hotmail.com.';
+                    message.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+            if (usuarios.some(u => u.correo.toLowerCase() === correo.toLowerCase())) {
+                if (message) {
+                    message.textContent = 'El correo ya está registrado.';
+                    message.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            const nuevoId = usuarios.length ? Math.max(...usuarios.map(u => Number(u.id || 0))) + 1 : 1;
+            usuarios.push({ id: nuevoId, nombre, correo, telefono, direccion, rol, contrasena: password });
+            localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+            renderUsuariosTable();
+            form.reset();
+            if (message) {
+                message.textContent = 'Usuario creado correctamente.';
+                message.style.color = '#2e7d32';
+            }
+        });
+    }
+
+    function initEditUserDashboard() {
+        const form = document.getElementById('dashboard-user-detail-form');
+        if (!form) return;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = Number(document.getElementById('dashboard-user-id').value);
+            const nombre = document.getElementById('dashboard-user-name').value.trim();
+            const correo = document.getElementById('dashboard-user-email').value.trim();
+            const telefono = document.getElementById('dashboard-user-phone').value.trim();
+            const direccion = document.getElementById('dashboard-user-address').value.trim();
+            const rol = document.getElementById('dashboard-user-role').value;
+            const message = document.getElementById('dashboard-user-detail-message');
+
+            if (!nombre || !correo) {
+                if (message) {
+                    message.textContent = 'Nombre y correo son obligatorios.';
+                    message.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            if (!REGEX_EMAIL_GMAIL_HOTMAIL.test(correo)) {
+                if (message) {
+                    message.textContent = 'El correo debe terminar en @gmail.com o @hotmail.com.';
+                    message.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+            const index = usuarios.findIndex(u => Number(u.id) === Number(id));
+            if (index === -1) {
+                if (message) {
+                    message.textContent = 'No se encontró el usuario.';
+                    message.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            usuarios[index] = { ...usuarios[index], nombre, correo, telefono, direccion, rol };
+            localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+            renderUsuariosTable();
+            if (message) {
+                message.textContent = 'Usuario actualizado correctamente.';
+                message.style.color = '#2e7d32';
+            }
+        });
+
+        const deleteButton = document.getElementById('dashboard-user-delete');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', () => {
+                const id = Number(document.getElementById('dashboard-user-id').value);
+                if (!id || !confirm('¿Deseas eliminar este usuario?')) return;
+                const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+                const filtrados = usuarios.filter(u => Number(u.id) !== Number(id));
+                localStorage.setItem('usuarios_huerto', JSON.stringify(filtrados));
+                renderUsuariosTable();
+                form.reset();
+                const body = document.getElementById('dashboard-user-history-body');
+                if (body) body.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 1rem;">Seleccione un usuario para revisar su historial.</td></tr>';
+            });
+        }
     }
 
     function initCreateUser() {
@@ -472,7 +653,7 @@
 
     // Dibuja la tabla de productos y conecta las acciones de eliminar/editar.
     function renderProductsTable() {
-        const cuerpoTablaProductos = document.getElementById('cuerpo-tabla-productos') || document.querySelector('.admin-container .table tbody');
+        const cuerpoTablaProductos = document.getElementById('cuerpo-tabla-productos') || document.getElementById('cuerpo-tabla-productos-dashboard') || document.querySelector('.admin-container .table tbody');
         if (!cuerpoTablaProductos) return;
 
         const productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
@@ -492,8 +673,8 @@
                 <td class="product-price">$${Number(p.precio).toLocaleString('es-CL')}</td>
                 <td>${p.stock}</td>
                 <td><div class="product-actions">
-                    <a href="admin-editar-producto.html?id=${p.id}" class="btn-action btn-edit" title="Editar"><i class="fas fa-edit"></i></a>
-                    <button class="btn-action btn-delete" data-id="${p.id}" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    <button class="btn-action btn-edit" data-id="${p.id}" data-action="edit-product" title="Editar"><i class="fas fa-edit"></i></button>
+                    <button class="btn-action btn-delete" data-id="${p.id}" data-action="delete-product" title="Eliminar"><i class="fas fa-trash"></i></button>
                 </div></td>
             `;
             cuerpoTablaProductos.appendChild(tr);
@@ -502,36 +683,126 @@
         if (cuerpoTablaProductos.dataset.actionsReady === 'true') return;
         cuerpoTablaProductos.dataset.actionsReady = 'true';
         cuerpoTablaProductos.addEventListener('click', (e) => {
-            const btnDelete = e.target.closest('.btn-delete');
-            if (!btnDelete) return;
-            const idProducto = btnDelete.getAttribute('data-id');
-            if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-                let productosActuales = JSON.parse(localStorage.getItem('productos_huerto')) || [];
-                productosActuales = productosActuales.filter(p => p.id !== idProducto);
-                localStorage.setItem('productos_huerto', JSON.stringify(productosActuales));
-                renderProductsTable();
+            const target = e.target.closest('[data-action]');
+            if (!target) return;
+            const idProducto = target.getAttribute('data-id');
+            if (target.dataset.action === 'delete-product') {
+                if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                    let productosActuales = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+                    productosActuales = productosActuales.filter(p => String(p.id) !== String(idProducto));
+                    localStorage.setItem('productos_huerto', JSON.stringify(productosActuales));
+                    renderProductsTable();
+                    renderProductReports();
+                    renderDashboardOverview();
+                }
+                return;
+            }
+
+            if (target.dataset.action === 'edit-product') {
+                const productosActuales = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+                const producto = productosActuales.find(p => String(p.id) === String(idProducto));
+                if (!producto) return;
+                const form = document.getElementById('dashboard-product-form');
+                if (!form) {
+                    window.location.href = `admin-editar-producto.html?id=${idProducto}`;
+                    return;
+                }
+
+                document.getElementById('dashboard-product-id').value = producto.id;
+                document.getElementById('dashboard-product-name').value = producto.nombre || '';
+                document.getElementById('dashboard-product-category').value = producto.categoria || 'Verduras';
+                document.getElementById('dashboard-product-price').value = producto.precio || 0;
+                document.getElementById('dashboard-product-stock').value = producto.stock || '';
+                document.getElementById('dashboard-product-image').value = producto.imagen || '';
+                const preview = document.getElementById('dashboard-product-preview');
+                if (preview) {
+                    preview.src = getProductImage(producto.imagen) || 'img/manzanas-fuji.png';
+                    preview.hidden = false;
+                }
+                document.getElementById('dashboard-product-submit').textContent = 'Actualizar producto';
+                document.getElementById('dashboard-product-cancel').classList.remove('hidden');
+                document.getElementById('dashboard-product-message').textContent = 'Editando producto';
+                document.getElementById('dashboard-product-message').style.color = '#2e7d32';
+                document.getElementById('dashboard-product-name').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
     }
 
     // Valida y guarda un producto creado desde el panel admin.
+    function clearDashboardProductImage() {
+        const hidden = document.getElementById('dashboard-product-image');
+        const fileInput = document.getElementById('dashboard-product-image-file');
+        const preview = document.getElementById('dashboard-product-preview');
+        const clearBtn = document.getElementById('dashboard-product-image-clear');
+
+        if (hidden) hidden.value = '';
+        if (fileInput) fileInput.value = '';
+        if (preview) {
+            preview.src = '';
+            preview.hidden = true;
+        }
+        if (clearBtn) clearBtn.classList.add('hidden');
+    }
+
     function initCreateProduct() {
-        const form = document.getElementById('formNuevoProducto') || document.getElementById('form-nuevo-producto');
+        const form = document.getElementById('formNuevoProducto') || document.getElementById('form-nuevo-producto') || document.getElementById('dashboard-product-form');
         if (!form) return;
 
         const imageInput = document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen');
+        const fileInput = document.getElementById('nuevo-prod-file');
+        const dashboardImageInput = document.getElementById('dashboard-product-image');
+        const dashboardFileInput = document.getElementById('dashboard-product-image-file');
+        const dashboardClearBtn = document.getElementById('dashboard-product-image-clear');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', async () => {
+                const file = fileInput.files?.[0];
+                if (!file) return;
+                const url = await readFileAsDataUrl(file).catch(() => '');
+                if (url) {
+                    if (imageInput) imageInput.value = url;
+                    if (dashboardImageInput) dashboardImageInput.value = url;
+                }
+            });
+        }
+
+        if (dashboardClearBtn) {
+            dashboardClearBtn.addEventListener('click', clearDashboardProductImage);
+        }
+
+        if (dashboardFileInput) {
+            dashboardFileInput.addEventListener('change', async () => {
+                const file = dashboardFileInput.files?.[0];
+                if (!file) return;
+                const url = await readFileAsDataUrl(file).catch(() => '');
+                if (url) {
+                    const preview = document.getElementById('dashboard-product-preview');
+                    if (preview) {
+                        preview.src = url;
+                        preview.hidden = false;
+                    }
+                    const hidden = document.getElementById('dashboard-product-image');
+                    if (hidden) hidden.value = url;
+                    if (dashboardClearBtn) dashboardClearBtn.classList.remove('hidden');
+                }
+            });
+        }
+
         form.querySelectorAll('input[name="imagen-producto"]').forEach(option => {
-            option.addEventListener('change', () => { imageInput.value = option.value; });
+            option.addEventListener('change', () => {
+                if (imageInput) imageInput.value = option.value;
+                if (dashboardImageInput) dashboardImageInput.value = option.value;
+            });
         });
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const nombre = (document.getElementById('nuevo-prod-nombre') || document.getElementById('nombre')).value.trim();
-            const categoria = (document.getElementById('nuevo-prod-categoria') || document.getElementById('categoria')).value;
-            const precio = parseInt((document.getElementById('nuevo-prod-precio') || document.getElementById('precio')).value, 10);
-            const stock = (document.getElementById('nuevo-prod-stock') || document.getElementById('stock')).value.trim();
-            const imagen = (document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen')).value.trim() || 'img/manzanas-fuji.png';
-            const mensaje = document.getElementById('mensaje-error-nuevo-prod');
+            const nombre = (document.getElementById('nuevo-prod-nombre') || document.getElementById('nombre') || document.getElementById('dashboard-product-name')).value.trim();
+            const categoria = (document.getElementById('nuevo-prod-categoria') || document.getElementById('categoria') || document.getElementById('dashboard-product-category')).value;
+            const precio = parseInt((document.getElementById('nuevo-prod-precio') || document.getElementById('precio') || document.getElementById('dashboard-product-price')).value, 10);
+            const stock = (document.getElementById('nuevo-prod-stock') || document.getElementById('stock') || document.getElementById('dashboard-product-stock')).value.trim();
+            const imagen = (document.getElementById('nuevo-prod-imagen') || document.getElementById('imagen') || document.getElementById('dashboard-product-image')).value.trim() || 'img/manzanas-fuji.png';
+            const mensaje = document.getElementById('mensaje-error-nuevo-prod') || document.getElementById('dashboard-product-message');
 
             if (!nombre || isNaN(precio) || !stock) {
                 if (mensaje) {
@@ -542,6 +813,24 @@
             }
 
             let productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+            const productoId = document.getElementById('dashboard-product-id')?.value;
+            if (productoId) {
+                const index = productos.findIndex(p => String(p.id) === String(productoId));
+                if (index !== -1) {
+                    productos[index] = { ...productos[index], nombre, categoria, precio, stock, imagen };
+                    localStorage.setItem('productos_huerto', JSON.stringify(productos));
+                    if (mensaje) {
+                        mensaje.style.color = '#2e7d32';
+                        mensaje.textContent = '¡Producto actualizado correctamente!';
+                    }
+                    resetDashboardProductForm();
+                    renderProductsTable();
+                    renderProductReports();
+                    renderDashboardOverview();
+                    return;
+                }
+            }
+
             const idsNumericos = productos
                 .map(producto => Number(producto.id))
                 .filter(id => Number.isFinite(id));
@@ -554,11 +843,45 @@
                 mensaje.textContent = '¡Producto agregado exitosamente!';
             }
 
+            if (form.id === 'dashboard-product-form') {
+                resetDashboardProductForm();
+                renderProductsTable();
+                renderProductReports();
+                renderDashboardOverview();
+                return;
+            }
+
             setTimeout(() => window.location.href = 'admin-productos.html', 1000);
         });
     }
 
     // Carga, actualiza o elimina el producto indicado en la URL.
+    function resetDashboardProductForm() {
+        const form = document.getElementById('dashboard-product-form');
+        if (!form) return;
+        form.reset();
+        document.getElementById('dashboard-product-id').value = '';
+        document.getElementById('dashboard-product-image').value = '';
+        const fileInput = document.getElementById('dashboard-product-image-file');
+        if (fileInput) fileInput.value = '';
+        const clearBtn = document.getElementById('dashboard-product-image-clear');
+        if (clearBtn) clearBtn.classList.add('hidden');
+        const preview = document.getElementById('dashboard-product-preview');
+        if (preview) {
+            preview.hidden = true;
+            preview.src = '';
+        }
+        const submitBtn = document.getElementById('dashboard-product-submit');
+        if (submitBtn) submitBtn.textContent = 'Guardar producto';
+        const cancelBtn = document.getElementById('dashboard-product-cancel');
+        if (cancelBtn) cancelBtn.classList.add('hidden');
+        const message = document.getElementById('dashboard-product-message');
+        if (message) {
+            message.textContent = '';
+            message.style.color = '';
+        }
+    }
+
     function initEditProduct() {
         const form = document.getElementById('formEditarProducto') || document.getElementById('form-editar-producto');
         if (!form) return;
@@ -569,6 +892,19 @@
         const productoActual = productos.find(p => String(p.id) === idProducto);
         const mensaje = document.getElementById('mensaje-error-editar-prod');
         const btnEliminarProd = document.getElementById('btn-eliminar-producto');
+        const fileInput = document.getElementById('editar-prod-file');
+        const hiddenInput = document.getElementById('editar-prod-imagen');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', async () => {
+                const file = fileInput.files?.[0];
+                if (!file) return;
+                const url = await readFileAsDataUrl(file).catch(() => '');
+                if (url && hiddenInput) {
+                    hiddenInput.value = url;
+                }
+            });
+        }
 
         if (productoActual) {
             const elNombre = document.getElementById('editar-prod-nombre') || document.getElementById('nombre');
@@ -668,6 +1004,393 @@
         }
     }
 
+    function parseStockNumber(stockValue) {
+        if (typeof stockValue === 'number') return stockValue;
+        if (!stockValue && stockValue !== 0) return 0;
+        const cleaned = String(stockValue).replace(/[^0-9.]/g, '');
+        const parsed = Number(cleaned || 0);
+        return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function normalizeCategoryKey(value) {
+        return String(value || 'otros')
+            .trim()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '') || 'otros';
+    }
+
+    function getCategorias() {
+        try {
+            const categoriasGuardadas = JSON.parse(localStorage.getItem('hh_categorias') || '[]');
+            if (Array.isArray(categoriasGuardadas) && categoriasGuardadas.length) {
+                return categoriasGuardadas.map(item => String(item).trim()).filter(Boolean);
+            }
+        } catch (error) {
+            // Ignora datos corruptos y usa la semilla por defecto.
+        }
+
+        const categoriasDefault = ['Frutas Frescas', 'Verduras Organicas', 'Productos Organicos', 'Productos Lacteos'];
+        localStorage.setItem('hh_categorias', JSON.stringify(categoriasDefault));
+        return categoriasDefault;
+    }
+
+    function ensureCategoriesSeed() {
+        const categorias = getCategorias();
+        const categoriasLimitadas = categorias.filter((categoria, index, array) => array.indexOf(categoria) === index);
+        if (categoriasLimitadas.length !== categorias.length) {
+            localStorage.setItem('hh_categorias', JSON.stringify(categoriasLimitadas));
+        }
+    }
+
+    function populateCategorySelects() {
+        const categorias = getCategorias();
+        const selects = document.querySelectorAll('select[id$="-categoria"], select[id$="-category"], select[name$="-categoria"], select[name$="-category"], select[data-role="categoria"]');
+
+        selects.forEach((select) => {
+            const selectedValue = select.value || select.getAttribute('data-selected') || '';
+            const opciones = categorias.map(categoria => `<option value="${categoria}">${categoria}</option>`).join('');
+            select.innerHTML = `<option value="">Seleccione una categoría</option>${opciones}`;
+
+            const hasExactMatch = categorias.includes(selectedValue);
+            const hasNormalizedMatch = categorias.some(categoria => normalizeCategoryKey(categoria) === normalizeCategoryKey(selectedValue));
+
+            if (hasExactMatch) {
+                select.value = selectedValue;
+            } else if (hasNormalizedMatch) {
+                select.value = categorias.find(categoria => normalizeCategoryKey(categoria) === normalizeCategoryKey(selectedValue)) || '';
+            } else if (select.dataset.default) {
+                select.value = select.dataset.default;
+            }
+        });
+    }
+
+    function renderCategoriasTable() {
+        const tabla = document.getElementById('cuerpo-tabla-categorias');
+        if (!tabla) return;
+
+        const categorias = getCategorias();
+        tabla.innerHTML = '';
+
+        if (!categorias.length) {
+            tabla.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 1.5rem;">No hay categorías registradas.</td></tr>';
+            return;
+        }
+
+        categorias.forEach((categoria) => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td style="padding: 0.8rem; font-weight: 700;">${categoria}</td>
+                <td style="padding: 0.8rem; color: var(--text-muted);">${normalizeCategoryKey(categoria)}</td>
+                <td style="padding: 0.8rem; text-align: center;">
+                    <div class="product-actions">
+                        <a href="admin-editar-categoria.html?id=${encodeURIComponent(categoria)}" class="btn-action btn-edit" title="Editar"><i class="fas fa-edit"></i></a>
+                        <button type="button" class="btn-action btn-delete" data-action="delete-category" data-category="${categoria}" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            `;
+            tabla.appendChild(fila);
+        });
+
+        tabla.querySelectorAll('[data-action="delete-category"]').forEach((boton) => {
+            boton.addEventListener('click', () => {
+                const categoria = boton.getAttribute('data-category');
+                if (!categoria) return;
+                if (!confirm(`¿Estás seguro de que deseas eliminar la categoría "${categoria}"?`)) return;
+
+                const categoriasActuales = getCategorias().filter(item => item !== categoria);
+                localStorage.setItem('hh_categorias', JSON.stringify(categoriasActuales));
+                populateCategorySelects();
+                renderCategoriasTable();
+            });
+        });
+    }
+
+    function initCategoryForm() {
+        const form = document.getElementById('form-categoria');
+        if (!form) return;
+
+        const inputNombre = document.getElementById('categoria-nombre');
+        const inputSlug = document.getElementById('categoria-slug');
+        const mensaje = document.getElementById('mensaje-categoria');
+        const query = new URLSearchParams(window.location.search);
+        const categoriaEditando = query.get('id');
+
+        if (categoriaEditando) {
+            const categorias = getCategorias();
+            const categoriaActual = categorias.find(categoria => categoria === categoriaEditando);
+            if (categoriaActual && inputNombre) {
+                inputNombre.value = categoriaActual;
+                if (inputSlug) inputSlug.value = normalizeCategoryKey(categoriaActual);
+            }
+        }
+
+        if (inputNombre) {
+            inputNombre.addEventListener('input', () => {
+                if (inputSlug) inputSlug.value = normalizeCategoryKey(inputNombre.value);
+            });
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const nombre = inputNombre ? inputNombre.value.trim() : '';
+            if (!nombre) {
+                if (mensaje) {
+                    mensaje.textContent = 'El nombre de la categoría es obligatorio.';
+                    mensaje.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            const categorias = getCategorias();
+            const nombreNormalizado = nombre;
+            const yaExiste = categorias.some(categoria => categoria.toLowerCase() === nombreNormalizado.toLowerCase());
+
+            if (!categoriaEditando && yaExiste) {
+                if (mensaje) {
+                    mensaje.textContent = 'La categoría ya existe en el sistema.';
+                    mensaje.style.color = '#d32f2f';
+                }
+                return;
+            }
+
+            let nextCategories = categoriaEditando
+                ? categorias.map(categoria => categoria === categoriaEditando ? nombreNormalizado : categoria)
+                : [...categorias, nombreNormalizado];
+
+            nextCategories = nextCategories.filter((categoria, index, array) => categoria && array.indexOf(categoria) === index);
+            localStorage.setItem('hh_categorias', JSON.stringify(nextCategories));
+            populateCategorySelects();
+            if (mensaje) {
+                mensaje.textContent = categoriaEditando ? 'Categoría actualizada correctamente.' : 'Categoría creada correctamente.';
+                mensaje.style.color = '#2e7d32';
+            }
+            setTimeout(() => {
+                window.location.href = 'admin-categorias.html';
+            }, 700);
+        });
+    }
+
+    function readFileAsDataUrl(file) {
+        return new Promise((resolve, reject) => {
+            if (!file) {
+                reject(new Error('No file selected'));
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result || ''));
+            reader.onerror = () => reject(new Error('No se pudo leer la imagen'));
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function renderReportesDashboard() {
+        const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+        const pedidos = JSON.parse(localStorage.getItem('hh_pedidos') || '[]');
+
+        const totalIngresos = pedidos.reduce((sum, pedido) => sum + Number(pedido.total || 0), 0);
+        const promedio = pedidos.length ? totalIngresos / pedidos.length : 0;
+
+        const totalElement = document.getElementById('reporte-usuarios-total');
+        const boletasElement = document.getElementById('reporte-boletas-total');
+        const promedioElement = document.getElementById('reporte-ticket-promedio');
+        const ingresosElement = document.getElementById('reporte-ingresos-total');
+
+        if (totalElement) totalElement.textContent = String(usuarios.length || 0);
+        if (boletasElement) boletasElement.textContent = String(pedidos.length || 0);
+        if (promedioElement) promedioElement.textContent = `$${promedio.toLocaleString('es-CL')}`;
+        if (ingresosElement) ingresosElement.textContent = `$${totalIngresos.toLocaleString('es-CL')}`;
+
+        const tbodyUsuarios = document.getElementById('dashboard-reporte-usuarios');
+        if (tbodyUsuarios) {
+            tbodyUsuarios.innerHTML = usuarios.length
+                ? usuarios.map(usuario => `
+                    <tr>
+                        <td>${usuario.nombre || 'Sin nombre'}</td>
+                        <td>${usuario.correo || '—'}</td>
+                        <td>${usuario.rol || 'cliente'}</td>
+                    </tr>
+                `).join('')
+                : '<tr><td colspan="3" style="text-align: center; padding: 1rem;">No hay usuarios registrados.</td></tr>';
+        }
+
+        const tbodyBoletas = document.getElementById('dashboard-reporte-boletas');
+        if (tbodyBoletas) {
+            tbodyBoletas.innerHTML = pedidos.length
+                ? pedidos.slice(0, 5).map(pedido => {
+                    const cliente = pedido.cliente && typeof pedido.cliente === 'object' ? pedido.cliente.nombre || 'Cliente' : 'Cliente';
+                    const estado = pedido.status === 3 ? 'Completado' : pedido.status === 2 ? 'Enviado' : 'Pendiente';
+                    const claseEstado = pedido.status === 3 ? 'completed' : pedido.status === 2 ? 'sent' : 'pending';
+                    return `
+                        <tr>
+                            <td>${pedido.code || 'HH-0000'}</td>
+                            <td>${cliente}</td>
+                            <td>$${Number(pedido.total || 0).toLocaleString('es-CL')}</td>
+                            <td><span class="status-badge ${claseEstado}">${estado}</span></td>
+                        </tr>
+                    `;
+                }).join('')
+                : '<tr><td colspan="4" style="text-align: center; padding: 1rem;">No hay boletas registradas.</td></tr>';
+        }
+    }
+
+    function renderDashboardOverview() {
+        const productosTable = document.getElementById('dashboard-productos-table');
+        const usuariosTable = document.getElementById('dashboard-usuarios-table');
+        if (!productosTable && !usuariosTable) return;
+
+        const productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+        const usuarios = JSON.parse(localStorage.getItem('usuarios_huerto')) || [];
+
+        if (productosTable) {
+            const filas = productos.slice(0, 4).map(producto => `
+                <tr>
+                    <td>${producto.nombre || 'Producto'}</td>
+                    <td>$${Number(producto.precio || 0).toLocaleString('es-CL')}</td>
+                    <td>${producto.stock || '—'}</td>
+                </tr>
+            `).join('');
+            productosTable.querySelector('tbody').innerHTML = filas || '<tr><td colspan="3">Sin productos</td></tr>';
+        }
+
+        if (usuariosTable) {
+            const filas = usuarios.slice(0, 4).map(usuario => `
+                <tr>
+                    <td>${usuario.nombre || 'Usuario'}</td>
+                    <td>${usuario.correo || '—'}</td>
+                    <td><span class="role-badge">${usuario.rol || 'cliente'}</span></td>
+                </tr>
+            `).join('');
+            usuariosTable.querySelector('tbody').innerHTML = filas || '<tr><td colspan="3">Sin usuarios</td></tr>';
+        }
+    }
+
+    function renderProductReports() {
+        const productos = JSON.parse(localStorage.getItem('productos_huerto')) || [];
+        const criticos = productos.filter(producto => parseStockNumber(producto.stock) <= 20);
+        const resumen = document.getElementById('reporte-productos-criticos');
+        const valor = document.getElementById('reporte-valor-inventario');
+        const stock = document.getElementById('reporte-stock-total');
+
+        if (resumen) resumen.textContent = String(criticos.length);
+        if (valor) {
+            const total = productos.reduce((sum, producto) => sum + (Number(producto.precio || 0) * parseStockNumber(producto.stock)), 0);
+            valor.textContent = `$${total.toLocaleString('es-CL')}`;
+        }
+        if (stock) {
+            const totalStock = productos.reduce((sum, producto) => sum + parseStockNumber(producto.stock), 0);
+            stock.textContent = String(totalStock);
+        }
+
+        const criticosTable = document.getElementById('cuerpo-tabla-productos-criticos');
+        if (!criticosTable) return;
+
+        criticosTable.innerHTML = '';
+        if (!criticos.length) {
+            criticosTable.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 1rem;">No hay productos críticos.</td></tr>';
+            return;
+        }
+
+        criticos.slice(0, 5).forEach(producto => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${producto.nombre || 'Producto'}</td>
+                <td>${producto.categoria || 'Sin categoría'}</td>
+                <td>${producto.stock || '0'}</td>
+                <td><span class='status-badge pending'>Crítico</span></td>
+            `;
+            criticosTable.appendChild(tr);
+        });
+    }
+
+    function getOrderCustomerName(order) {
+        if (!order) return 'Cliente';
+        if (order.cliente && typeof order.cliente === 'object') {
+            return order.cliente.nombre || order.cliente.correo || 'Cliente';
+        }
+        if (order.usuario && typeof order.usuario === 'object') {
+            return order.usuario.nombre || order.usuario.correo || 'Cliente';
+        }
+        return 'Cliente';
+    }
+
+    function renderBoletasTable() {
+        const tabla = document.getElementById('cuerpo-tabla-boletas-dashboard');
+        if (!tabla) return;
+
+        const pedidos = JSON.parse(localStorage.getItem('hh_pedidos') || '[]');
+        tabla.innerHTML = '';
+
+        if (!pedidos.length) {
+            tabla.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 1.5rem;">Aún no hay boletas registradas.</td></tr>';
+            return;
+        }
+
+        pedidos.forEach((pedido) => {
+            const fila = document.createElement('tr');
+            const estado = pedido.status === 3 ? 'Completado' : pedido.status === 2 ? 'Enviado' : 'Pendiente';
+            const claseEstado = pedido.status === 3 ? 'completed' : pedido.status === 2 ? 'sent' : 'pending';
+            const detalleItems = (pedido.items || []).map(item => `${item.nombre || 'Producto'} x${item.qty || item.cantidad || 1}`).join(', ');
+
+            fila.innerHTML = `
+                <td>${pedido.code || 'HH-0000'}</td>
+                <td>${getOrderCustomerName(pedido)}</td>
+                <td>${pedido.createdAt ? new Date(pedido.createdAt).toLocaleDateString('es-CL') : 'Sin fecha'}</td>
+                <td>$${Number(pedido.total || 0).toLocaleString('es-CL')}</td>
+                <td><span class="status-badge ${claseEstado}">${estado}</span></td>
+                <td><a href="#" class="boleta-detail">${detalleItems || 'Sin detalle'}</a></td>
+            `;
+            tabla.appendChild(fila);
+        });
+    }
+
+    function initDashboardNavigation() {
+        const navButtons = document.querySelectorAll('.nav-item[data-section]');
+        const sectionButtons = document.querySelectorAll('[data-section]');
+        const views = document.querySelectorAll('.admin-view');
+        const title = document.getElementById('admin-section-title');
+        const labels = {
+            dashboard: 'Resumen General',
+            productos: 'Productos',
+            usuarios: 'Usuarios',
+            reportes: 'Reportes',
+            boletas: 'Boletas'
+        };
+
+        const activateSection = (section) => {
+            const validSection = labels[section] ? section : 'dashboard';
+
+            navButtons.forEach(button => {
+                button.classList.toggle('active', button.dataset.section === validSection);
+            });
+
+            views.forEach(view => {
+                view.classList.toggle('active', view.dataset.view === validSection);
+            });
+
+            if (title) title.textContent = labels[validSection] || 'Resumen General';
+            const hash = validSection === 'dashboard' ? '' : `#${validSection}`;
+            if (history && history.replaceState) {
+                history.replaceState(null, '', `${window.location.pathname}${hash}`);
+            }
+        };
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => activateSection(button.dataset.section));
+        });
+
+        sectionButtons.forEach(button => {
+            if (button.classList.contains('header-link')) {
+                button.addEventListener('click', () => activateSection(button.dataset.section));
+            }
+        });
+
+        const initialSection = window.location.hash.replace('#', '') || 'dashboard';
+        activateSection(initialSection);
+    }
+
     // Inicializa todas las funciones disponibles en la página actual.
     function init() {
         ensureAdminSeed();
@@ -677,11 +1400,27 @@
         initProfileForm();
         renderUsuariosTable();
         initCreateUser();
+        initCreateUserDashboard();
         initEditUser();
+        initEditUserDashboard();
+        ensureCategoriesSeed();
+        populateCategorySelects();
+        initCategoryForm();
+        renderCategoriasTable();
         initProductsSeed();
         renderProductsTable();
+        renderProductReports();
         initCreateProduct();
         initEditProduct();
+        renderDashboardOverview();
+        renderReportesDashboard();
+        renderBoletasTable();
+        initDashboardNavigation();
+
+        const cancelBtn = document.getElementById('dashboard-product-cancel');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', resetDashboardProductForm);
+        }
     }
 
     window.HuertoHogar = window.HuertoHogar || {};

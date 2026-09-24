@@ -3,6 +3,40 @@
     const REGEX_EMAIL_GMAIL_HOTMAIL = /^[^\s@]+@(gmail|hotmail)\.[a-z]{2,}$/i;
     const REGEX_SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
 
+    function normalizeCategoryValue(value) {
+        return String(value || '')
+            .trim()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '') || 'otros';
+    }
+
+    function getCatalogCategories() {
+        try {
+            const categorias = JSON.parse(localStorage.getItem('hh_categorias') || '[]');
+            if (Array.isArray(categorias) && categorias.length) {
+                return categorias.map(item => String(item).trim()).filter(Boolean);
+            }
+        } catch (error) {
+            // Se usa la lista por defecto si el almacenamiento está corrupto.
+        }
+
+        return ['Frutas Frescas', 'Verduras Organicas', 'Productos Organicos', 'Productos Lacteos'];
+    }
+
+    function renderCategoryFilters() {
+        const contenedor = document.getElementById('categoria-filtros');
+        if (!contenedor) return;
+
+        const categorias = getCatalogCategories();
+        contenedor.innerHTML = categorias.map(categoria => {
+            const valor = normalizeCategoryValue(categoria);
+            return `<label><input type="checkbox" name="categoria" value="${valor}"> ${categoria}</label>`;
+        }).join('');
+    }
+
     // Marca un campo inválido y muestra el mensaje asociado a su grupo.
     function mostrarError(input, mensaje) {
         if (!input) return;
@@ -277,11 +311,7 @@
             if (!nombre || !id || idsExistentes.has(id) || nombresExistentes.has(nombre.toLowerCase())) return;
 
             const categoria = String(producto.categoria || 'otros').trim();
-            const categoriaFiltro = categoria
-                .toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .split(/\s+/)[0];
+            const categoriaFiltro = normalizeCategoryValue(categoria);
             const precio = Number(producto.precio) || 0;
             const imagen = producto.imagen.trim();
             const stock = producto.stock || 'Sin stock informado';
@@ -323,6 +353,7 @@
 
         if (!gridProductos) return;
 
+        renderCategoryFilters();
         renderAdminProducts(gridProductos);
         const tarjetas = Array.from(gridProductos.querySelectorAll('.producto-card'));
 

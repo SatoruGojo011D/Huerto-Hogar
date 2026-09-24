@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<!-- Formulario administrativo para registrar un producto en el catálogo. -->
+﻿<!DOCTYPE html>
+<!-- Formulario administrativo para registrar un producto en el catÃ¡logo. -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -22,9 +22,9 @@
             </nav>
         </aside>
 
-        <!-- Área principal: formulario para registrar un producto. -->
+        <!-- Ãrea principal: formulario para registrar un producto. -->
         <main class="main-content">
-            <!-- Cabecera administrativa: indica la operación actual. -->
+            <!-- Cabecera administrativa: indica la operaciÃ³n actual. -->
             <header class="header">
                 <h1>Agregar Nuevo Producto</h1>
                 <div class="user-info"><span>Admin</span><i class="fas fa-user-circle"></i></div>
@@ -41,12 +41,9 @@
                                 <input type="text" id="nuevo-prod-nombre" name="nuevo-prod-nombre" required placeholder="Ej: Tomates Cherry">
                             </div>
                             <div class="form-group">
-                                <label for="nuevo-prod-categoria">Categoría *</label>
-                                <select id="nuevo-prod-categoria" name="nuevo-prod-categoria" required>
-                                    <option value="Verduras">Verduras</option>
-                                    <option value="Frutas">Frutas</option>
-                                    <option value="Herramientas">Herramientas</option>
-                                    <option value="Semillas">Semillas</option>
+                                <label for="nuevo-prod-categoria">CategorÃ­a *</label>
+                                <select id="nuevo-prod-categoria" name="nuevo-prod-categoria" data-role="categoria" required>
+                                    <option value="">Seleccione una categorÃ­a</option>
                                 </select>
                             </div>
                             <div class="form-row">
@@ -64,14 +61,15 @@
                                 <div class="image-picker" aria-label="Selecciona una imagen">
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/manzanas-fuji.png" checked><img src="img/manzanas-fuji.png" alt="Manzanas Fuji"><span>Manzanas</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/naranjas.jpg"><img src="img/naranjas.jpg" alt="Naranjas"><span>Naranjas</span></label>
-                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/platanos.jpg"><img src="img/platanos.jpg" alt="Plátanos"><span>Plátanos</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/platanos.jpg"><img src="img/platanos.jpg" alt="PlÃ¡tanos"><span>PlÃ¡tanos</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/zanahorias.png"><img src="img/zanahorias.png" alt="Zanahorias"><span>Zanahorias</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/espinaca.png"><img src="img/espinaca.png" alt="Espinaca"><span>Espinaca</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/pimentones.jpg"><img src="img/pimentones.jpg" alt="Pimentones"><span>Pimentones</span></label>
-                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/miel-organica.png"><img src="img/miel-organica.png" alt="Miel orgánica"><span>Miel</span></label>
+                                    <label class="image-option"><input type="radio" name="imagen-producto" value="img/miel-organica.png"><img src="img/miel-organica.png" alt="Miel orgÃ¡nica"><span>Miel</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/quinoa.jpg"><img src="img/quinoa.jpg" alt="Quinua"><span>Quinua</span></label>
                                     <label class="image-option"><input type="radio" name="imagen-producto" value="img/leche.jpg"><img src="img/leche.jpg" alt="Leche"><span>Leche</span></label>
                                 </div>
+                                <input type="file" id="nuevo-prod-file" accept="image/*">
                                 <input type="hidden" id="nuevo-prod-imagen" name="nuevo-prod-imagen" value="img/manzanas-fuji.png">
                             </div>
                             <div id="mensaje-error-nuevo-prod" class="form-message"></div>

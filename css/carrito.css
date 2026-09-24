@@ -162,6 +162,113 @@
     transition: width 0.35s ease;
 }
 
+.payment-box {
+    background: #f9f8f4;
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 1.2rem 1rem 0.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-title {
+    margin: 0 0 0.8rem;
+    font-size: 1.4rem;
+    color: var(--title-brown);
+}
+
+.payment-methods {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.method-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.method-option input {
+    accent-color: var(--primary-green);
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: opacity 0.2s ease, max-height 0.2s ease;
+}
+
+.payment-form.is-hidden {
+    display: none;
+}
+
+.payment-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.payment-form input {
+    width: 100%;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 0.8rem 0.9rem;
+    background: #fff;
+    font: inherit;
+    color: var(--text-dark);
+    box-sizing: border-box;
+}
+
+.payment-form input:focus {
+    outline: 2px solid rgba(43, 122, 75, 0.14);
+    border-color: var(--primary-green);
+}
+
+.payment-form input.input-invalid {
+    border-color: #c0392b;
+    background: #fff6f5;
+}
+
+.payment-form input.input-valid {
+    border-color: #2e7d32;
+    background: #f3fbf4;
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.payment-message {
+    min-height: 1.2rem;
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.payment-message-success {
+    color: #1f7a43;
+    font-weight: 600;
+}
+
+.payment-message-error {
+    color: #b42318;
+    font-weight: 600;
+}
+
 .free-shipping-indicator {
     text-align: center;
     font-size: 0.8rem;

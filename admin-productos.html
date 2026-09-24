@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<!-- Administración de productos: lista y permite gestionar el inventario. -->
+﻿<!DOCTYPE html>
+<!-- AdministraciÃ³n de productos: lista y permite gestionar el inventario. -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
 <body>
 
     <!-- CABECERA -->
-    <!-- Cabecera administrativa: navegación de usuarios y productos. -->
+    <!-- Cabecera administrativa: navegaciÃ³n de usuarios y productos. -->
     <header>
         <a href="admin-dashboard.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -33,13 +33,13 @@
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <!-- Contenido principal: inventario, creación y edición de productos. -->
+    <!-- Contenido principal: inventario, creaciÃ³n y ediciÃ³n de productos. -->
     <main class="container products-admin">
         <div class="summary-box">
             <div class="products-toolbar">
                 <div>
-                    <h2 class="serif">Administración de Productos</h2>
-                    <p>Gestiona el catálogo e inventario de la tienda.</p>
+                    <h2 class="serif">AdministraciÃ³n de Productos</h2>
+                    <p>Gestiona el catÃ¡logo e inventario de la tienda.</p>
                 </div>
                 <div class="products-actions">
                     <a href="admin-nuevo-producto.html" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar producto</a>
@@ -47,20 +47,20 @@
             </div>
 
             <div class="admin-table-wrap">
-                <!-- Tabla dinámica: administracion.js dibuja filas y conecta sus acciones. -->
+                <!-- Tabla dinÃ¡mica: administracion.js dibuja filas y conecta sus acciones. -->
                 <table class="admin-products-table">
                     <thead>
-                        <tr style="border-bottom: 2px solid #eee; color: var(--text-muted);">
+                        <tr>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Categoría</th>
+                            <th>CategorÃ­a</th>
                             <th>Precio</th>
                             <th>Stock</th>
-                            <th style="text-align: center;">Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpo-tabla-productos">
-                        <!-- Carga dinámica vía JavaScript -->
+                        <!-- Carga dinÃ¡mica vÃ­a JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -68,19 +68,20 @@
     </main>
 
     <!-- FOOTER -->
-    <!-- Pie de página: identificación del panel interno. -->
+    <!-- Pie de pÃ¡gina: identificaciÃ³n del panel interno. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="brand-logo">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
-                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                    <h1 class="serif">HuertoHogar</h1>
                 </a>
-                <p>Panel interno de gestión.</p>
+                <p>Panel interno de gestiÃ³n.</p>
             </div>
         </div>
     </footer>
 
+    
     <script src="js/inicializacion.js"></script>
     <script src="js/administracion.js"></script>
     <script src="js/app.js"></script>

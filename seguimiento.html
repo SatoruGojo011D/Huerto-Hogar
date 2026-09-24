@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- Seguimiento: permite consultar el estado simulado de un pedido. -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HuertoHogar | Seguimiento de Envíos</title>
+    <title>HuertoHogar | Seguimiento de EnvÃ­os</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/header.css">
@@ -16,7 +16,7 @@
 <body>
 
     <!-- CABECERA -->
-    <!-- Cabecera: navegación y acceso al estado del pedido. -->
+    <!-- Cabecera: navegaciÃ³n y acceso al estado del pedido. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -26,7 +26,8 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="productos.html">CatÃ¡logo</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
@@ -36,24 +37,24 @@
         </nav>
 
         <a href="carrito.html" class="cart-icon-wrapper">
-            🛒 <span class="cart-badge" id="cart-counter">0</span>
+            ðŸ›’ <span class="cart-badge" id="cart-counter">0</span>
         </a>
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <!-- Contenido principal: fecha de entrega y código de seguimiento. -->
-    <main class="container" style="max-width: 750px;">
+    <!-- Contenido principal: fecha de entrega y cÃ³digo de seguimiento. -->
+    <main class="container">
         <h2 class="cart-title serif">Seguimiento de Pedidos</h2>
         <p class="cart-subtitle">Programa tu entrega y revisa el estado de tu pedido en tiempo real.</p>
 
         <div class="summary-box">
 
-            <!-- BLOQUE 1: Selección de fecha de entrega -->
-            <!-- Fecha de entrega: valida que la fecha elegida sea válida. -->
+            <!-- BLOQUE 1: SelecciÃ³n de fecha de entrega -->
+            <!-- Fecha de entrega: valida que la fecha elegida sea vÃ¡lida. -->
             <section class="bloque-seguimiento" aria-labelledby="titulo-fecha">
-                <h3 id="titulo-fecha" style="color: var(--title-brown); margin-bottom: 0.4rem;">Programar Entrega</h3>
-                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-                    Selecciona tu fecha de entrega preferida para tus próximos pedidos.
+                <h3 id="titulo-fecha">Programar Entrega</h3>
+                <p>
+                    Selecciona tu fecha de entrega preferida para tus prÃ³ximos pedidos.
                 </p>
 
                 <form id="form-fecha-entrega" novalidate>
@@ -63,45 +64,45 @@
                             <input type="date" id="fecha-entrega" name="fecha-entrega" autocomplete="off">
                             <small class="mensaje-error"></small>
                         </div>
-                        <button type="submit" class="btn-checkout" style="width: auto; padding: 0.8rem 1.5rem; align-self: flex-start; margin-top: 1.55rem;">
+                        <button type="submit" class="btn-checkout">
                             Guardar Fecha
                         </button>
                     </div>
-                    <p class="texto-ayuda aviso-exito" id="aviso-fecha" style="text-align:left; margin-top: 0.8rem;"></p>
+                    <p class="texto-ayuda aviso-exito" id="aviso-fecha"></p>
                 </form>
             </section>
 
             <!-- BLOQUE 2: Rastreo de pedido en tiempo real -->
             <!-- Rastreo: muestra los pasos simulados del pedido. -->
             <section class="bloque-seguimiento" aria-labelledby="titulo-rastreo">
-                <h3 id="titulo-rastreo" style="color: var(--title-brown); margin-bottom: 0.4rem;">Rastreo de Pedido en Tiempo Real</h3>
-                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-                    Ingresa tu número de pedido para conocer su estado actual.
+                <h3 id="titulo-rastreo">Rastreo de Pedido en Tiempo Real</h3>
+                <p>
+                    Ingresa tu nÃºmero de pedido para conocer su estado actual.
                 </p>
 
                 <form id="form-rastreo" novalidate>
                     <div class="fila-inline">
                         <div class="form-group">
-                            <label for="codigo-pedido">Número de pedido</label>
+                            <label for="codigo-pedido">NÃºmero de pedido</label>
                             <input type="text" id="codigo-pedido" name="codigo-pedido" autocomplete="off" placeholder="Ej: HH-98765">
                             <small class="mensaje-error"></small>
                             <small class="texto-ayuda">Prueba con HH-10234, HH-55321, HH-98765 o HH-40001.</small>
                         </div>
-                        <button type="submit" class="btn-checkout" style="width: auto; padding: 0.8rem 1.5rem; align-self: flex-start; margin-top: 1.55rem;">
+                        <button type="submit" class="btn-checkout">
                             Rastrear
                         </button>
                     </div>
                 </form>
 
-                <!-- Línea de tiempo -->
-                <div class="timeline" id="linea-tiempo" style="opacity: 0.35; pointer-events: none;">
+                <!-- LÃ­nea de tiempo -->
+                <div class="timeline" id="linea-tiempo">
                     <div class="paso" id="paso-1">
                         <div class="circulo">1</div>
                         <p>Confirmado</p>
                     </div>
                     <div class="paso" id="paso-2">
                         <div class="circulo">2</div>
-                        <p>En Preparación</p>
+                        <p>En PreparaciÃ³n</p>
                     </div>
                     <div class="paso" id="paso-3">
                         <div class="circulo">3</div>
@@ -118,20 +119,20 @@
     </main>
 
     <!-- FOOTER -->
-    <!-- Pie de página: enlaces y datos institucionales. -->
+    <!-- Pie de pÃ¡gina: enlaces y datos institucionales. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="brand-logo">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
-                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                    <h1 class="serif">HuertoHogar</h1>
                 </a>
-                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+                <p>Cooperativa de pequeÃ±os productores chilenos. Cosechamos el dÃ­a previo a tu entrega.</p>
             </div>
             <div class="footer-col">
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="productos.html">CatÃ¡logo</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
@@ -141,8 +142,8 @@
             </div>
             <div class="footer-col">
                 <h4 class="serif">Reparto</h4>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
-                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                <p>
+                    Santiago Â· ViÃ±a del Mar<br>ConcepciÃ³n Â· Puerto Montt
                 </p>
             </div>
         </div>

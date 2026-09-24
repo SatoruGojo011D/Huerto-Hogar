@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- Formulario administrativo para crear un usuario nuevo. -->
 <html lang="es">
 <head>
@@ -15,7 +15,7 @@
 <body>
 
     <!-- CABECERA -->
-    <!-- Cabecera administrativa: navegación y acceso al panel. -->
+    <!-- Cabecera administrativa: navegaciÃ³n y acceso al panel. -->
     <header>
         <a href="admin-dashboard.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -33,50 +33,50 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <!-- Contenido principal: formulario para crear un usuario. -->
-    <main class="container" style="max-width: 520px; margin-top: 3rem;">
+    <main class="container">
         <div class="summary-box">
-            <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Registrar Usuario</h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Crea un nuevo perfil para la plataforma.</p>
+            <h2 class="serif">Registrar Usuario</h2>
+            <p>Crea un nuevo perfil para la plataforma.</p>
 
             <!-- Formulario de usuario: administracion.js valida y persiste la cuenta. -->
-            <form id="form-nuevo-usuario" style="display: flex; flex-direction: column; gap: 1rem;">
+            <form id="form-nuevo-usuario">
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Nombre Completo</label>
-                    <input type="text" id="nuevo-nombre" class="date-select" style="background: #FFF;" placeholder="Ej. Ana María" required>
+                    <label>Nombre Completo</label>
+                    <input type="text" id="nuevo-nombre" class="date-select" placeholder="Ej. Ana MarÃ­a" required>
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Correo Electrónico</label>
-                    <input type="email" id="nuevo-email" class="date-select" style="background: #FFF;" placeholder="usuario@gmail.com" required>
+                    <label>Correo ElectrÃ³nico</label>
+                    <input type="email" id="nuevo-email" class="date-select" placeholder="usuario@gmail.com" required>
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Contraseña</label>
-                    <input type="password" id="nuevo-password" class="date-select" style="background: #FFF;" placeholder="••••••••" required>
+                    <label>ContraseÃ±a</label>
+                    <input type="password" id="nuevo-password" class="date-select" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Teléfono</label>
-                    <input type="tel" id="nuevo-telefono" class="date-select" style="background: #FFF;" placeholder="+56 9 1234 5678">
+                    <label>TelÃ©fono</label>
+                    <input type="tel" id="nuevo-telefono" class="date-select" placeholder="+56 9 1234 5678">
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Dirección</label>
-                    <input type="text" id="nuevo-direccion" class="date-select" style="background: #FFF;" placeholder="Av. Las Condes 123">
+                    <label>DirecciÃ³n</label>
+                    <input type="text" id="nuevo-direccion" class="date-select" placeholder="Av. Las Condes 123">
                 </div>
 
                 <div>
-                    <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Rol de Usuario</label>
-                    <select id="nuevo-rol" class="date-select" style="background: #FFF; width: 100%;" required>
+                    <label>Rol de Usuario</label>
+                    <select id="nuevo-rol" class="date-select" required>
                         <option value="cliente">Cliente</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>
 
-                <div id="mensaje-error-nuevo" style="font-size: 0.85rem; text-align: center; font-weight: 600; min-height: 1.2rem;"></div>
+                <div id="mensaje-error-nuevo"></div>
 
-                <button type="submit" class="btn-checkout" style="margin-top: 0.5rem;">Guardar Usuario</button>
-                <a href="admin-usuarios.html" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; margin-top: 0.5rem;">Cancelar</a>
+                <button type="submit" class="btn-checkout">Guardar Usuario</button>
+                <a href="admin-usuarios.html">Cancelar</a>
             </form>
         </div>
     </main>

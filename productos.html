@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<!-- Catálogo: muestra productos, filtros, detalles y acciones para añadir al carrito. -->
+﻿<!DOCTYPE html>
+<!-- CatÃ¡logo: muestra productos, filtros, detalles y acciones para aÃ±adir al carrito. -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HuertoHogar | Catálogo de Productos</title>
+    <title>HuertoHogar | CatÃ¡logo de Productos</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/header.css">
@@ -15,7 +15,7 @@
 <body>
 
     <!-- CABECERA -->
-    <!-- Cabecera: navegación del catálogo y acceso al carrito. -->
+    <!-- Cabecera: navegaciÃ³n del catÃ¡logo y acceso al carrito. -->
     <header>
         <a href="index.html" class="brand-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
@@ -25,7 +25,8 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html" class="active">Catálogo</a></li>
+                <li><a href="productos.html" class="active">CatÃ¡logo</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
@@ -35,53 +36,52 @@
         </nav>
 
         <a href="carrito.html" class="cart-icon-wrapper">
-            🛒 <span class="cart-badge" id="cart-counter">0</span>
+            ðŸ›’ <span class="cart-badge" id="cart-counter">0</span>
         </a>
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <!-- Contenido principal: filtros y resultados del catálogo. -->
+    <!-- Contenido principal: filtros y resultados del catÃ¡logo. -->
     <main class="container">
-        <h2 class="cart-title serif">Catálogo de Productos</h2>
-        <p class="cart-subtitle">Selecciona los mejores productos frescos directamente traídos de la granja.</p>
+        <h2 class="cart-title serif">CatÃ¡logo de Productos</h2>
+        <p class="cart-subtitle">Selecciona los mejores productos frescos directamente traÃ­dos de la granja.</p>
+
+        <div class="catalogo-actions">
+            <a href="ofertas.html" class="btn-checkout">Ver ofertas</a>
+        </div>
 
         <div class="catalogo-layout">
 
             <!-- BARRA LATERAL: FILTROS -->
-            <!-- Filtros: permite limitar productos por categoría y precio. -->
+            <!-- Filtros: permite limitar productos por categorÃ­a y precio. -->
             <aside class="summary-box filtros-sidebar">
                 <form id="form-filtros">
-                    <h3 class="serif">Categorías</h3>
-                    <div class="lista-filtros">
-                        <label><input type="checkbox" name="categoria" value="frutas"> Frutas Frescas</label>
-                        <label><input type="checkbox" name="categoria" value="verduras"> Verduras Orgánicas</label>
-                        <label><input type="checkbox" name="categoria" value="organicos"> Productos Orgánicos</label>
-                        <label><input type="checkbox" name="categoria" value="lacteos"> Productos Lácteos</label>
-                    </div>
+                    <h3 class="serif">CategorÃ­as</h3>
+                    <div class="lista-filtros" id="categoria-filtros"></div>
 
                     <h3 class="serif">Precio</h3>
                     <div class="lista-filtros">
                         <label><input type="checkbox" name="precio" value="bajo"> Menos de $1.000 CLP</label>
                         <label><input type="checkbox" name="precio" value="medio"> $1.000 - $3.000 CLP</label>
-                        <label><input type="checkbox" name="precio" value="alto"> Más de $3.000 CLP</label>
+                        <label><input type="checkbox" name="precio" value="alto"> MÃ¡s de $3.000 CLP</label>
                     </div>
 
-                    <button type="submit" class="btn-checkout" style="padding: 0.6rem; font-size: 0.9rem;">Filtrar</button>
+                    <button type="submit" class="btn-checkout">Filtrar</button>
                 </form>
             </aside>
 
             <!-- GRILLA DE PRODUCTOS -->
             <div>
-                <p id="sin-resultados" class="sin-resultados" style="display:none;">
-                    No encontramos productos con esos filtros. Prueba desmarcando alguna opción.
+                <p id="sin-resultados" class="sin-resultados">
+                    No encontramos productos con esos filtros. Prueba desmarcando alguna opciÃ³n.
                 </p>
 
                 <!-- Grilla: tarjetas con datos que usa formularios.js para filtrar y comprar. -->
-                <section class="producto-grid" id="grid-productos" aria-label="Resultados del catálogo">
+                <section class="producto-grid" id="grid-productos" aria-label="Resultados del catÃ¡logo">
 
                     <!-- FRUTAS FRESCAS -->
                     <article class="cart-card producto-card" data-id="FR001" data-categoria="frutas" data-precio="1200" data-nombre="Manzanas Fuji"
-                        data-descripcion="Manzanas crocantes y jugosas, recién cosechadas. Ideales para colaciones sanas."
+                        data-descripcion="Manzanas crocantes y jugosas, reciÃ©n cosechadas. Ideales para colaciones sanas."
                         data-origen="Valle del Maule" data-stock="150 kg" data-img="img/manzanas-fuji.png">
                         <div class="img-container">
                             <img src="img/manzanas-fuji.png" alt="Manzanas Fuji frescas">
@@ -90,7 +90,7 @@
                         <h3 class="serif">Manzanas Fuji</h3>
                         <p class="unit-price">$1.200 CLP / kg</p>
                         <p class="stock-info">Stock: 150 kg &middot; Valle del Maule</p>
-                        <button class="btn-checkout btn-agregar" data-id="FR001">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="FR001">AÃ±adir</button>
                     </article>
 
                     <article class="cart-card producto-card" data-id="FR002" data-categoria="frutas" data-precio="1000" data-nombre="Naranjas Valencia"
@@ -103,34 +103,34 @@
                         <h3 class="serif">Naranjas Valencia</h3>
                         <p class="unit-price">$1.000 CLP / kg</p>
                         <p class="stock-info">Stock: 200 kg</p>
-                        <button class="btn-checkout btn-agregar" data-id="FR002">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="FR002">AÃ±adir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-id="FR003" data-categoria="frutas" data-precio="800" data-nombre="Plátanos Cavendish"
-                        data-descripcion="Plátanos de textura suave y maduración perfecta para batidos y repostería."
-                        data-origen="Importación Directa" data-stock="250 kg" data-img="img/platanos.jpg">
+                    <article class="cart-card producto-card" data-id="FR003" data-categoria="frutas" data-precio="800" data-nombre="PlÃ¡tanos Cavendish"
+                        data-descripcion="PlÃ¡tanos de textura suave y maduraciÃ³n perfecta para batidos y reposterÃ­a."
+                        data-origen="ImportaciÃ³n Directa" data-stock="250 kg" data-img="img/platanos.jpg">
                         <div class="img-container">
-                            <img src="img/platanos.jpg" alt="Plátanos Cavendish">
+                            <img src="img/platanos.jpg" alt="PlÃ¡tanos Cavendish">
                             <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
                         </div>
-                        <h3 class="serif">Plátanos Cavendish</h3>
+                        <h3 class="serif">PlÃ¡tanos Cavendish</h3>
                         <p class="unit-price">$800 CLP / kg</p>
                         <p class="stock-info">Stock: 250 kg</p>
-                        <button class="btn-checkout btn-agregar" data-id="FR003">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="FR003">AÃ±adir</button>
                     </article>
 
-                    <!-- VERDURAS ORGÁNICAS -->
-                    <article class="cart-card producto-card" data-id="VR001" data-categoria="verduras" data-precio="900" data-nombre="Zanahorias Orgánicas"
+                    <!-- VERDURAS ORGÃNICAS -->
+                    <article class="cart-card producto-card" data-id="VR001" data-categoria="verduras" data-precio="900" data-nombre="Zanahorias OrgÃ¡nicas"
                         data-descripcion="Cultivadas sin pesticidas en suelos ricos en nutrientes. Sabor Intenso."
-                        data-origen="Región de O'Higgins" data-stock="100 kg" data-img="img/zanahorias.png">
+                        data-origen="RegiÃ³n de O'Higgins" data-stock="100 kg" data-img="img/zanahorias.png">
                         <div class="img-container">
-                            <img src="img/zanahorias.png" alt="Zanahorias orgánicas">
+                            <img src="img/zanahorias.png" alt="Zanahorias orgÃ¡nicas">
                             <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
                         </div>
-                        <h3 class="serif">Zanahorias Orgánicas</h3>
+                        <h3 class="serif">Zanahorias OrgÃ¡nicas</h3>
                         <p class="unit-price">$900 CLP / kg</p>
-                        <p class="stock-info">Stock: 100 kg &middot; Región de O'Higgins</p>
-                        <button class="btn-checkout btn-agregar" data-id="VR001">Añadir</button>
+                        <p class="stock-info">Stock: 100 kg &middot; RegiÃ³n de O'Higgins</p>
+                        <button class="btn-checkout btn-agregar" data-id="VR001">AÃ±adir</button>
                     </article>
 
                     <article class="cart-card producto-card" data-id="VR002" data-categoria="verduras" data-precio="700" data-nombre="Espinacas Frescas"
@@ -143,7 +143,7 @@
                         <h3 class="serif">Espinacas Frescas</h3>
                         <p class="unit-price">$700 CLP / bolsa 500g</p>
                         <p class="stock-info">Stock: 80 bolsas</p>
-                        <button class="btn-checkout btn-agregar" data-id="VR002">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="VR002">AÃ±adir</button>
                     </article>
 
                     <article class="cart-card producto-card" data-id="VR003" data-categoria="verduras" data-precio="1500" data-nombre="Pimientos Tricolores"
@@ -156,39 +156,39 @@
                         <h3 class="serif">Pimientos Tricolores</h3>
                         <p class="unit-price">$1.500 CLP / kg</p>
                         <p class="stock-info">Stock: 120 kg</p>
-                        <button class="btn-checkout btn-agregar" data-id="VR003">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="VR003">AÃ±adir</button>
                     </article>
 
-                    <!-- PRODUCTOS ORGÁNICOS -->
-                    <article class="cart-card producto-card" data-id="PO001" data-categoria="organicos" data-precio="5000" data-nombre="Miel Orgánica"
+                    <!-- PRODUCTOS ORGÃNICOS -->
+                    <article class="cart-card producto-card" data-id="PO001" data-categoria="organicos" data-precio="5000" data-nombre="Miel OrgÃ¡nica"
                         data-descripcion="Miel multifloral 100% pura y no procesada de apicultores locales."
                         data-origen="Apicultores locales" data-stock="50 frascos" data-img="img/miel-organica.png">
                         <div class="img-container">
-                            <img src="img/miel-organica.png" alt="Miel orgánica">
+                            <img src="img/miel-organica.png" alt="Miel orgÃ¡nica">
                             <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
                         </div>
-                        <h3 class="serif">Miel Orgánica</h3>
+                        <h3 class="serif">Miel OrgÃ¡nica</h3>
                         <p class="unit-price">$5.000 CLP / frasco 500g</p>
                         <p class="stock-info">Stock: 50 frascos &middot; Apicultores locales</p>
-                        <button class="btn-checkout btn-agregar" data-id="PO001">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="PO001">AÃ±adir</button>
                     </article>
 
-                    <article class="cart-card producto-card" data-id="PO003" data-categoria="organicos" data-precio="3200" data-nombre="Quinua Orgánica"
-                        data-descripcion="Superalimento andino rico en proteínas, fibra y libre de gluten."
+                    <article class="cart-card producto-card" data-id="PO003" data-categoria="organicos" data-precio="3200" data-nombre="Quinua OrgÃ¡nica"
+                        data-descripcion="Superalimento andino rico en proteÃ­nas, fibra y libre de gluten."
                         data-origen="Altiplano Chileno" data-stock="60 kg" data-img="img/quinoa.jpg">
                         <div class="img-container">
-                            <img src="img/quinoa.jpg" alt="Quinua orgánica">
+                            <img src="img/quinoa.jpg" alt="Quinua orgÃ¡nica">
                             <div class="overlay-detalles"><span class="btn-overlay">Ver detalles</span></div>
                         </div>
-                        <h3 class="serif">Quinua Orgánica</h3>
+                        <h3 class="serif">Quinua OrgÃ¡nica</h3>
                         <p class="unit-price">$3.200 CLP / kg</p>
                         <p class="stock-info">Stock: 60 kg</p>
-                        <button class="btn-checkout btn-agregar" data-id="PO003">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="PO003">AÃ±adir</button>
                     </article>
 
-                    <!-- PRODUCTOS LÁCTEOS -->
+                    <!-- PRODUCTOS LÃCTEOS -->
                     <article class="cart-card producto-card" data-id="PL001" data-categoria="lacteos" data-precio="1800" data-nombre="Leche Entera"
-                        data-descripcion="Leche de libre pastoreo Pasteurizada y fresca del día."
+                        data-descripcion="Leche de libre pastoreo Pasteurizada y fresca del dÃ­a."
                         data-origen="Granjas de Osorno" data-stock="90 botellas" data-img="img/leche.jpg">
                         <div class="img-container">
                             <img src="img/leche.jpg" alt="Leche entera">
@@ -197,7 +197,7 @@
                         <h3 class="serif">Leche Entera</h3>
                         <p class="unit-price">$1.800 CLP / botella 1L</p>
                         <p class="stock-info">Stock: 90 botellas &middot; Granjas locales</p>
-                        <button class="btn-checkout btn-agregar" data-id="PL001">Añadir</button>
+                        <button class="btn-checkout btn-agregar" data-id="PL001">AÃ±adir</button>
                     </article>
 
                 </section>
@@ -206,20 +206,21 @@
     </main>
 
     <!-- FOOTER -->
-    <!-- Pie de página: navegación secundaria y datos de la cooperativa. -->
+    <!-- Pie de pÃ¡gina: navegaciÃ³n secundaria y datos de la cooperativa. -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="brand-logo">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 9 0 4.97-4.03 9-9 9z"/><path d="M11 20v-5"/></svg>
-                    <h1 class="serif" style="font-size: 1.2rem;">HuertoHogar</h1>
+                    <h1 class="serif">HuertoHogar</h1>
                 </a>
-                <p>Cooperativa de pequeños productores chilenos. Cosechamos el día previo a tu entrega.</p>
+                <p>Cooperativa de pequeÃ±os productores chilenos. Cosechamos el dÃ­a previo a tu entrega.</p>
             </div>
             <div class="footer-col">
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Catálogo</a></li>
+                    <li><a href="productos.html">CatÃ¡logo</a></li>
+                    <li><a href="ofertas.html">Ofertas</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
@@ -228,14 +229,14 @@
             </div>
             <div class="footer-col">
                 <h4 class="serif">Reparto</h4>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">
-                    Santiago · Viña del Mar<br>Concepción · Puerto Montt
+                <p>
+                    Santiago Â· ViÃ±a del Mar<br>ConcepciÃ³n Â· Puerto Montt
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts que activan catálogo, carrito, reseñas y sesión. -->
+    <!-- Scripts que activan catÃ¡logo, carrito, reseÃ±as y sesiÃ³n. -->
     <script src="js/inicializacion.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/datos-productos.js"></script>

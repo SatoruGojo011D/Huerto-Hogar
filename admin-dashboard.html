@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<!-- Panel administrativo: resume el acceso a la gestión interna de la tienda. -->
+﻿<!DOCTYPE html>
+<!-- Panel administrativo: resume el acceso a la gestiÃ³n interna de la tienda. -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -15,61 +15,287 @@
                 <h2><i class="fas fa-leaf"></i> Huerto Hogar</h2>
             </div>
             <nav class="sidebar-nav">
-                <a href="admin-dashboard.html" class="nav-item active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-                <a href="admin-productos.html" class="nav-item"><i class="fas fa-box"></i><span>Productos</span></a>
-                <a href="admin-usuarios.html" class="nav-item"><i class="fas fa-users"></i><span>Usuarios</span></a>
+                <button type="button" class="nav-item active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></button>
+                <button type="button" class="nav-item" data-section="productos"><i class="fas fa-box"></i><span>Productos</span></button>
+                <button type="button" class="nav-item" data-section="usuarios"><i class="fas fa-users"></i><span>Usuarios</span></button>
+                <button type="button" class="nav-item" data-section="reportes"><i class="fas fa-chart-bar"></i><span>Reportes</span></button>
+                <a href="admin-categorias.html" class="nav-item"><i class="fas fa-tags"></i><span>CategorÃ­as</span></a>
+                <button type="button" class="nav-item" data-section="boletas"><i class="fas fa-receipt"></i><span>Boletas</span></button>
             </nav>
         </aside>
 
-        <!-- Área principal: indicadores y accesos rápidos del administrador. -->
+        <!-- Ãrea principal: indicadores y accesos rÃ¡pidos del administrador. -->
         <main class="main-content">
-            <!-- Cabecera administrativa: título de vista y usuario activo. -->
+            <!-- Cabecera administrativa: tÃ­tulo de vista y usuario activo. -->
             <header class="header">
-                <h1>Resumen General</h1>
+                <h1 id="admin-section-title">Resumen General</h1>
                 <div class="user-info"><span>Admin</span><i class="fas fa-user-circle"></i></div>
             </header>
 
             <div class="content">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <i class="fas fa-shopping-cart"></i>
-                        <h3>Ventas Hoy</h3>
-                        <p>$125.000 CLP</p>
+                <section class="admin-view active" data-view="dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Ventas Hoy</h3>
+                            <p>$125.000 CLP</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-box-open"></i>
+                            <h3>Productos Activos</h3>
+                            <p>48</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Nuevos Usuarios</h3>
+                            <p>12</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>Pedidos Pendientes</h3>
+                            <p>5</p>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <i class="fas fa-box-open"></i>
-                        <h3>Productos Activos</h3>
-                        <p>48</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-users"></i>
-                        <h3>Nuevos Usuarios</h3>
-                        <p>12</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-file-invoice"></i>
-                        <h3>Pedidos Pendientes</h3>
-                        <p>5</p>
-                    </div>
-                </div>
 
-                <div class="card">
-                    <div class="card-header"><h2><i class="fas fa-chart-line"></i> Actividad Reciente</h2></div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead><tr><th>Acción</th><th>Usuario</th><th>Fecha</th></tr></thead>
-                            <tbody>
-                                <tr><td>Nuevo pedido #1024</td><td>Juan Pérez</td><td>Hace 2 horas</td></tr>
-                                <tr><td>Producto actualizado</td><td>Admin</td><td>Hace 5 horas</td></tr>
-                                <tr><td>Nuevo registro</td><td>Maria Gonzalez</td><td>Ayer</td></tr>
-                            </tbody>
-                        </table>
+                    <div class="card">
+                        <div class="card-header"><h2><i class="fas fa-chart-line"></i> Actividad Reciente</h2></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead><tr><th>AcciÃ³n</th><th>Usuario</th><th>Fecha</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Nuevo pedido #1024</td><td>Juan PÃ©rez</td><td>Hace 2 horas</td></tr>
+                                    <tr><td>Producto actualizado</td><td>Admin</td><td>Hace 5 horas</td></tr>
+                                    <tr><td>Nuevo registro</td><td>Maria Gonzalez</td><td>Ayer</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="admin-panels-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-box"></i> Productos</h2>
+                                <button type="button" class="header-link" data-section="productos">Ver todos</button>
+                            </div>
+                            <div class="card-body">
+                                <table class="table admin-mini-table" id="dashboard-productos-table">
+                                    <thead>
+                                        <tr><th>Nombre</th><th>Precio</th><th>Stock</th></tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-users"></i> Usuarios</h2>
+                                <button type="button" class="header-link" data-section="usuarios">Ver todos</button>
+                            </div>
+                            <div class="card-body">
+                                <table class="table admin-mini-table" id="dashboard-usuarios-table">
+                                    <thead>
+                                        <tr><th>Nombre</th><th>Correo</th><th>Rol</th></tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-view" data-view="productos">
+                    <div class="card panel-module">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-pie"></i> Reportes</h2>
+                        </div>
+                        <div class="card-body reports-boxes">
+                            <div class="report-box">
+                                <span>Productos crÃ­ticos</span>
+                                <strong id="reporte-productos-criticos">0</strong>
+                            </div>
+                            <div class="report-box">
+                                <span>Valor inventario</span>
+                                <strong id="reporte-valor-inventario">$0</strong>
+                            </div>
+                            <div class="report-box">
+                                <span>Stock total</span>
+                                <strong id="reporte-stock-total">0</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card panel-module">
+                        <div class="card-header">
+                            <h2><i class="fas fa-list"></i> Productos Registrados</h2>
+                            <a href="admin-nuevo-producto.html" class="header-link">+ Agregar producto</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="admin-table-wrap">
+                                <table class="admin-products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>CategorÃ­a</th>
+                                            <th>Precio</th>
+                                            <th>Stock</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cuerpo-tabla-productos-dashboard"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card panel-module">
+                        <div class="card-header">
+                            <h2><i class="fas fa-exclamation-triangle"></i> Productos CrÃ­ticos</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="admin-table-wrap">
+                                <table class="admin-products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>CategorÃ­a</th>
+                                            <th>Stock</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cuerpo-tabla-productos-criticos"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-view" data-view="usuarios">
+                    <div class="card panel-module">
+                        <div class="card-header">
+                            <h2><i class="fas fa-list"></i> Usuarios registrados</h2>
+                            <a href="admin-nuevo-usuario.html" class="header-link">+ Crear usuario</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="admin-table-wrap">
+                                <table class="admin-products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Correo</th>
+                                            <th>Rol</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cuerpo-tabla-usuarios-dashboard"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-view" data-view="reportes">
+                    <div class="card panel-module">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-bar"></i> Reportes</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="reports-boxes">
+                                <div class="report-box">
+                                    <span>Usuarios registrados</span>
+                                    <strong id="reporte-usuarios-total">0</strong>
+                                </div>
+                                <div class="report-box">
+                                    <span>Boletas emitidas</span>
+                                    <strong id="reporte-boletas-total">0</strong>
+                                </div>
+                                <div class="report-box">
+                                    <span>Ticket promedio</span>
+                                    <strong id="reporte-ticket-promedio">$0</strong>
+                                </div>
+                                <div class="report-box">
+                                    <span>Ingresos totales</span>
+                                    <strong id="reporte-ingresos-total">$0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-user-layout">
+                        <div class="card panel-module">
+                            <div class="card-header">
+                                <h2><i class="fas fa-users"></i> Reporte de usuarios</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="admin-table-wrap">
+                                    <table class="admin-products-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Correo</th>
+                                                <th>Rol</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashboard-reporte-usuarios"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card panel-module">
+                            <div class="card-header">
+                                <h2><i class="fas fa-receipt"></i> Reporte de boletas</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="admin-table-wrap">
+                                    <table class="admin-products-table">
+                                        <thead>
+                                            <tr>
+                                                <th>CÃ³digo</th>
+                                                <th>Cliente</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashboard-reporte-boletas"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-view" data-view="boletas">
+                    <div class="card panel-module">
+                        <div class="card-header">
+                            <h2><i class="fas fa-receipt"></i> Boletas y Ã“rdenes</h2>
+                            <span class="header-badge">Ventas registradas</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="admin-table-wrap">
+                                <table class="admin-products-table boletas-table">
+                                    <thead>
+                                        <tr>
+                                            <th>CÃ³digo</th>
+                                            <th>Cliente</th>
+                                            <th>Fecha</th>
+                                            <th>Total</th>
+                                            <th>Estado</th>
+                                            <th>Detalle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cuerpo-tabla-boletas-dashboard"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
-    <!-- Scripts comunes, autenticación y arranque de la aplicación. -->
+    <!-- Scripts comunes, autenticaciÃ³n y arranque de la aplicaciÃ³n. -->
     <script src="js/inicializacion.js"></script>
     <script src="js/administracion.js"></script>
     <script src="js/app.js"></script>
